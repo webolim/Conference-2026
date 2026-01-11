@@ -473,7 +473,7 @@
                     { time: "7:00 am - 8:00 am", title: "Critical Edition of Valmiki Ramayana (Part 2)", speaker: "Dr. Rangan", loc: "Ramayana Shala" },
                     { time: "8:00 am - 9:00 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
                     { 
-                        time: "9:00 am - 10:00 am", title: "Western Recensions & Samartha Ramadas Manuscripts", speaker: "Dr. Nilesh Joshi", loc: "Ramayana Shala",
+                        time: "9:00 am - 10:00 am", title: "Western Recensions of Valmiki Ramayana, Samartha Ramadas Swami’s Manuscripts and its Exegetical Significance for the Critical Study of Ramayana", speaker: "Dr. Nilesh Joshi", loc: "Ramayana Shala",
                         bio: "Dr Nilesh Joshi, senior Linguist at IIT Bombay's Centre for Indian Language Technology (CFILT), a researcher with a rich expertise in Sanskrit grammar, Vedic grammar, and the literature of Ayurveda, holder of multiple patents, has published over 35 research papers in global publications and authored more than 40 books."
                     },
                     { time: "10:00 am - 11:00 am", title: "Goudiya Recensions", speaker: "Smt. Gayatri Narendran", loc: "Ramayana Shala" },
@@ -558,7 +558,8 @@
             container.innerHTML = data.events.map(ev => {
                 const isSpeakerEvent = !!ev.speaker;
                 const isSpecialTime = ev.time && ev.time.includes("7:30 pm - 8:30 pm");
-                const shouldFill = isSpeakerEvent || isSpecialTime;
+                const isKeyRitual = ev.title.toLowerCase().includes("abhishekham") || ev.title.toLowerCase().includes("parayanam");
+                const shouldFill = isSpeakerEvent || isSpecialTime || isKeyRitual;
 
                 const placeholderImg = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(ev.speaker || 'WB')}&backgroundColor=b8860b,5d0e11&fontFamily=Playfair+Display&fontWeight=700`;
 
