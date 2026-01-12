@@ -284,7 +284,7 @@
         <div class="max-w-4xl mx-auto">
             <div class="relative z-10">
                 <div class="flex items-center justify-between gap-6">
-                    <button id="prev-day-btn" onclick="prevDay()" class="step-btn" title="Previous Day">
+                    <button id="prev-day-btn" onclick="prevDay()" class="step-btn" title="Previous Day" aria-label="Previous Day">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                     </button>
                     
@@ -293,7 +293,7 @@
                         <h2 id="current-day-display" class="font-display text-2xl md:text-5xl font-bold leading-tight">Saturday, Mar 28</h2>
                     </div>
 
-                    <button id="next-day-btn" onclick="nextDay()" class="step-btn" title="Next Day">
+                    <button id="next-day-btn" onclick="nextDay()" class="step-btn" title="Next Day" aria-label="Next Day">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </button>
                 </div>
@@ -320,244 +320,8 @@
     </footer>
 
     <script>
-        const scheduleData = [
-            {
-                day: 1, date: "Saturday, Mar 28", month: "March 2026", phase: "Pre-Conference Satram", title: "Inauguration Day", isConf: false,
-                events: [
-                    { time: "4:30 pm - 6:30 pm", title: "Abhishekham", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */, speakerImg: [] /* PASTE_IMAGE_URL_HERE */ },
-                    { time: "6:30 pm - 7:30 pm", title: "Prasadam", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Inauguration", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 2, date: "Sunday, Mar 29", month: "March 2026", phase: "Pre-Conference Satram", title: "Ayodhya Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "9:30 am - 10:30 am", title: "Pattabhishekha Prarambha", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */, speakerImg: [] /* PASTE_IMAGE_URL_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Kausalya Mangalashasanam", speaker: "Kum. Subhankriya & Kum. Daksha", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */, speakerImg: [] /* PASTE_IMAGE_URL_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Pitruvakya Paripalanam", speaker: "Kum. Shrinidhi Narendran & Kum. Niharika", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Guha Sakhyam", speaker: "Shri Harish", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Badhai", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 3, date: "Monday, Mar 30", month: "March 2026", phase: "Pre-Conference Satram", title: "Ayodhya Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "9:30 am - 10:30 am", title: "Dasharatha Bhakti", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Bharatha Bhakti", speaker: "Shri Giridharan & Kum. Amrita", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Chitrakuta", speaker: "Kum. Annanya A & Kum. Anananya G", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Paduka Pattabhishekha", speaker: "Shri Srikanth", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Sita Kalyanam", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 4, date: "Tuesday, Mar 31", month: "March 2026", phase: "Pre-Conference Satram", title: "Aranya Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "9:30 am - 10:30 am", title: "Agatya Ashrama", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Panchavati", speaker: "Shri. Madhavan & Shri. Raghavan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Sita Apaharanam", speaker: "Shri. Rishi & Shri. Dharanidharan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Jatayu & Sabari Moksham", speaker: "Smt. Kalpana Harikrishnan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Nikujotsavam Bharatanatyam", speaker: "Dr. Meghana Venkat", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 5, date: "Wednesday, Apr 01", month: "April 2026", phase: "Pre-Conference Satram", title: "Kishkindha Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "9:30 am - 10:30 am", title: "Sugriva Sakhyam", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Vali Moksha", speaker: "Shri. Sanjay & Kum. Mythili", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Sugriva Pattabhishekham", speaker: "Kum. Prachi & Kum. Vishakha", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Sita Anveshanam", speaker: "Kum. Akshaya & Kum. Kamakshi", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Hanumantha Vahanam", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 6, date: "Thursday, Apr 02", month: "April 2026", phase: "Pre-Conference Satram", title: "Sundara Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "9:30 am - 10:30 am", title: "Hanumath Prabhava", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Trijata Swapnam", speaker: "Kum. Megha & Kum. Pushpa", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Anguliya Pradanam", speaker: "Kum. Vaidehi Sridhar & Kum. Ranganayaki", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Choodamani Pradanam", speaker: "Smt. Drushya Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Sundarakandam Utsavam (Yana Vahanam)", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 7, date: "Friday, Apr 03", month: "April 2026", phase: "Pre-Conference Satram", title: "Yuddha Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:30 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "9:30 am - 10:30 am", title: "Vibheeshana Sharanagati", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Abhayapradhanam", speaker: "Kum. Soumya & Shri. Ramanan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Sethu Bandhanam", speaker: "Kum. Sai & Shri. Balasimhan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Ravana Prathama Yudhham", speaker: "Shri. Amudan & Shri. Srinivasan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Vibheeshana Sharanagati Utsavam", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 8, date: "Saturday, Apr 04", month: "April 2026", phase: "Main Conference", title: "Conference Day 1", isConf: true,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 7:00 am", title: "Meditation" },
-                    { time: "7:00 am - 8:00 am", title: "Critical Edition of Valmiki Ramayana (Part 1)", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:00 am - 9:00 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { 
-                        time: "9:00 am - 10:00 am", title: "Bori’s Critical Edition of Valmiki Ramayana", speaker: "Prof. Dr. Siddharth Y. Wakankar", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */,
-                        bio: "Dr Sidhartha Wakankar, an eminent scholar of Sanskrit specialising in manuscriptology and palaeography, authored several books and guided many in their post-doctoral work, an expert in games in Sanskrit literature, recipient of Ramakrishna Sanskrit Award from the Canadian World Education Foundation."
-                    },
-                    { 
-                        time: "10:00 am - 11:00 am", title: "Different Editions of Valmiki Ramayana", speaker: "Dr. Shakutala Gawde", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */,
-                        bio: "Dr Shakuntala Gawde, an Associate Professor and former Head of the Department of Sanskrit at the University of Mumbai, an accomplished academician, researcher, and educator, a recipient of multiple coveted awards like Acdemisthan Best Teacher of the year award in 2021, author of several masterpieces like ‘Narrative Analysis of Bhagavata Purana’."
-                    },
-                    { time: "11:00 am - 11:30 am", title: "Madyanikam" },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:30 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { 
-                        time: "1:30 pm - 2:30 pm", title: "Sri Krishnasuri’s Commentary", speaker: "Smt. Krishnakrupa", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */,
-                        bio: "R.Krishna Krupa, B.Sc (CS) & M.A ; M.phil. (Vaishnavam) & Diploma in Sanskrit & Manuscriptology, performer of Vishnu Temple Uthsavam’s Commentary Works in dd-Tamil, Spiritual discouser in Temples, Sabhas & TV channels like dd-Podhigai. Author of books like 'Swami Periyavacchan Pillai’s Manikka Malai' (a textbook in the Vaishnavism department of Alagappa University) & Awarded as Kavi kurisil. (by Thanjavur - Tamil University) & Vaishnava Ratna."
-                    },
-                    { 
-                        time: "2:30 pm - 3:30 pm", title: "Sri Govidaraja’s Commentary", speaker: "Smt. Prabha Senesh", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */,
-                        bio: "Smt. Prabha Senesh, the disciple and daughter in law of Sri. U.Ve. Dr. Karunakaracharya Swami (recent recipient of President award for Sanskrit), a deep scholar of Divyaprabandham and Desika Stotrams and other Srivaishnavite literature, a gold medalist in biotechnology from the University of Mumbai, Co Ordinator of Sampradaya Manjari e Pathashala of GSPK group & editor of an online e Magazine “Sadhvishaya Vani” released by SPVST Sabha, Mumbai."
-                    },
-                    { time: "3:30 pm - 4:30 pm", title: "Sri Tilaka’s Commentary", speaker: "Shri. Ashruth Suryanarayanan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:30 pm - 5:00 pm", title: "Tea Break" },
-                    { time: "5:00 pm - 6:00 pm", title: "Sri Shivashaya’s Commentary", speaker: "Shri. Vishal Pandey", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Theppam Utsavam", loc: "Vijayji’s Backyard", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 9, date: "Sunday, Apr 05", month: "April 2026", phase: "Main Conference", title: "Conference Day 2", isConf: true,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 7:00 am", title: "Meditation" },
-                    { time: "7:00 am - 8:00 am", title: "Critical Edition of Valmiki Ramayana (Part 2)", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:00 am - 9:00 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { 
-                        time: "9:00 am - 10:00 am", title: "Western Recensions of Valmiki Ramayana, Samartha Ramadas Swami’s Manuscripts and its Exegetical Significance for the Critical Study of Ramayana", speaker: "Dr. Nilesh Joshi", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */,
-                        bio: "Dr Nilesh Joshi, senior Linguist at IIT Bombay's Centre for Indian Language Technology (CFILT), a researcher with a rich expertise in Sanskrit grammar, Vedic grammar, and the literature of Ayurveda, holder of multiple patents, has published over 35 research papers in global publications and authored more than 40 books."
-                    },
-                    { time: "10:00 am - 11:00 am", title: "Goudiya Recensions", speaker: "Smt. Gayatri Narendran", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:00 am - 11:30 am", title: "Madyanikam" },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:30 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:30 pm - 2:30 pm", title: "Sri Trayambakaraya’s Commentary", speaker: "Shri. Santhanaraman", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { 
-                        time: "2:30 pm - 3:30 pm", title: "Sri Maheshwara Tirtha’s Commentary", speaker: "Shri. Madhavan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */,
-                        bio: "Vedamurthi K. Madhava Ghanapatigal, a Gold Medalist in Rig Veda Ghanapata, learnt Vedanta & Bhagavatam from Mahatma Shri Shri Krishnapremi Swamigal being his ardent disciple, Rig Veda-Shastra-faculty in Chennai’s Rig Veda Patashala and an exponent discouser of Bhagavatam and Ramayanam."
-                    },
-                    { time: "3:30 pm - 4:30 pm", title: "Sri Satyadharma Tirtha’s Commentary", speaker: "Vidwan Gauranga", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:30 pm - 5:00 pm", title: "Tea Break" },
-                    { time: "5:00 pm - 6:00 pm", title: "Conclusion", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Annual Day", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 10, date: "Monday, Apr 06", month: "April 2026", phase: "Post-Conference Satram", title: "Yudha Kandam", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 8:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "8:30 am - 9:30 am", title: "Kumbhakarna Vadham", speaker: "Dr. Rangan", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "10:30 am - 11:30 am", title: "Ravana Vadhyam", speaker: "Nandakumar & Nandalal", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "11:30 am - 12:00 pm", title: "Poojai", loc: "Kalyana Ramar Sannidhi" },
-                    { time: "12:00 pm - 1:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" },
-                    { time: "1:00 pm - 3:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "3:00 pm - 4:00 pm", title: "Agni Pravesha", speaker: "Shree Vayadehi & Sethuraman", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "4:00 pm - 5:00 pm", title: "Parayanam", loc: "Ramayana Shala" },
-                    { time: "5:00 pm - 6:00 pm", title: "Ayodhya Pravesha", speaker: "Sri Shyam Sundar", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "6:00 pm - 6:30 pm", title: "Sandhyavandanam" },
-                    { time: "6:00 pm - 7:30 pm", title: "Dinner", loc: "Premika Madhura Bhavanam" },
-                    { time: "7:30 pm - 8:30 pm", title: "Pushpaka Vimanam", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:30 pm - 9:00 pm", title: "Dolotsavam", loc: "Kalyana Ramar Sannidhi", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ }
-                ]
-            },
-            {
-                day: 11, date: "Tuesday, Apr 07", month: "April 2026", phase: "Post-Conference Satram", title: "Last Day", isConf: false,
-                events: [
-                    { time: "5:30 am - 6:15 am", title: "Sandhyavandanam" },
-                    { time: "6:15 am - 6:30 am", title: "Suprabhatam", loc: "Ramayana Shala" },
-                    { time: "6:30 am - 8:00 am", title: "Abhishekham", loc: "Ramayana Shala", ytLink: "" /* PASTE_YOUTUBE_LINK_HERE */ },
-                    { time: "8:00 am - 10:00 am", title: "Ashtavadhanam, Sadas", loc: "Ramayana Shala" },
-                    { time: "8:00 am - 9:30 am", title: "Breakfast", loc: "Premika Madhura Bhavanam" },
-                    { time: "10:00 am onwards", title: "Purappadu with Nadaswaram", loc: "Ramayana Shala" },
-                    { time: "12:00 pm", title: "Lunch", loc: "Premika Madhura Bhavanam" }
-                ]
-            }
-        ];
-
         let activeDayIndex = 0;
+        let scheduleData = [];
 
         function parseEventTime(timeStr, dayDate) {
             const year = 2026;
@@ -686,8 +450,6 @@
             }).join('');
         }
 
-        setInterval(() => renderDay(activeDayIndex), 30000);
-
         function updateStepper() {
             const prevIdx = activeDayIndex - 1;
             const nextIdx = activeDayIndex + 1;
@@ -743,8 +505,17 @@
             return 0; // Default to Day 1
         }
 
-        // Initialize with calculated day
-        renderDay(getInitialDayIndex());
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('schedule.json');
+                scheduleData = await response.json();
+                renderDay(getInitialDayIndex());
+                setInterval(() => renderDay(activeDayIndex), 30000);
+            } catch (error) {
+                console.error('Error loading schedule:', error);
+                document.getElementById('main-timeline').textContent = 'Error loading schedule.';
+            }
+        });
     </script>
 </body>
 </html>
