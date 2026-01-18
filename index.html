@@ -305,7 +305,10 @@
     <main class="py-16 px-6">
         <div class="max-w-4xl mx-auto">
             <div class="timeline-wrapper" id="main-timeline">
-                <!-- Timeline injected here -->
+                <div id="loading-indicator" class="text-center py-16">
+                    <p class="font-display text-2xl text-slate-400">Loading Schedule...</p>
+                    <p class="text-sm text-slate-400 mt-2">Please wait a moment.</p>
+                </div>
             </div>
         </div>
     </main>
@@ -506,14 +509,25 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
+            const timelineContainer = document.getElementById('main-timeline');
             try {
                 const response = await fetch('schedule.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 scheduleData = await response.json();
                 renderDay(getInitialDayIndex());
                 setInterval(() => renderDay(activeDayIndex), 30000);
             } catch (error) {
                 console.error('Error loading schedule:', error);
-                document.getElementById('main-timeline').textContent = 'Error loading schedule.';
+                if (timelineContainer) {
+                    timelineContainer.innerHTML = `
+                        <div class="text-center py-16">
+                            <p class="font-display text-2xl text-red-500">Failed to Load Schedule</p>
+                            <p class="text-sm text-slate-400 mt-2">Could not retrieve the conference schedule. Please try refreshing the page.</p>
+                        </div>
+                    `;
+                }
             }
         });
     </script>
