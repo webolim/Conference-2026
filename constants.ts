@@ -1,7 +1,6 @@
-// Removed imports to rely on runtime availability
-// import { ScheduleData } from './types.ts';
+import { ScheduleData } from './types.ts';
 
-const ASSETS = {
+export const ASSETS = {
   heroImage: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/main/KalyanaRamar.gif',
   pillarLeft: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/main/Pillar-left.gif',
   pillarRight: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/main/Pillar-right.gif',
@@ -9,7 +8,7 @@ const ASSETS = {
   placeholderSpeaker: 'https://picsum.photos/200/200',
 };
 
-const SCHEDULE_DATA = {
+export const SCHEDULE_DATA: ScheduleData = {
   days: [
     {
       dayNumber: 1,
@@ -470,11 +469,5 @@ const SCHEDULE_DATA = {
   ]
 };
 
-const EVENT_START_DATE = new Date('2026-03-28T16:30:00+05:30');
-const EVENT_END_DATE = new Date('2026-04-07T14:00:00+05:30');
-
-// Attach to window for global access
-window.ASSETS = ASSETS;
-window.SCHEDULE_DATA = SCHEDULE_DATA;
-window.EVENT_START_DATE = EVENT_START_DATE;
-window.EVENT_END_DATE = EVENT_END_DATE;
+export const EVENT_START_DATE = new Date('2026-03-28T16:30:00+05:30');
+export const EVENT_END_DATE = new Date('2026-04-07T14:00:00+05:30');

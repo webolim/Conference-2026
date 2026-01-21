@@ -1,33 +1,28 @@
-/* 
-  In a no-build Babel Standalone setup, interfaces are stripped out.
-  This file serves as a reference for development but isn't loaded by the browser.
-*/
-
 export interface Speaker {
   name: string;
   photo: string;
-  bio?: string;
+  bio?: string; // Optional because Satram speakers might not have full bios displayed inline
 }
 
 export interface Event {
   id: string;
   title: string;
-  startTime: string; 
-  endTime: string;
+  startTime: string; // "HH:mm AM/PM"
+  endTime: string;   // "HH:mm AM/PM"
   venue: string;
   speakers: Speaker[];
   youtubeLink?: string;
   description?: string;
-  isConference?: boolean;
+  isConference?: boolean; // To trigger full bio display
 }
 
 export type PhaseType = 'Pre-Conference' | 'Conference' | 'Post-Conference';
 
 export interface Day {
   dayNumber: number;
-  date: string;
-  displayDate: string;
-  dayName: string;
+  date: string; // "YYYY-MM-DD"
+  displayDate: string; // "March 28"
+  dayName: string; // "Saturday"
   theme: string;
   phase: PhaseType;
   events: Event[];
