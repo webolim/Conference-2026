@@ -1,4 +1,4 @@
-import { ScheduleData } from './types';
+import { ScheduleData } from './types.ts';
 
 export const ASSETS = {
   heroImage: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/main/KalyanaRamar.gif',
