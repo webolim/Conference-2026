@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;800&family=Poppins:wght@300;400;600;700&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Vesper+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Babel for in-browser transpilation of TSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -82,10 +86,10 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body class="bg-cream text-charcoal font-sans antialiased">
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <!-- Load the main entry file with Babel processing -->
+    <script type="text/babel" data-type="module" data-presets="react,typescript" src="./index.tsx"></script>
+  </body>
 </html>
