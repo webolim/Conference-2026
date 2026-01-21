@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SCHEDULE_DATA, EVENT_START_DATE, EVENT_END_DATE, ASSETS } from './constants';
-import { calculateCurrentDay, getCurrentISTTime } from './utils/timeUtils';
-import Hero from './components/Hero';
-import DayStepper from './components/DayStepper';
-import Schedule from './components/Schedule';
-import Donation from './components/Donation';
-import Footer from './components/Footer';
+import { SCHEDULE_DATA, EVENT_START_DATE, EVENT_END_DATE, ASSETS } from './constants.ts';
+import { calculateCurrentDay, getCurrentISTTime } from './utils/timeUtils.ts';
+import Hero from './components/Hero.tsx';
+import DayStepper from './components/DayStepper.tsx';
+import Schedule from './components/Schedule.tsx';
+import Donation from './components/Donation.tsx';
+import Footer from './components/Footer.tsx';
 import { Menu, X, ExternalLink } from 'lucide-react';
 
 const App: React.FC = () => {
