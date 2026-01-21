@@ -1,14 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-// import { Day } from '../types.ts';
+import { Day } from '../types.ts';
 
-const DayStepper = ({ days, currentDay, onDaySelect }) => {
-  const scrollRef = useRef(null);
+interface DayStepperProps {
+  days: Day[];
+  currentDay: number;
+  onDaySelect: (day: number) => void;
+}
+
+const DayStepper: React.FC<DayStepperProps> = ({ days, currentDay, onDaySelect }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       const selectedElement = document.getElementById(`day-btn-${currentDay}`);
       if (selectedElement) {
         const container = scrollRef.current;
+        // Center the selected item
         const scrollLeft = selectedElement.offsetLeft - container.offsetWidth / 2 + selectedElement.offsetWidth / 2;
         container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       }
@@ -50,10 +57,12 @@ const DayStepper = ({ days, currentDay, onDaySelect }) => {
               aria-label={`Select ${day.dayName}, ${day.displayDate}, Theme: ${day.theme}`}
               aria-current={isActive ? 'date' : undefined}
             >
+              {/* Optional: Small visual indicator for Conference days in inactive state */}
               {!isActive && isConference && (
                  <div className="absolute top-0 right-0 w-4 h-4 bg-gold/40 rounded-bl-full"></div>
               )}
 
+              {/* Date Info Row: MONTH DATE DAY */}
               <div className="flex items-baseline gap-2 leading-none mb-1">
                  <span className={`text-xs md:text-sm font-bold tracking-wider uppercase ${isActive ? 'text-gold' : 'text-gray-400'}`}>
                    {shortMonth}
@@ -66,6 +75,7 @@ const DayStepper = ({ days, currentDay, onDaySelect }) => {
                  </span>
               </div>
 
+              {/* Theme Row */}
               <span className={`text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-1 ${isActive ? 'text-gold' : 'text-gray-600'}`}>
                 {day.theme}
               </span>
@@ -77,4 +87,4 @@ const DayStepper = ({ days, currentDay, onDaySelect }) => {
   );
 };
 
-window.DayStepper = DayStepper;
+export default DayStepper;
