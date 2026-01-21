@@ -1,6 +1,6 @@
 import React from 'react';
-import { Event } from '../types';
-import { getYouTubeButtonState, getCurrentISTTime } from '../utils/timeUtils';
+import { Event } from '../types.ts';
+import { getYouTubeButtonState, getCurrentISTTime } from '../utils/timeUtils.ts';
 import { Play, Youtube, MapPin, Clock } from 'lucide-react';
 
 interface EventCardProps {
