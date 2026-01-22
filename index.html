@@ -418,6 +418,29 @@
         function preprocessScheduleData() {
             if (!SCHEDULE_DATA.days) return;
             
+            // --- NEW: Hydrate events with speaker videos ---
+            // Create a map of events for O(1) lookup
+            const eventMap = {};
+            SCHEDULE_DATA.days.forEach(day => {
+                day.events.forEach(event => {
+                    eventMap[event.id] = event;
+                });
+            });
+
+            // Iterate speakers and inject videos from their profile
+            if (SPEAKERS) {
+                Object.values(SPEAKERS).forEach(speaker => {
+                    if (speaker.videos) {
+                        Object.entries(speaker.videos).forEach(([eventId, url]) => {
+                            if (eventMap[eventId]) {
+                                eventMap[eventId].youtubeLink = url;
+                            }
+                        });
+                    }
+                });
+            }
+            // ------------------------------------------------
+
             SCHEDULE_DATA.days.forEach(day => {
                 day.events.forEach(event => {
                     if(event.youtubeLink) {
