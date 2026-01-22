@@ -20,6 +20,9 @@
     <meta property="twitter:description" content="Join us for the Sri Ramayana Satram & Valmiki Ramayana Conference 2026." />
     <meta property="twitter:image" content="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/social2.jpg" />
     
+    <!-- Preload Critical Hero Image -->
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/KalyanaRamar.gif">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -98,9 +101,10 @@
       .fade-in { animation: fadeIn 0.5s ease-in; }
       @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-      /* Glittery Hero Background - Updated for redder center and denser sparkles */
+      /* Glittery Hero Background - Updated for lighter/redder top */
       .hero-glitter-bg {
-          background: radial-gradient(circle at center, #850000 0%, #2a0a0a 100%);
+          /* Updated gradient: Brighter red center/top */
+          background: radial-gradient(circle at 50% 30%, #a00000 0%, #850000 40%, #2a0a0a 100%);
           position: relative;
       }
       .hero-glitter-bg::before {
@@ -180,7 +184,7 @@
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[320px] md:h-[320px] lg:w-[300px] lg:h-[300px] bg-white/60 blur-[70px] rounded-full z-10"></div>
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px] md:w-[280px] md:h-[280px] lg:w-[260px] lg:h-[260px] bg-white/80 blur-[50px] rounded-full z-10 animate-pulse"></div>
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] md:w-[220px] md:h-[220px] bg-white blur-[30px] rounded-full z-10"></div>
-                    <img id="hero-img" class="h-[220px] md:h-[420px] lg:h-[480px] object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] z-20 relative transform hover:scale-105 transition-transform duration-700" />
+                    <img id="hero-img" class="h-[220px] md:h-[420px] lg:h-[480px] object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] z-20 relative transform hover:scale-105 transition-transform duration-700" width="480" height="480" />
                 </div>
             </div>
 
@@ -286,25 +290,16 @@
             </div>
         </div>
 
-        <!-- SCHEDULE SECTION -->
-        <section id="schedule" class="py-12 relative min-h-screen transition-colors duration-500" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' opacity=\'0.05\'/%3E%3C/svg%3E');">
-            
-            <div class="container mx-auto px-4 md:px-8 max-w-5xl relative z-10">
-                <div id="day-header" class="text-center mb-8">
-                    <!-- JS populated -->
-                </div>
-
-                <div id="events-container" class="relative pt-4 pb-4">
-                    <!-- JS populated -->
-                </div>
-            </div>
-        </section>
+        <!-- SCHEDULE SECTIONS CONTAINER -->
+        <div id="schedule-container">
+            <!-- All days will be rendered here vertically -->
+        </div>
 
         <!-- DONATION -->
         <section id="donate" class="py-16 bg-maroon text-cream scroll-mt-48">
             <div class="container mx-auto px-4 max-w-4xl">
                 <h2 class="font-serif text-3xl text-center font-bold text-gold mb-8">Support WEBOLIM</h2>
-                <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="grid md:grid-cols-2 gap-8 items-start">
                     <div class="bg-white/10 p-6 rounded-2xl border border-gold/30 text-center flex flex-col items-center">
                         <h3 class="text-xl font-bold mb-4">Make a Contribution</h3>
                         <div class="hidden md:block bg-white p-2 rounded-lg mb-4">
@@ -316,16 +311,28 @@
                         <a href="upi://pay?pa=qr919443887456-9830@unionbankofindia&pn=WEBOLIM%20TRUST&cu=INR" class="md:hidden w-full bg-gold text-maroon font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg animate-pulse">
                             <i data-lucide="qr-code" class="w-5 h-5"></i> Donate via UPI App
                         </a>
-                        <p class="mt-4 text-xs bg-black/20 p-2 rounded text-left w-full"><span class="font-bold text-gold">Note:</span> All donations to WEBOLIM Trust are eligible for tax exemption under Section 80G.</p>
+                        <p class="mt-4 text-xs p-2 text-left w-full opacity-80"><span class="font-bold text-gold">Note:</span> All donations to WEBOLIM Trust are eligible for tax exemption under Section 80G.</p>
                     </div>
-                    <div class="space-y-6">
-                        <div class="bg-cream/5 p-4 rounded-xl border-l-4 border-gold">
-                            <h4 class="font-bold text-lg text-gold flex items-center gap-2"><i data-lucide="credit-card" class="w-4 h-4"></i> Union Bank of India</h4>
-                            <div class="mt-2 space-y-1 text-sm font-mono opacity-90"><p>Acct Name: WEBOLIM TRUST</p><p>Acct No: 520101257799830</p><p>IFSC: UBIN0912883</p></div>
+                    <div class="space-y-6 mt-2">
+                        <h3 class="text-lg font-bold text-gold opacity-90">For NEFT / RTGS use the following details</h3>
+                        <div class="p-4 rounded-xl">
+                            <h4 class="font-bold text-xl text-gold flex items-center gap-2 mb-3">UNION BANK OF INDIA</h4>
+                            <div class="space-y-2 text-base md:text-lg font-mono opacity-90 pl-1">
+                                <p>Acct Name: WEBOLIM TRUST</p>
+                                <p>Acct No: <span class="text-white font-bold select-all">520101257799830</span></p>
+                                <p>IFSC: <span class="text-white font-bold select-all">UBIN0912883</span></p>
+                                <p>MICR: <span class="text-white font-bold select-all">562026356</span></p>
+                                <p>Branch: Jigani</p>
+                            </div>
                         </div>
-                        <div class="bg-cream/5 p-4 rounded-xl border-l-4 border-gold">
-                            <h4 class="font-bold text-lg text-gold flex items-center gap-2"><i data-lucide="credit-card" class="w-4 h-4"></i> City Union Bank (CUB)</h4>
-                            <div class="mt-2 space-y-1 text-sm font-mono opacity-90"><p>Acct Name: WEBOLIM TRUST</p><p>Acct No: 500101013583858</p><p>IFSC: CIUB0000583</p></div>
+                        <div class="p-4 rounded-xl">
+                            <h4 class="font-bold text-xl text-gold flex items-center gap-2 mb-3">City Union Bank Ltd (CUB)</h4>
+                            <div class="space-y-2 text-base md:text-lg font-mono opacity-90 pl-1">
+                                <p>Acct Name: WEBOLIM TRUST</p>
+                                <p>Acct No: <span class="text-white font-bold select-all">500101013583858</span></p>
+                                <p>IFSC: <span class="text-white font-bold select-all">CIUB0000583</span></p>
+                                <p>MICR: <span class="text-white font-bold select-all">560054026</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -350,21 +357,21 @@
 
     <!-- APPLICATION LOGIC & DATA -->
     <script>
-        // Define Data in global scope
+        // Define Data in global scope - FIXED URLS
         const ASSETS = {
-            heroImage: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/KalyanaRamar.gif',
-            pillarLeft: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Pillar-left.gif',
-            pillarRight: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Pillar-right.gif',
+            heroImage: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/KalyanaRamar.gif',
+            pillarLeft: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Pillar-left.gif',
+            pillarRight: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Pillar-right.gif',
             logo: 'https://webolim.org/wp-content/uploads/2025/08/WEBOLIM_RGBLogo_20250521.png',
-            placeholderSpeaker: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic_profile_400x400.jpg',
-            timelineSatram: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/marigold2.gif',
-            timelineConference: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/lamp4.gif',
+            placeholderSpeaker: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/generic_profile_400x400.jpg',
+            timelineSatram: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/marigold2.gif',
+            timelineConference: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/lamp4.gif',
             // Speaker Images
-            rangan: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/rangan.jpg',
-            madhavan: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/madhavan.jpg',
-            gauranga: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Vidwan.jpg',
-            senesh: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/senesh.jpg',
-            vishal: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/vishal.jpg',
+            rangan: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/rangan.jpg',
+            madhavan: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/madhavan.jpg',
+            gauranga: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Vidwan.jpg',
+            senesh: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/senesh.jpg',
+            vishal: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/vishal.jpg',
         };
 
         const SCHEDULE_DATA = {
@@ -378,8 +385,6 @@
                         { id: 'd1-e4', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d1' },
                     ]
                 },
-                // ... (Truncated day data for brevity in prompt re-entry, but full data will be here)
-                // Since I cannot output 3000 lines of data every time, I will inject the key full structure again
                 { dayNumber: 2, date: '2026-03-29', displayDate: 'March 29', dayName: 'Sunday', theme: 'Ayodhya Kandam', phase: 'Pre-Conference', events: [ { id: 'd2-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] }, { id: 'd2-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd2-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd2-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd2-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Pattabhishekha Prarambha', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.rangan }], youtubeLink: 'https://youtu.be/rangan_d1' }, { id: 'd2-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd2-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Kausalya Mangalashasanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Subhankriya', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Daksha', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/Subhankriya' }, { id: 'd2-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] }, { id: 'd2-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd2-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd2-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Pitruvakya Paripalanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Shrinidhi Narendran', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Niharika', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/Shrinidhi' }, { id: 'd2-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd2-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Guha Sakhyam', venue: 'Ramayana Shala', speakers: [{ name: 'Shri Harish', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/Harish' }, { id: 'd2-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] }, { id: 'd2-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd2-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Badhai', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/Bahai' }, { id: 'd2-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d2' }, ] },
                 { dayNumber: 3, date: '2026-03-30', displayDate: 'March 30', dayName: 'Monday', theme: 'Ayodhya Kandam', phase: 'Pre-Conference', events: [ { id: 'd3-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] }, { id: 'd3-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd3-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd3-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd3-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Dasharatha Bhakti', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.rangan }], youtubeLink: 'https://youtu.be/rangan_d3' }, { id: 'd3-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd3-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Bharatha Bhakti', venue: 'Ramayana Shala', speakers: [{ name: 'Shri Giridharan', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Amrita', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/giri' }, { id: 'd3-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] }, { id: 'd3-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd3-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd3-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Chitrakuta', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Ananya A', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Ananya G', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/ananya_a' }, { id: 'd3-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd3-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Paduka Pattabhishekha', venue: 'Ramayana Shala', speakers: [{ name: 'Shri Srikanth', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/srikanth' }, { id: 'd3-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] }, { id: 'd3-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd3-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Sita Kalyanam', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/sitakalyanam' }, { id: 'd3-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d3' }, ] },
                 { dayNumber: 4, date: '2026-03-31', displayDate: 'March 31', dayName: 'Tuesday', theme: 'Aranya Kandam', phase: 'Pre-Conference', events: [ { id: 'd4-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] }, { id: 'd4-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd4-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd4-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd4-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Agatya Ashrama', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.rangan }], youtubeLink: 'https://youtu.be/rangan_d4' }, { id: 'd4-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd4-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Panchavati', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Madhavan', photo: ASSETS.madhavan }, { name: 'Shri. Raghavan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/madhavan' }, { id: 'd4-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] }, { id: 'd4-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd4-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd4-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Sita Apaharanam', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Rishi', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Dharanidharan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rishi' }, { id: 'd4-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] }, { id: 'd4-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Jatayu & Sabari Moksham', venue: 'Ramayana Shala', speakers: [{ name: 'Smt. Kalpana Harikrishnan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/kalpana' }, { id: 'd4-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] }, { id: 'd4-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] }, { id: 'd4-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Nikujotsavam Bharatanatyam', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Meghana Venkat', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/bharathanatyam' }, { id: 'd4-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d4' }, ] },
@@ -546,31 +551,23 @@
             return new Date(utc + istOffset);
         };
 
-        const getYouTubeButtonState = (event, dayDate) => {
+        const getYouTubeButtonState = (event, currentTime) => {
             if (!event.youtubeLink) return 'hidden';
-            const now = getCurrentISTTime();
-            
-            const parseTime = (timeStr) => {
-                const [time, modifier] = timeStr.split(' ');
-                let [hours, minutes] = time.split(':').map(Number);
-                if (hours === 12) hours = 0;
-                if (modifier === 'PM') hours += 12;
-                const date = new Date(dayDate);
-                date.setHours(hours, minutes, 0, 0);
-                return date;
-            };
-
-            const start = parseTime(event.startTime);
-            const end = parseTime(event.endTime);
-            const fifteenMinsBefore = new Date(start.getTime() - 15 * 60000);
-
-            if (now < fifteenMinsBefore) return 'disabled';
-            if (now >= fifteenMinsBefore && now <= end) return 'live';
+            // Use pre-calculated timestamps for performance
+            if (event._liveStartTs && event._endTs) {
+                const nowTs = currentTime.getTime();
+                if (nowTs < event._liveStartTs) return 'disabled';
+                if (nowTs >= event._liveStartTs && nowTs <= event._endTs) return 'live';
+                return 'recording';
+            }
+            // Fallback (should not happen after preprocessing)
             return 'recording';
         };
 
         // --- 2. RENDER FUNCTIONS ---
         let currentDayId = 1;
+        let isScrolling = false;
+        let isStepperInit = false;
 
         function initImages() {
             document.getElementById('pillar-left').src = ASSETS.pillarLeft;
@@ -580,53 +577,128 @@
             document.getElementById('footer-logo').src = ASSETS.logo;
         }
 
-        function renderDayStepper() {
+        function preprocessScheduleData() {
+            SCHEDULE_DATA.days.forEach(day => {
+                day.events.forEach(event => {
+                    if(event.youtubeLink) {
+                        // Parse Start Time
+                        const [time, modifier] = event.startTime.split(' ');
+                        let [hours, minutes] = time.split(':').map(Number);
+                        if (hours === 12) hours = 0;
+                        if (modifier === 'PM') hours += 12;
+                        const startDate = new Date(day.date);
+                        startDate.setHours(hours, minutes, 0, 0);
+                        
+                        // Parse End Time
+                        const [endTime, endModifier] = event.endTime.split(' ');
+                        let [endHours, endMinutes] = endTime.split(':').map(Number);
+                        if (endHours === 12) endHours = 0;
+                        if (endModifier === 'PM') endHours += 12;
+                        const endDate = new Date(day.date);
+                        endDate.setHours(endHours, endMinutes, 0, 0);
+
+                        // Store timestamps
+                        event._startTs = startDate.getTime();
+                        event._endTs = endDate.getTime();
+                        // Live starts 15 mins before
+                        event._liveStartTs = event._startTs - (15 * 60000); 
+                    }
+                });
+            });
+        }
+
+        function initDayStepper() {
             const container = document.getElementById('day-stepper-container');
+            if(!container || isStepperInit) return;
+            
+            // Initial Render of all buttons
             container.innerHTML = SCHEDULE_DATA.days.map(day => {
+                // Initial classes will be set by updateStepperVisuals immediately after
+                return `
+                    <button 
+                        onclick="setDay(${day.dayNumber})"
+                        id="day-btn-${day.dayNumber}"
+                        class="flex-shrink-0 flex flex-col items-center justify-center min-w-[160px] md:min-w-[180px] py-3 rounded-lg transition-all duration-300 snap-center border-2 cursor-pointer relative overflow-hidden"
+                    >
+                        <div id="day-conf-corner-${day.dayNumber}" class="absolute top-0 right-0 w-4 h-4 bg-gold/40 rounded-bl-full hidden"></div>
+                        <div class="flex items-baseline gap-2 leading-none mb-1">
+                            <span id="day-month-${day.dayNumber}" class="text-xs md:text-sm font-bold tracking-wider uppercase"></span>
+                            <span id="day-date-${day.dayNumber}" class="text-3xl md:text-4xl font-serif font-bold"></span>
+                            <span id="day-name-${day.dayNumber}" class="text-xs md:text-sm font-bold tracking-wider uppercase"></span>
+                        </div>
+                        <span id="day-theme-${day.dayNumber}" class="text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-1"></span>
+                    </button>
+                `;
+            }).join('');
+            isStepperInit = true;
+            updateStepperVisuals();
+        }
+
+        function updateStepperVisuals() {
+            const container = document.getElementById('day-stepper-container');
+            if(!container) return;
+
+            SCHEDULE_DATA.days.forEach(day => {
+                const btn = document.getElementById(`day-btn-${day.dayNumber}`);
+                if (!btn) return;
+
                 const isActive = day.dayNumber === currentDayId;
                 const isConference = day.phase === 'Conference';
                 const [month, dateStr] = day.displayDate.split(' ');
                 const shortDayName = day.dayName.substring(0, 3).toUpperCase();
-                
-                const activeClasses = 'bg-maroon border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10';
+
+                // Active Background Logic
+                let activeClasses = '';
+                if (isActive) {
+                    if (isConference) {
+                        activeClasses = 'bg-maroon border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10';
+                    } else {
+                        // Dark Green for Pre/Post
+                        activeClasses = 'bg-[#1b4d1b] border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10'; 
+                    }
+                }
                 const confClasses = 'bg-yellow-50 border-yellow-400/60 text-charcoal hover:bg-yellow-100 hover:border-yellow-500 hover:shadow-md';
                 const defaultClasses = 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hover:border-gold/60 hover:shadow-sm';
 
-                // Color Logic for Text elements
+                // Set Container Class
+                btn.className = `flex-shrink-0 flex flex-col items-center justify-center min-w-[160px] md:min-w-[180px] py-3 rounded-lg transition-all duration-300 snap-center border-2 cursor-pointer relative overflow-hidden ${isActive ? activeClasses : (isConference ? confClasses : defaultClasses)}`;
+
+                // Set Colors
                 const monthColor = isActive ? 'text-gold' : (isConference ? 'text-maroon' : 'text-gray-400');
                 const dateColor = isActive ? 'text-white' : (isConference ? 'text-maroon' : 'text-gray-800');
                 const dayColor = isActive ? 'text-gray-300' : (isConference ? 'text-maroon/80' : 'text-gray-400');
                 const themeColor = isActive ? 'text-gold' : (isConference ? 'text-maroon' : 'text-gray-600');
 
-                return `
-                    <button 
-                        onclick="setDay(${day.dayNumber})"
-                        id="day-btn-${day.dayNumber}"
-                        class="flex-shrink-0 flex flex-col items-center justify-center min-w-[160px] md:min-w-[180px] py-3 rounded-lg transition-all duration-300 snap-center border-2 cursor-pointer relative overflow-hidden ${isActive ? activeClasses : (isConference ? confClasses : defaultClasses)}"
-                    >
-                        ${!isActive && isConference ? '<div class="absolute top-0 right-0 w-4 h-4 bg-gold/40 rounded-bl-full"></div>' : ''}
-                        <div class="flex items-baseline gap-2 leading-none mb-1">
-                            <span class="text-xs md:text-sm font-bold tracking-wider uppercase ${monthColor}">${month.substring(0,3)}</span>
-                            <span class="text-3xl md:text-4xl font-serif font-bold ${dateColor}">${dateStr}</span>
-                            <span class="text-xs md:text-sm font-bold tracking-wider uppercase ${dayColor}">${shortDayName}</span>
-                        </div>
-                        <span class="text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-1 ${themeColor}">${day.theme}</span>
-                    </button>
-                `;
-            }).join('');
-            
-            // Scroll to active
-            setTimeout(() => {
-                const activeBtn = document.getElementById(`day-btn-${currentDayId}`);
-                if (activeBtn) {
-                     const scrollLeft = activeBtn.offsetLeft - container.offsetWidth / 2 + activeBtn.offsetWidth / 2;
-                     container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                // Update Text Content & Classes safely
+                document.getElementById(`day-month-${day.dayNumber}`).className = `text-xs md:text-sm font-bold tracking-wider uppercase ${monthColor}`;
+                document.getElementById(`day-month-${day.dayNumber}`).textContent = month.substring(0,3);
+
+                document.getElementById(`day-date-${day.dayNumber}`).className = `text-3xl md:text-4xl font-serif font-bold ${dateColor}`;
+                document.getElementById(`day-date-${day.dayNumber}`).textContent = dateStr;
+
+                document.getElementById(`day-name-${day.dayNumber}`).className = `text-xs md:text-sm font-bold tracking-wider uppercase ${dayColor}`;
+                document.getElementById(`day-name-${day.dayNumber}`).textContent = shortDayName;
+
+                document.getElementById(`day-theme-${day.dayNumber}`).className = `text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-1 ${themeColor}`;
+                document.getElementById(`day-theme-${day.dayNumber}`).textContent = day.theme;
+
+                // Corner decoration
+                const corner = document.getElementById(`day-conf-corner-${day.dayNumber}`);
+                if (corner) {
+                    if (!isActive && isConference) corner.classList.remove('hidden');
+                    else corner.classList.add('hidden');
                 }
-                updateStepperArrows();
-            }, 100);
+            });
+
+            // Scroll active into view
+            const activeBtn = document.getElementById(`day-btn-${currentDayId}`);
+            if (activeBtn) {
+                 const scrollLeft = activeBtn.offsetLeft - container.offsetWidth / 2 + activeBtn.offsetWidth / 2;
+                 container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+            updateStepperArrows();
         }
 
-        // Stepper Navigation Logic
         window.navigateDay = function(direction) {
             const nextDayId = currentDayId + direction;
             if (nextDayId >= 1 && nextDayId <= SCHEDULE_DATA.days.length) {
@@ -642,40 +714,27 @@
             
             if (!prevBtn || !nextBtn) return;
 
-            // Visibility based on current selection index (not scroll)
             const hasPrev = currentDayId > 1;
             const hasNext = currentDayId < SCHEDULE_DATA.days.length;
 
             if (hasPrev) {
                 prevBtn.classList.remove('opacity-0', 'pointer-events-none');
                 prevBtn.classList.add('opacity-100', 'pointer-events-auto');
-                if(leftGrad) {
-                    leftGrad.classList.remove('opacity-0');
-                    leftGrad.classList.add('opacity-100');
-                }
+                if(leftGrad) leftGrad.classList.add('opacity-100');
             } else {
                 prevBtn.classList.add('opacity-0', 'pointer-events-none');
                 prevBtn.classList.remove('opacity-100', 'pointer-events-auto');
-                if(leftGrad) {
-                    leftGrad.classList.add('opacity-0');
-                    leftGrad.classList.remove('opacity-100');
-                }
+                if(leftGrad) leftGrad.classList.remove('opacity-100');
             }
 
             if (hasNext) {
                 nextBtn.classList.remove('opacity-0', 'pointer-events-none');
                 nextBtn.classList.add('opacity-100', 'pointer-events-auto');
-                if(rightGrad) {
-                    rightGrad.classList.remove('opacity-0');
-                    rightGrad.classList.add('opacity-100');
-                }
+                if(rightGrad) rightGrad.classList.add('opacity-100');
             } else {
                 nextBtn.classList.add('opacity-0', 'pointer-events-none');
                 nextBtn.classList.remove('opacity-100', 'pointer-events-auto');
-                if(rightGrad) {
-                    rightGrad.classList.add('opacity-0');
-                    rightGrad.classList.remove('opacity-100');
-                }
+                if(rightGrad) rightGrad.classList.remove('opacity-100');
             }
         }
 
@@ -687,7 +746,6 @@
                 if (heroCountdown) heroCountdown.innerHTML = '';
                 return;
             }
-            
             if (currentTime > EVENT_END_DATE) {
                  if (heroCountdown) heroCountdown.innerHTML = '';
                  return;
@@ -704,189 +762,186 @@
                     <div class="flex flex-col items-center lg:items-start">
                         <div class="text-gold/80 font-bold uppercase text-xs md:text-sm tracking-widest mb-2">Starts In</div>
                         <div class="flex gap-4 md:gap-6 text-gold/90 font-serif">
-                            <div class="flex flex-col items-center">
-                                <span class="text-3xl md:text-4xl font-bold leading-none">${String(days).padStart(2, '0')}</span>
-                                <span class="text-[10px] uppercase tracking-widest opacity-60">Days</span>
-                            </div>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(days).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Days</span></div>
                             <span class="text-2xl md:text-3xl opacity-40">:</span>
-                            <div class="flex flex-col items-center">
-                                <span class="text-3xl md:text-4xl font-bold leading-none">${String(hours).padStart(2, '0')}</span>
-                                <span class="text-[10px] uppercase tracking-widest opacity-60">Hours</span>
-                            </div>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(hours).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Hours</span></div>
                             <span class="text-2xl md:text-3xl opacity-40">:</span>
-                            <div class="flex flex-col items-center">
-                                <span class="text-3xl md:text-4xl font-bold leading-none">${String(minutes).padStart(2, '0')}</span>
-                                <span class="text-[10px] uppercase tracking-widest opacity-60">Mins</span>
-                            </div>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(minutes).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Mins</span></div>
                             <span class="text-2xl md:text-3xl opacity-40 hidden md:inline">:</span>
-                            <div class="flex flex-col items-center hidden md:flex">
-                                <span class="text-3xl md:text-4xl font-bold leading-none text-white">${String(seconds).padStart(2, '0')}</span>
-                                <span class="text-[10px] uppercase tracking-widest opacity-60">Secs</span>
-                            </div>
+                            <div class="flex flex-col items-center hidden md:flex"><span class="text-3xl md:text-4xl font-bold leading-none text-white">${String(seconds).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Secs</span></div>
                         </div>
                     </div>
                 `;
             }
         }
 
-        function renderSchedule() {
-            const day = SCHEDULE_DATA.days.find(d => d.dayNumber === currentDayId);
-            if (!day) return;
-
-            const isConference = day.phase === 'Conference';
+        function renderAllDays() {
+            const container = document.getElementById('schedule-container');
+            if(!container) return;
             
-            // Background
-            const section = document.getElementById('schedule');
-            section.style.backgroundColor = isConference ? '#FDFBF7' : '#FFFFE0';
-            
-            // Header
-            const header = document.getElementById('day-header');
-            header.innerHTML = `
-                <span class="inline-block px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-2 ${isConference ? 'bg-gold/20 text-maroon' : 'bg-green-100 text-deepGreen'}">${day.phase}</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-maroon font-bold">${day.theme}</h2>
-                <p class="text-gray-600 mt-2">${day.dayName}, ${day.displayDate}, 2026</p>
-            `;
-
-            // Events
-            const container = document.getElementById('events-container');
-            
-            if (day.events.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-gray-500 italic">Schedule details coming soon.</div>';
-                return;
-            }
-
-            const eventsHtml = day.events.map((event, index) => {
-                const isEven = index % 2 === 0; // 0, 2, 4 = Left Side on Desktop
-                const ytState = getYouTubeButtonState(event, day.date);
-                const hasVideo = !!event.youtubeLink;
-                const isLast = index === day.events.length - 1;
+            container.innerHTML = SCHEDULE_DATA.days.map(day => {
+                const isConference = day.phase === 'Conference';
+                const borderColorClass = isConference ? 'border-gold' : 'border-deepGreen';
                 
-                // Alignment Classes for Desktop (md:)
-                const textAlignClass = isEven ? 'md:text-right' : 'md:text-left';
-                const itemsAlignClass = isEven ? 'md:items-end' : 'md:items-start';
-                const flexRowClass = isEven ? 'md:flex-row-reverse' : 'md:flex-row'; // For Icon+Text rows
+                // Background & Styles - #f1e8cc for Conference, #eeeedb for others
+                const bgStyle = isConference ? 'background-color: #f1e8cc;' : 'background-color: #eeeedb;';
+                const patternStyle = "background-image: url('data:image/svg+xml,%3Csvg viewBox=\\'0 0 200 200\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cfilter id=\\'noiseFilter\\'%3E%3CfeTurbulence type=\\'fractalNoise\\' baseFrequency=\\'0.65\\' numOctaves=\\'3\\' stitchTiles=\\'stitch\\'/%3E%3C/filter%3E%3Crect width=\\'100%25\\' height=\\'100%25\\' filter=\\'url(%23noiseFilter)\\' opacity=\\'0.05\\'/%3E%3C/svg%3E');";
 
-                // Card HTML - REMOVED ACCENT BORDER (border-l-4 and border color)
-                const cardHtml = `
-                    <div id="event-${event.id}" class="relative overflow-hidden transition-all duration-300 group text-left ${textAlignClass} ${hasVideo ? `bg-white rounded-xl shadow-lg hover:shadow-xl p-6 md:p-8` : 'bg-transparent pl-6 py-4 md:pl-8'} ${ytState === 'live' ? 'ring-2 ring-red-500 ring-offset-2' : ''}">
-                        <div id="event-live-${event.id}" class="${ytState === 'live' && hasVideo ? 'absolute top-3 ' + (isEven ? 'md:left-3' : 'right-3') + ' flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse z-10' : 'hidden'}"><span class="w-2 h-2 bg-white rounded-full"></span> LIVE</div>
-                        
-                        <div class="flex flex-col ${itemsAlignClass}">
-                            <div class="${hasVideo ? 'border-b border-gray-100 pb-4 mb-4' : 'mb-2'} w-full">
-                                <div class="flex items-start gap-3 mb-2 ${flexRowClass}">
-                                    <div class="w-5 shrink-0 flex items-center justify-center mt-0.5"><i data-lucide="clock" class="text-gold w-5 h-5"></i></div>
-                                    <span class="font-bold text-lg md:text-xl text-maroon leading-tight">${event.startTime} – ${event.endTime}</span>
+                // Events Generation
+                const eventsHtml = day.events.map((event, index) => {
+                    const isEven = index % 2 === 0;
+                    // Initial render state - we use a safe default or calculate once if needed, 
+                    // but live status update runs immediately after load anyway.
+                    const ytState = 'recording'; 
+                    const hasVideo = !!event.youtubeLink;
+                    const isLast = index === day.events.length - 1;
+                    
+                    const textAlignClass = isEven ? 'md:text-right' : 'md:text-left';
+                    const itemsAlignClass = isEven ? 'md:items-end' : 'md:items-start';
+                    const flexRowClass = isEven ? 'md:flex-row-reverse' : 'md:flex-row';
+
+                    const cardHtml = `
+                        <div id="event-${event.id}" class="relative overflow-hidden transition-all duration-300 group text-left ${textAlignClass} ${hasVideo ? `bg-white rounded-xl shadow-lg hover:shadow-xl p-6 md:p-8` : 'bg-transparent pl-6 py-4 md:pl-8'}">
+                            <div id="event-live-${event.id}" class="hidden absolute top-3 ${isEven ? 'md:left-3' : 'right-3'} flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse z-10"><span class="w-2 h-2 bg-white rounded-full"></span> LIVE</div>
+                            
+                            <div class="flex flex-col ${itemsAlignClass}">
+                                <div class="${hasVideo ? 'border-b border-gray-100 pb-4 mb-4' : 'mb-2'} w-full">
+                                    <div class="flex items-start gap-3 mb-2 ${flexRowClass}">
+                                        <div class="w-5 shrink-0 flex items-center justify-center mt-0.5"><i data-lucide="clock" class="text-gold w-5 h-5"></i></div>
+                                        <span class="font-bold text-lg md:text-xl text-maroon leading-tight">${event.startTime} – ${event.endTime}</span>
+                                    </div>
+                                    <div class="flex items-start gap-3 mb-2 ${flexRowClass}">
+                                        <div class="w-5 shrink-0 flex items-center justify-center mt-1"><i data-lucide="bell" class="text-gold w-5 h-5"></i></div>
+                                        <h3 class="font-serif leading-tight text-2xl md:text-3xl font-bold text-gray-900">${event.title}</h3>
+                                    </div>
+                                    ${event.venue && event.venue !== 'Venue' ? `<div class="flex items-start gap-3 ${flexRowClass}"><div class="w-5 shrink-0 flex items-center justify-center -mt-1"><i data-lucide="map-pin" class="text-gray-400 w-5 h-5"></i></div><span class="font-medium text-gray-600 text-base leading-tight">${event.venue}</span></div>` : ''}
                                 </div>
-                                <div class="flex items-start gap-3 mb-2 ${flexRowClass}">
-                                    <div class="w-5 shrink-0 flex items-center justify-center mt-1"><i data-lucide="bell" class="text-gold w-5 h-5"></i></div>
-                                    <h3 class="font-serif leading-tight text-2xl md:text-3xl font-bold text-gray-900">${event.title}</h3>
-                                </div>
-                                ${event.venue && event.venue !== 'Venue' ? `<div class="flex items-start gap-3 ${flexRowClass}"><div class="w-5 shrink-0 flex items-center justify-center -mt-1"><i data-lucide="map-pin" class="text-gray-400 w-5 h-5"></i></div><span class="font-medium text-gray-600 text-base leading-tight">${event.venue}</span></div>` : ''}
+
+                                ${event.speakers.length > 0 ? `
+                                    <div class="flex flex-col gap-6 mb-3 mt-4 w-full ${itemsAlignClass}">
+                                        ${event.speakers.map(s => `
+                                            <div class="flex flex-col text-left gap-4 w-full ${itemsAlignClass} ${textAlignClass}">
+                                                <div class="relative flex-shrink-0">
+                                                    <img src="${s.photo}" alt="${s.name}" loading="lazy" class="object-cover rounded-xl border-2 border-gold shadow-md bg-gray-100 w-48 h-48 md:w-60 md:h-60" width="240" height="240">
+                                                </div>
+                                                <div class="w-full">
+                                                    <p class="font-bold text-maroon text-lg md:text-xl leading-tight">${s.name}</p>
+                                                    ${event.isConference && s.bio ? `<div class="mt-3 text-base md:text-lg text-gray-800 leading-relaxed text-left opacity-90">${s.bio}</div>` : ''}
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+
+                                ${hasVideo ? `
+                                    <div class="mt-2 pt-2 w-full">
+                                        <a id="event-btn-${event.id}" href="${event.youtubeLink}" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-gradient-to-r from-gold to-yellow-500 text-maroon hover:shadow-md hover:scale-[1.01]">
+                                            <i data-lucide="youtube" class="w-5 h-5"></i> Watch Recording
+                                        </a>
+                                    </div>
+                                ` : ''}
                             </div>
-
-                            ${event.speakers.length > 0 ? `
-                                <div class="flex flex-col gap-6 mb-3 mt-4 w-full ${itemsAlignClass}">
-                                    ${event.speakers.map(s => `
-                                        <div class="flex flex-col text-left gap-4 w-full ${itemsAlignClass} ${textAlignClass}">
-                                            <div class="relative flex-shrink-0">
-                                                <img src="${s.photo}" alt="${s.name}" loading="lazy" class="object-cover rounded-xl border-2 border-gold shadow-md bg-gray-100 w-48 h-48 md:w-60 md:h-60">
-                                            </div>
-                                            <div class="w-full">
-                                                <p class="font-bold text-maroon text-lg md:text-xl leading-tight">${s.name}</p>
-                                                ${event.isConference && s.bio ? `<div class="mt-3 text-base md:text-lg text-gray-800 leading-relaxed text-left opacity-90">${s.bio}</div>` : ''}
-                                            </div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-
-                            ${hasVideo ? `
-                                <div class="mt-2 pt-2 w-full">
-                                    <a id="event-btn-${event.id}" href="${event.youtubeLink}" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm ${ytState === 'hidden' ? 'hidden' : ''} ${ytState === 'disabled' ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none' : (ytState === 'live' ? 'bg-red-600 text-white hover:bg-red-700 animate-pulse' : 'bg-gradient-to-r from-gold to-yellow-500 text-maroon hover:shadow-md hover:scale-[1.01]')}">
-                                        ${ytState === 'disabled' ? '<i data-lucide="youtube" class="w-5 h-5"></i> Coming Soon' : (ytState === 'live' ? '<i data-lucide="play" class="w-5 h-5"></i> Watch LIVE Now' : '<i data-lucide="youtube" class="w-5 h-5"></i> Watch Recording')}
-                                    </a>
-                                </div>
-                            ` : ''}
                         </div>
-                    </div>
-                `;
+                    `;
 
-                // Layout
+                    // Updated Icon Size (w-10 h-10) and Margin (-ml-5) and Card Padding (pl-14/pr-14)
+                    return `
+                        <div class="relative flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-stretch w-full py-4 fade-in">
+                            ${!isLast ? `<div class="absolute left-4 md:left-1/2 w-1 -ml-0.5 z-0 ${isConference ? 'bg-gold/40' : 'bg-deepGreen/20'}" style="top: 1.75rem; bottom: -1.75rem;"></div>` : ''}
+                            <div class="absolute left-4 md:left-1/2 top-7 w-10 h-10 -ml-5 flex items-center justify-center z-10 transition-transform duration-300 hover:scale-110">
+                                <img src="${isConference ? ASSETS.timelineConference : ASSETS.timelineSatram}" class="w-full h-full object-contain drop-shadow-md" alt="marker">
+                            </div>
+                            <div class="hidden md:block w-1/2"></div>
+                            <div class="w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-14' : 'md:pl-14'}">
+                                ${cardHtml}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
                 return `
-                    <div class="relative flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-stretch w-full py-4 fade-in">
-                        ${!isLast ? `<div class="absolute left-4 md:left-1/2 w-1 -ml-0.5 z-0 ${isConference ? 'bg-gold/40' : 'bg-deepGreen/20'}" style="top: 1.75rem; bottom: -1.75rem;"></div>` : ''}
-                        <div class="absolute left-4 md:left-1/2 top-7 w-11 h-11 -ml-[1.375rem] flex items-center justify-center z-10">
-                            <img src="${isConference ? ASSETS.timelineConference : ASSETS.timelineSatram}" class="w-full h-full object-contain drop-shadow-md" alt="marker">
+                    <section id="day-section-${day.dayNumber}" class="py-12 relative transition-colors duration-500 border-b border-black/5" style="${bgStyle} ${patternStyle}">
+                        <div class="container mx-auto px-4 md:px-8 max-w-5xl relative z-10">
+                            <div class="text-center mb-8">
+                                <span class="inline-block px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-2 ${isConference ? 'bg-gold/20 text-maroon' : 'bg-green-100 text-deepGreen'}">${day.phase}</span>
+                                <h2 class="font-serif text-3xl md:text-4xl text-maroon font-bold">${day.theme}</h2>
+                                <p class="text-gray-600 mt-2">${day.dayName}, ${day.displayDate}, 2026</p>
+                            </div>
+                            <div class="relative pt-4 pb-4">
+                                ${eventsHtml || '<div class="text-center py-20 text-gray-500 italic">Schedule details coming soon.</div>'}
+                            </div>
                         </div>
-                        <div class="hidden md:block w-1/2"></div>
-                        <div class="w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'}">
-                            ${cardHtml}
-                        </div>
-                    </div>
+                    </section>
                 `;
             }).join('');
-
-            // Mask to hide top part on desktop only if using top-0 strategy (Removed as per new strategy)
-            container.innerHTML = eventsHtml;
             
-            lucide.createIcons(); // Refresh icons
-        }
-        
-        // Lightweight update function to avoid full re-render
-        function updateLiveStatus() {
-            const day = SCHEDULE_DATA.days.find(d => d.dayNumber === currentDayId);
-            if (!day) return;
-            
-            day.events.forEach(event => {
-                if(!event.youtubeLink) return;
-                
-                const ytState = getYouTubeButtonState(event, day.date);
-                const btn = document.getElementById(`event-btn-${event.id}`);
-                const badge = document.getElementById(`event-live-${event.id}`);
-                const card = document.getElementById(`event-${event.id}`);
-                
-                if (btn) {
-                    if (ytState === 'live') {
-                         btn.className = "flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-red-600 text-white hover:bg-red-700 animate-pulse";
-                         btn.innerHTML = '<i data-lucide="play" class="w-5 h-5"></i> Watch LIVE Now';
-                         if(card) card.classList.add('ring-2', 'ring-red-500', 'ring-offset-2');
-                    } else if (ytState === 'disabled') {
-                         btn.className = "flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none";
-                         btn.innerHTML = '<i data-lucide="youtube" class="w-5 h-5"></i> Coming Soon';
-                         if(card) card.classList.remove('ring-2', 'ring-red-500', 'ring-offset-2');
-                    } else {
-                         btn.className = "flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-gradient-to-r from-gold to-yellow-500 text-maroon hover:shadow-md hover:scale-[1.01]";
-                         btn.innerHTML = '<i data-lucide="youtube" class="w-5 h-5"></i> Watch Recording';
-                         if(card) card.classList.remove('ring-2', 'ring-red-500', 'ring-offset-2');
-                    }
-                }
-                
-                if (badge) {
-                    if (ytState === 'live') badge.classList.remove('hidden');
-                    else badge.classList.add('hidden');
-                }
-            });
-            // Re-init icons for updated buttons if needed (efficient enough)
             lucide.createIcons();
         }
-
-        // --- 3. ACTIONS ---
-        window.setDay = function(dayId) {
-            currentDayId = dayId;
-            renderDayStepper();
-            renderSchedule();
+        
+        function updateLiveStatus() {
+            // Optimized logic to update existing buttons without full re-render
+            const days = SCHEDULE_DATA.days;
+            const now = getCurrentISTTime();
+            let hasChanges = false;
             
-            // Scroll to schedule header with offset for sticky nav
-            const scheduleSection = document.getElementById('schedule');
-            if (scheduleSection) {
-                const offset = 140;
-                const elementPosition = scheduleSection.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
+            days.forEach(day => {
+                day.events.forEach(event => {
+                    if(!event.youtubeLink) return;
+                    
+                    const ytState = getYouTubeButtonState(event, now);
+                    const btn = document.getElementById(`event-btn-${event.id}`);
+                    const badge = document.getElementById(`event-live-${event.id}`);
+                    const card = document.getElementById(`event-${event.id}`);
+                    
+                    if (btn) {
+                        const currentStatus = btn.getAttribute('data-status');
+                        if (currentStatus === ytState) return;
+                        
+                        hasChanges = true;
+                        btn.setAttribute('data-status', ytState);
+
+                        if (ytState === 'live') {
+                             btn.className = "flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-red-600 text-white hover:bg-red-700 animate-pulse";
+                             btn.innerHTML = '<i data-lucide="play" class="w-5 h-5"></i> Watch LIVE Now';
+                             if(card) card.classList.add('ring-2', 'ring-red-500', 'ring-offset-2');
+                        } else if (ytState === 'disabled') {
+                             btn.className = "flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none";
+                             btn.innerHTML = '<i data-lucide="youtube" class="w-5 h-5"></i> Coming Soon';
+                             if(card) card.classList.remove('ring-2', 'ring-red-500', 'ring-offset-2');
+                        } else {
+                             btn.className = "flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm bg-gradient-to-r from-gold to-yellow-500 text-maroon hover:shadow-md hover:scale-[1.01]";
+                             btn.innerHTML = '<i data-lucide="youtube" class="w-5 h-5"></i> Watch Recording';
+                             if(card) card.classList.remove('ring-2', 'ring-red-500', 'ring-offset-2');
+                        }
+                    }
+                    if (badge) {
+                        const isVisible = !badge.classList.contains('hidden');
+                        const shouldBeVisible = (ytState === 'live');
+                        if (isVisible !== shouldBeVisible) {
+                            if (shouldBeVisible) badge.classList.remove('hidden');
+                            else badge.classList.add('hidden');
+                        }
+                    }
                 });
+            });
+            if (hasChanges) lucide.createIcons();
+        }
+
+        window.setDay = function(dayId) {
+            // Scroll to specific day
+            isScrolling = true;
+            currentDayId = dayId;
+            updateStepperVisuals(); // Update UI immediately
+            
+            const el = document.getElementById(`day-section-${dayId}`);
+            if (el) {
+                const headerOffset = 170; // Sticky header height
+                const elementPosition = el.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                setTimeout(() => { isScrolling = false; }, 1000);
+            } else {
+                isScrolling = false;
             }
         }
 
@@ -904,9 +959,9 @@
             }
         }
 
-        // --- 4. INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             initImages();
+            preprocessScheduleData(); // Pre-calculate timestamps for performance
             
             // Calculate current day
             const now = getCurrentISTTime();
@@ -914,11 +969,43 @@
             const foundDay = SCHEDULE_DATA.days.find(d => d.date === todayStr);
             if (foundDay) currentDayId = foundDay.dayNumber;
 
-            renderDayStepper();
-            renderSchedule(); // Render ONCE
+            renderAllDays(); // Render ALL days vertically
+            initDayStepper(); // Init Stepper HTML once
             renderCountdown();
+            updateLiveStatus(); // Initial live status check
 
-            // Setup Stepper Scroll Logic
+            // Initial Scroll to Today
+            setTimeout(() => {
+                if(currentDayId > 1) window.setDay(currentDayId);
+            }, 500);
+
+            // Intersection Observer for Scroll Spy
+            const observer = new IntersectionObserver((entries) => {
+                if (isScrolling) return; // Don't update while animating scroll
+                
+                // Use a 'thin line' approach. Any element intersecting the "top strip" of the viewport is the active one.
+                const visibleEntries = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+                
+                if(visibleEntries.length > 0) {
+                    const id = visibleEntries[0].target.id;
+                    const num = parseInt(id.replace('day-section-', ''));
+                    if(!isNaN(num) && num !== currentDayId) {
+                        currentDayId = num;
+                        updateStepperVisuals(); // Update classes smoothly
+                    }
+                }
+            }, { 
+                // Root margin defines a horizontal strip at approx 180px from top.
+                rootMargin: '-180px 0px -80% 0px', 
+                threshold: 0
+            });
+
+            SCHEDULE_DATA.days.forEach(d => {
+                const el = document.getElementById(`day-section-${d.dayNumber}`);
+                if(el) observer.observe(el);
+            });
+
+            // Setup Stepper Arrows Scroll Logic
             const stepperContainer = document.getElementById('day-stepper-container');
             if(stepperContainer) {
                 stepperContainer.addEventListener('scroll', updateStepperArrows);
@@ -926,7 +1013,7 @@
             }
 
             // Sticky Header Observer
-            const observer = new IntersectionObserver(([entry]) => {
+            const stickyObserver = new IntersectionObserver(([entry]) => {
                 const brand = document.getElementById('sticky-brand');
                 const floatBtn = document.getElementById('float-menu-btn');
                 if (entry.boundingClientRect.top < 0 && !entry.isIntersecting) {
@@ -939,12 +1026,12 @@
                     floatBtn.classList.remove('opacity-0', 'pointer-events-none');
                 }
             }, { threshold: 0 });
-            observer.observe(document.getElementById('hero-location-trigger'));
+            stickyObserver.observe(document.getElementById('hero-location-trigger'));
 
-            // Live Update Timer (Separate from Full Render)
+            // Live Update Timer
             setInterval(() => {
-                updateLiveStatus(); // Only update badges/buttons
-                renderCountdown();  // Update text
+                updateLiveStatus();
+                renderCountdown();
             }, 1000); 
         });
 
