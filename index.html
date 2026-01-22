@@ -148,6 +148,17 @@
 </head>
 <body class="bg-cream text-charcoal font-sans antialiased">
 
+    <!-- INITIAL LOADING OVERLAY -->
+    <div id="app-loader" class="fixed inset-0 z-[100] bg-cream flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="relative w-24 h-24 mb-4">
+            <div class="absolute inset-0 border-4 border-maroon/20 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
+            <!-- Minimal SVG Logo Placeholder if image fails or before load -->
+            <div class="absolute inset-0 flex items-center justify-center text-maroon font-serif font-bold text-2xl animate-pulse">W</div>
+        </div>
+        <p class="text-maroon font-serif font-bold text-lg tracking-widest animate-pulse">LOADING...</p>
+    </div>
+
     <!-- FLOATING MENU BUTTON -->
     <button id="float-menu-btn" onclick="toggleMobileMenu(true)" class="fixed top-4 right-4 z-50 bg-black/20 backdrop-blur-md text-gold p-3 rounded-full border border-gold/20 shadow-lg hover:bg-black/40 transition-all duration-300">
         <i data-lucide="menu" class="w-6 h-6"></i>
@@ -885,10 +896,27 @@
                     renderCountdown();
                 }, 1000);
 
+                // Hide Loader with animation
+                const loader = document.getElementById('app-loader');
+                if (loader) {
+                    loader.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => loader.remove(), 700);
+                }
+
             } catch (error) {
                 console.error("Failed to load schedule data:", error);
-                const container = document.getElementById('schedule-container');
-                if(container) container.innerHTML = '<div class="text-center py-20 text-red-500">Failed to load schedule data. Please try refreshing.</div>';
+                const loader = document.getElementById('app-loader');
+                if(loader) {
+                    loader.innerHTML = `
+                        <div class="text-center p-4">
+                            <i data-lucide="alert-circle" class="w-12 h-12 text-red-600 mx-auto mb-4"></i>
+                            <p class="text-maroon font-bold text-xl mb-4">Unable to load schedule data</p>
+                            <button onclick="location.reload()" class="px-6 py-2 bg-maroon text-cream rounded-full font-bold shadow-lg hover:scale-105 transition-transform">
+                                Retry
+                            </button>
+                        </div>`;
+                    lucide.createIcons();
+                }
             }
         });
 
