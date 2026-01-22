@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WEBOLIM Sri Ramayana Satram 2026</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Added Merriweather, Removed DM Serif Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;800&family=Poppins:wght@300;400;600;700&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Vesper+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mukta:wght@300;400;600;800&family=Roboto:wght@300;400;500;700&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
     
-    <!-- Babel for in-browser transpilation of TSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Tailwind Config -->
     <script>
       tailwind.config = {
         theme: {
@@ -25,8 +30,8 @@
               charcoal: '#333333',
             },
             fontFamily: {
-              serif: ['"Vesper Libre"', '"Tiro Devanagari Sanskrit"', 'serif'],
-              sans: ['Poppins', 'Mukta', 'sans-serif'],
+              serif: ['"Merriweather"', '"Tiro Devanagari Sanskrit"', 'serif'],
+              sans: ['Roboto', 'Mukta', 'sans-serif'], // Updated to Roboto
             },
             animation: {
               'spin-slow': 'spin 60s linear infinite',
@@ -51,47 +56,679 @@
         },
       }
     </script>
+
     <style>
-      /* Custom Scrollbar for bios */
-      .bio-scroll::-webkit-scrollbar {
-        width: 6px;
-      }
-      .bio-scroll::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-      }
-      .bio-scroll::-webkit-scrollbar-thumb {
-        background: #D4AF37; 
-        border-radius: 3px;
-      }
-      .bio-scroll::-webkit-scrollbar-thumb:hover {
-        background: #800000; 
-      }
+      .bio-scroll::-webkit-scrollbar { width: 6px; }
+      .bio-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+      .bio-scroll::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
+      .bio-scroll::-webkit-scrollbar-thumb:hover { background: #800000; }
       
-      /* Hide scrollbar for day stepper but keep functionality */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      html { scroll-behavior: smooth; }
+      
+      /* Utility for hiding/showing elements smoothly */
+      .fade-in { animation: fadeIn 0.5s ease-in; }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-cream text-charcoal font-sans antialiased">
-    <div id="root"></div>
-    <!-- Load the main entry file with Babel processing -->
-    <script type="text/babel" data-type="module" data-presets="react,typescript" src="./index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
+<body class="bg-cream text-charcoal font-sans antialiased">
+
+    <!-- DATA & STATE MANAGEMENT -->
+    <script>
+        const ASSETS = {
+            heroImage: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/KalyanaRamar.gif',
+            pillarLeft: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Pillar-left.gif',
+            pillarRight: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Pillar-right.gif',
+            logo: 'https://webolim.org/wp-content/uploads/2025/08/WEBOLIM_RGBLogo_20250521.png',
+            placeholderSpeaker: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic_profile_400x400.jpg',
+            timelineSatram: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/marigold2.gif',
+            timelineConference: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/lamp4.gif',
+        };
+
+        const SCHEDULE_DATA = {
+            days: [
+                {
+                    dayNumber: 1, date: '2026-03-28', displayDate: 'March 28', dayName: 'Saturday', theme: 'Inauguration', phase: 'Pre-Conference',
+                    events: [
+                        { id: 'd1-e1', startTime: '4:30 PM', endTime: '6:30 PM', title: 'Abhishekham', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/Abhishekham1' },
+                        { id: 'd1-e2', startTime: '6:30 PM', endTime: '7:30 PM', title: 'Prasadam', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                        { id: 'd1-e3', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Inauguration', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/inaguration' },
+                        { id: 'd1-e4', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d1' },
+                    ]
+                },
+                {
+                    dayNumber: 2, date: '2026-03-29', displayDate: 'March 29', dayName: 'Sunday', theme: 'Ayodhya Kandam', phase: 'Pre-Conference',
+                    events: [
+                         { id: 'd2-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                         { id: 'd2-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                         { id: 'd2-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                         { id: 'd2-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                        { id: 'd2-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Pattabhishekha Prarambha', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d1' },
+                        { id: 'd2-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                        { id: 'd2-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Kausalya Mangalashasanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Subhankriya', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Daksha', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/Subhankriya' },
+                        { id: 'd2-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                        { id: 'd2-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                        { id: 'd2-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                        { id: 'd2-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Pitruvakya Paripalanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Shrinidhi Narendran', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Niharika', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/Shrinidhi' },
+                        { id: 'd2-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                        { id: 'd2-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Guha Sakhyam', venue: 'Ramayana Shala', speakers: [{ name: 'Shri Harish', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/Harish' },
+                        { id: 'd2-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                        { id: 'd2-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                        { id: 'd2-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Badhai', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/Bahai' },
+                        { id: 'd2-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d2' },
+                    ]
+                },
+                { dayNumber: 3, date: '2026-03-30', displayDate: 'March 30', dayName: 'Monday', theme: 'Ayodhya Kandam', phase: 'Pre-Conference', events: [
+                    { id: 'd3-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd3-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd3-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd3-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd3-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Dasharatha Bhakti', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d3' },
+                    { id: 'd3-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd3-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Bharatha Bhakti', venue: 'Ramayana Shala', speakers: [{ name: 'Shri Giridharan', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Amrita', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/giri' },
+                    { id: 'd3-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd3-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd3-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd3-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Chitrakuta', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Ananya A', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Ananya G', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/ananya_a' },
+                    { id: 'd3-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd3-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Paduka Pattabhishekha', venue: 'Ramayana Shala', speakers: [{ name: 'Shri Srikanth', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/srikanth' },
+                    { id: 'd3-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd3-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd3-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Sita Kalyanam', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/sitakalyanam' },
+                    { id: 'd3-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d3' },
+                ]},
+                { dayNumber: 4, date: '2026-03-31', displayDate: 'March 31', dayName: 'Tuesday', theme: 'Aranya Kandam', phase: 'Pre-Conference', events: [
+                     { id: 'd4-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                     { id: 'd4-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                     { id: 'd4-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                     { id: 'd4-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                     { id: 'd4-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Agatya Ashrama', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d4' },
+                     { id: 'd4-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                     { id: 'd4-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Panchavati', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Madhavan', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Raghavan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/madhavan' },
+                     { id: 'd4-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                     { id: 'd4-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                     { id: 'd4-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                     { id: 'd4-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Sita Apaharanam', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Rishi', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Dharanidharan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rishi' },
+                     { id: 'd4-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                     { id: 'd4-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Jatayu & Sabari Moksham', venue: 'Ramayana Shala', speakers: [{ name: 'Smt. Kalpana Harikrishnan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/kalpana' },
+                     { id: 'd4-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                     { id: 'd4-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                     { id: 'd4-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Nikujotsavam Bharatanatyam', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Meghana Venkat', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/bharathanatyam' },
+                     { id: 'd4-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d4' },
+                ]},
+                { dayNumber: 5, date: '2026-04-01', displayDate: 'April 01', dayName: 'Wednesday', theme: 'Kishkindha Kandam', phase: 'Pre-Conference', events: [
+                    { id: 'd5-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd5-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd5-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd5-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd5-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Sugriva Sakhyam', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d5' },
+                    { id: 'd5-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd5-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Vali Moksha', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Sanjay', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Mythili', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/sanjay' },
+                    { id: 'd5-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd5-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd5-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd5-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Sugriva Pattabhishekham', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Prachi', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Vishakha', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/prachi' },
+                    { id: 'd5-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd5-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Sita Anveshanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Akshaya', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Kamakshi', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/akshaya' },
+                    { id: 'd5-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd5-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd5-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Hanumantha Vahanam', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/HanumanthaVahanam' },
+                    { id: 'd5-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d5' },
+                ]},
+                { dayNumber: 6, date: '2026-04-02', displayDate: 'April 02', dayName: 'Thursday', theme: 'Sundara Kandam', phase: 'Pre-Conference', events: [
+                    { id: 'd6-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd6-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd6-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd6-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd6-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Hanumath Prabhava', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d6' },
+                    { id: 'd6-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd6-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Trijata Swapnam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Megha', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Pushpa', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/megha' },
+                    { id: 'd6-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd6-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd6-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd6-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Anguliya Pradanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Vaidehi Sridhar', photo: ASSETS.placeholderSpeaker }, { name: 'Kum. Ranganayaki', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/dvaidehi' },
+                    { id: 'd6-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd6-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Choodamani Pradanam', venue: 'Ramayana Shala', speakers: [{ name: 'Smt. Drushya Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/drushya' },
+                    { id: 'd6-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd6-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd6-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Sundarakandam Utsavam (Yana Vahanam)', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/SudarakandamUtsavam' },
+                    { id: 'd6-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d6' },
+                ]},
+                { dayNumber: 7, date: '2026-04-03', displayDate: 'April 03', dayName: 'Friday', theme: 'Yuddha Kandam', phase: 'Pre-Conference', events: [
+                    { id: 'd7-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd7-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd7-e0c', startTime: '6:30 AM', endTime: '8:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd7-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd7-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Vibheeshana Sharanagati', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d7' },
+                    { id: 'd7-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd7-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Abhayapradhanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Soumya', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Ramanan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/soumya' },
+                    { id: 'd7-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd7-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd7-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd7-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Sethu Bandhanam', venue: 'Ramayana Shala', speakers: [{ name: 'Kum. Sai', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Balasimhan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/sai' },
+                    { id: 'd7-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd7-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Ravana Prathama Yudhham', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Amudan', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Srinivasan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/damudan' },
+                    { id: 'd7-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd7-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd7-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Vibheeshana Sharanagati Utsavam', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/vibheeshanaSharanagatiUtsavam' },
+                    { id: 'd7-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d7' },
+                ]},
+                { dayNumber: 8, date: '2026-04-04', displayDate: 'April 04', dayName: 'Saturday', theme: 'Conference Day 1', phase: 'Conference', events: [
+                    { id: 'd8-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd8-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd8-e0c', startTime: '6:30 AM', endTime: '7:00 AM', title: 'Meditation', venue: 'Venue', speakers: [] },
+                    { id: 'd8-e1', startTime: '7:00 AM', endTime: '8:00 AM', title: 'Critical Edition of Valmiki Ramayana (Part 1)', venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker, bio: 'Dr. Rangan (To be updated shortly)' }], youtubeLink: 'https://youtu.be/Rangan_c1' },
+                    { id: 'd8-e1b', startTime: '8:00 AM', endTime: '9:00 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd8-e2', startTime: '9:00 AM', endTime: '10:00 AM', title: "Bori's Critical Edition of Valmiki Ramayana", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Prof. Dr. Siddharth Y. Wakankar', photo: ASSETS.placeholderSpeaker, bio: 'Dr Sidhartha Wakankar, an eminent scholar of Sanskrit specialising in manuscriptology and palaeography, authored several books and guided many in their post-doctoral work, an expert in games in Sanskrit literature, recipient of Ramakrishna Sanskrit Award from the Canadian World Education Foundation.' }], youtubeLink: 'https://youtu.be/Wakankar' },
+                    { id: 'd8-e3', startTime: '10:00 AM', endTime: '11:00 AM', title: 'Different Editions of Valmiki Ramayana', venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Dr. Shakuntala Gawde', photo: ASSETS.placeholderSpeaker, bio: "Dr Shakuntala Gawde, an Associate Professor and former Head of the Department of Sanskrit at the University of Mumbai, an accomplished academician, researcher, and educator, a recipient of multiple coveted awards like Academisthan Best Teacher of the year award in 2021, author of several masterpieces like 'Narrative Analysis of Bhagavata Purana'." }], youtubeLink: 'https://youtu.be/Gawde' },
+                    { id: 'd8-e3b', startTime: '11:00 AM', endTime: '11:30 AM', title: 'Madyanikam', venue: 'Venue', speakers: [] },
+                    { id: 'd8-e3c', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd8-e3d', startTime: '12:00 PM', endTime: '1:30 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd8-e4', startTime: '1:30 PM', endTime: '2:30 PM', title: "Sri Krishnasuri's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Smt. Krishnakrupa', photo: ASSETS.placeholderSpeaker, bio: "R.Krishna Krupa, B.Sc (CS) & M.A; M.phil. (Vaishnavam) & Diploma in Sanskrit & Manuscriptology, performer of Vishnu Temple Uthsavam's Commentary Works in dd-Tamil, Spiritual discouser in Temples, Sabhas & TV channels like dd-Podhigai, Jaya Plus & Thanthi Tv. Author of books like 'Swami Periyavacchan Pillai's Manikka Malai' (a textbook in the Vaishnavism department of Alagappa University) & Awarded as Kavi kurisil. (by Thanjavur - Tamil University) & Vaishnava Ratna." }], youtubeLink: 'https://youtu.be/krishnakrupa' },
+                    { id: 'd8-e5', startTime: '2:30 PM', endTime: '3:30 PM', title: "Sri Govindaraja's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Smt. Prabha Senesh', photo: ASSETS.placeholderSpeaker, bio: "Smt. Prabha Senesh, the disciple and daughter in law of Sri. U.Ve. Dr. Karunakaracharya Swami (recent recipient of President award for Sanskrit), a deep scholar of Divyaprabandham and Desika Stotrams and other Srivaishnavite literature, a gold medalist in biotechnology from the University of Mumbai, Co-ordinator of Sampradaya Manjari e Pathashala of GSPK group & editor of an online e Magazine \"Sadhvishaya Vani\" released by SPVST Sabha, Mumbai." }], youtubeLink: 'https://youtu.be/Senesh' },
+                    { id: 'd8-e6', startTime: '3:30 PM', endTime: '4:30 PM', title: "Sri Tilaka's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Shri. Ashruth Suryanarayanan', photo: ASSETS.placeholderSpeaker, bio: 'Shri. Ashruth Suryanarayanan (To be updated shortly)' }], youtubeLink: 'https://youtu.be/ashruth' },
+                    { id: 'd8-e6b', startTime: '4:30 PM', endTime: '5:00 PM', title: 'Tea Break', venue: 'Venue', speakers: [] },
+                    { id: 'd8-e7', startTime: '5:00 PM', endTime: '6:00 PM', title: "Sri Shivashaya's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Shri. Vishal Pandey', photo: ASSETS.placeholderSpeaker, bio: 'Shri. Vishal Pandey (To be updated shortly)' }], youtubeLink: 'https://youtu.be/vishal' },
+                    { id: 'd8-e7b', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd8-e7c', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd8-e8', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Theppam Utsavam', venue: "Vijayji's Backyard", speakers: [], youtubeLink: 'https://youtu.be/theppamUtsavam' },
+                    { id: 'd8-e9', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d8' },
+                ]},
+                { dayNumber: 9, date: '2026-04-05', displayDate: 'April 05', dayName: 'Sunday', theme: 'Conference Day 2', phase: 'Conference', events: [
+                    { id: 'd9-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd9-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd9-e0c', startTime: '6:30 AM', endTime: '7:00 AM', title: 'Meditation', venue: 'Venue', speakers: [] },
+                    { id: 'd9-e1', startTime: '7:00 AM', endTime: '8:00 AM', title: 'Critical Edition of Valmiki Ramayana (Part 2)', venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker, bio: 'Dr. Rangan (To be updated shortly)' }], youtubeLink: 'https://youtu.be/rangan_c2' },
+                    { id: 'd9-e1b', startTime: '8:00 AM', endTime: '9:00 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd9-e2', startTime: '9:00 AM', endTime: '10:00 AM', title: 'Western Recensions of Valmiki Ramayana', venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Dr. Nilesh Joshi', photo: ASSETS.placeholderSpeaker, bio: 'Dr Nilesh Joshi, senior Linguist at IIT Bombay\'s Centre for Indian Language Technology (CFILT), a researcher with a rich expertise in Sanskrit grammar, Vedic grammar, and the literature of Ayurveda, holder of multiple patents, has published over 35 research papers in global publications and authored more than 40 books.' }], youtubeLink: 'https://youtu.be/nilesh' },
+                    { id: 'd9-e3', startTime: '10:00 AM', endTime: '11:00 AM', title: 'Goudiya Recensions of Valmiki Ramayana', venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Smt. Gayatri Narendran', photo: ASSETS.placeholderSpeaker, bio: 'Smt. Gayatri Narendran (To be updated shortly)' }], youtubeLink: 'https://youtu.be/gayatri' },
+                    { id: 'd9-e3b', startTime: '11:00 AM', endTime: '11:30 AM', title: 'Madyanikam', venue: 'Venue', speakers: [] },
+                    { id: 'd9-e3c', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd9-e3d', startTime: '12:00 PM', endTime: '1:30 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd9-e4', startTime: '1:30 PM', endTime: '2:30 PM', title: "Sri Trayambakaraya's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Shri. Santhanaraman', photo: ASSETS.placeholderSpeaker, bio: 'Shri. Santhanaraman (To be updated shortly)' }], youtubeLink: 'https://youtu.be/santanaraman' },
+                    { id: 'd9-e5', startTime: '2:30 PM', endTime: '3:30 PM', title: "Sri Maheshwara Tirtha's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Shri. Madhavan', photo: ASSETS.placeholderSpeaker, bio: 'Vedamurthi K. Madhava Ghanapatigal, a Gold Medalist in Rig Veda Ghanapata, learnt Vedanta & Bhagavatam from Mahatma Shri Shri Krishnapremi Swamigal being his ardent disciple, Rig Veda-Shastra-faculty in Chennai\'s Rig Veda Patashala and an exponent discouser of Bhagavatam and Ramayanam.' }], youtubeLink: 'https://youtu.be/madhavan' },
+                    { id: 'd9-e6', startTime: '3:30 PM', endTime: '4:30 PM', title: "Sri Satyadharma Tirtha's Commentary", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'Vidwan Gauranga', photo: ASSETS.placeholderSpeaker, bio: 'Vidvan Gauranga Das received diksha from Sri Jayapataka Swami, studied the scriptures like Bhagavad-gita and Srimad-Bhagavatam with the commentaries of the Gaudiya Vaishnava parampara, trained in the philosophy and orthopraxis of Srimad-Bhagavatam by Sri Gopiparanadhana dasa, a disciple of Shrila Prabhupada. His translation of Sri Valmiki Ramayana (Rupa Raghunatha Vani Publications) is extensive in 15 vols, with explanations based on the commentaries of the great souls like Shri Satya tirtha & Shri Govindaraja. He is working in Mahabharata and the biography of Shri Chaitanya Mahaprabhu.' }], youtubeLink: 'https://youtu.be/gauranga' },
+                    { id: 'd9-e6b', startTime: '4:30 PM', endTime: '5:00 PM', title: 'Tea Break', venue: 'Venue', speakers: [] },
+                    { id: 'd9-e7', startTime: '5:00 PM', endTime: '6:00 PM', title: "TBA (External Speaker)", venue: 'Ramayana Shala', isConference: true, speakers: [{ name: 'TBA', photo: ASSETS.placeholderSpeaker, bio: '(To be updated shortly)' }], youtubeLink: 'https://youtu.be/speaker' },
+                    { id: 'd9-e7b', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd9-e7c', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd9-e8', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Annual Day', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/annualday' },
+                    { id: 'd9-e9', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d9' },
+                ]},
+                { dayNumber: 10, date: '2026-04-06', displayDate: 'April 06', dayName: 'Monday', theme: 'Yuddha Kandam', phase: 'Post-Conference', events: [
+                    { id: 'd10-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd10-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd10-e0c', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd10-e0d', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd10-e1', startTime: '8:30 AM', endTime: '9:30 AM', title: 'Kumbhakarna Vadham', venue: 'Ramayana Shala', speakers: [{ name: 'Dr. Rangan', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/rangan_d10' },
+                    { id: 'd10-e1b', startTime: '9:30 AM', endTime: '10:30 AM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd10-e2', startTime: '10:30 AM', endTime: '11:30 AM', title: 'Ravana Vadhyam', venue: 'Ramayana Shala', speakers: [{ name: 'Shri. Nandalal', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/nandakumar' },
+                    { id: 'd10-e2b', startTime: '11:30 AM', endTime: '12:00 PM', title: 'Poojai', venue: 'Kalyana Ramar Sannidhi', speakers: [] },
+                    { id: 'd10-e2c', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd10-e2d', startTime: '1:00 PM', endTime: '3:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd10-e3', startTime: '3:00 PM', endTime: '4:00 PM', title: 'Agni Pravesha', venue: 'Ramayana Shala', speakers: [{ name: 'Shree Vaidehi', photo: ASSETS.placeholderSpeaker }, { name: 'Shri. Sethuraman', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/champaka' },
+                    { id: 'd10-e3b', startTime: '4:00 PM', endTime: '5:00 PM', title: 'Parayanam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd10-e4', startTime: '5:00 PM', endTime: '6:00 PM', title: 'Ayodhya Pravesha', venue: 'Ramayana Shala', speakers: [{ name: 'Sri Shyam Sundar', photo: ASSETS.placeholderSpeaker }], youtubeLink: 'https://youtu.be/shyamji' },
+                    { id: 'd10-e5', startTime: '6:00 PM', endTime: '6:30 PM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd10-e6', startTime: '6:00 PM', endTime: '7:30 PM', title: 'Dinner', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd10-e7', startTime: '7:30 PM', endTime: '8:30 PM', title: 'Pushpaka Vimanam', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/pushpakavimanam' },
+                    { id: 'd10-e8', startTime: '8:30 PM', endTime: '9:00 PM', title: 'Dolotsavam', venue: 'Kalyana Ramar Sannidhi', speakers: [], youtubeLink: 'https://youtu.be/dolotsavam_d10' },
+                ]},
+                { dayNumber: 11, date: '2026-04-07', displayDate: 'April 07', dayName: 'Tuesday', theme: 'Valedictory', phase: 'Post-Conference', events: [
+                    { id: 'd11-e0', startTime: '5:30 AM', endTime: '6:15 AM', title: 'Sandhyavandanam', venue: 'Venue', speakers: [] },
+                    { id: 'd11-e0b', startTime: '6:15 AM', endTime: '6:30 AM', title: 'Suprabhatam', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd11-e1', startTime: '6:30 AM', endTime: '8:00 AM', title: 'Abhishekham', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/abhishekham' },
+                    { id: 'd11-e2', startTime: '8:00 AM', endTime: '8:30 AM', title: 'Breakfast', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                    { id: 'd11-e3', startTime: '8:30 AM', endTime: '10:00 AM', title: 'Ashtavadhanam, Sadas', venue: 'Ramayana Shala', speakers: [] },
+                    { id: 'd11-e4', startTime: '10:00 AM', endTime: '12:00 PM', title: 'Purappadu with Nadaswaram', venue: 'Ramayana Shala', speakers: [], youtubeLink: 'https://youtu.be/purappadu' },
+                    { id: 'd11-e5', startTime: '12:00 PM', endTime: '1:00 PM', title: 'Lunch', venue: 'Premika Madhura Bhavanam', speakers: [] },
+                ]}
+            ]
+        };
+        const EVENT_START_DATE = new Date('2026-03-28T16:30:00+05:30');
+    </script>
+
+    <!-- FLOATING MENU BUTTON -->
+    <button id="float-menu-btn" onclick="toggleMobileMenu(true)" class="fixed top-4 right-4 z-50 bg-black/20 backdrop-blur-md text-gold p-3 rounded-full border border-gold/20 shadow-lg hover:bg-black/40 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-maroon/95 text-white flex flex-col items-center justify-center space-y-8 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
+        <button onclick="toggleMobileMenu(false)" class="absolute top-6 right-6 text-white/80 hover:text-white">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#hero" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Home</a>
+        <a href="#sticky-header" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Schedule</a>
+        <a href="#donate" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Donate</a>
+        <a href="#contact" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Contact</a>
+        <a href="https://docs.google.com/forms/d/" target="_blank" class="text-2xl font-serif font-bold text-gold flex items-center gap-2 bg-white/10 px-6 py-2 rounded-full border border-gold/50">
+            Accommodation <i data-lucide="external-link" class="w-6 h-6"></i>
+        </a>
+    </div>
+
+    <!-- MAIN APP STRUCTURE -->
+    <main class="min-h-screen flex flex-col font-sans bg-cream relative">
+        
+        <!-- HERO SECTION -->
+        <div id="hero" class="relative w-full overflow-hidden bg-gradient-to-b from-maroon via-maroon to-black text-gold min-h-[500px] md:min-h-screen flex flex-col items-center justify-center pt-12 pb-10 md:pt-8 md:pb-20 px-4">
+            
+            <!-- Pillars -->
+            <img id="pillar-left" class="hidden lg:block absolute left-0 top-0 h-full w-auto object-cover z-0 opacity-90 drop-shadow-2xl" />
+            <img id="pillar-right" class="hidden lg:block absolute right-0 top-0 h-full w-auto object-cover z-0 opacity-90 drop-shadow-2xl" />
+            
+            <div class="relative z-10 flex flex-col items-center justify-center gap-3 md:gap-6 w-full max-w-5xl">
+                <div class="flex flex-col items-center text-center w-full max-w-3xl">
+                    
+                    <!-- Deity Image + Animations -->
+                    <div class="relative flex justify-center items-center mb-2 md:mb-6 w-fit mx-auto">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] md:w-[720px] md:h-[720px] pointer-events-none z-0">
+                            <div class="w-full h-full animate-spin-slow rounded-full blur-[1px]" style="background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.5) 0deg 15deg, transparent 15deg 30deg); mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);"></div>
+                        </div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] md:w-[550px] md:h-[550px] pointer-events-none z-0">
+                            <div class="w-full h-full animate-spin-reverse-medium rounded-full blur-[1px]" style="background: repeating-conic-gradient(from 0deg, rgba(255, 255, 220, 0.4) 0deg 10deg, transparent 10deg 20deg); mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);"></div>
+                        </div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[320px] md:h-[320px] bg-white/60 blur-[70px] rounded-full z-10"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px] md:w-[280px] md:h-[280px] bg-white/80 blur-[50px] rounded-full z-10 animate-pulse"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] md:w-[220px] md:h-[220px] bg-white blur-[30px] rounded-full z-10"></div>
+                        <img id="hero-img" class="h-[220px] md:h-[420px] object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] z-20 relative transform hover:scale-105 transition-transform duration-700" />
+                    </div>
+
+                    <div class="space-y-2 md:space-y-4 z-20">
+                        <p class="font-serif font-bold text-cream text-lg md:text-3xl tracking-[0.2em] uppercase drop-shadow-md mb-2">Webolim Presents</p>
+                        <h1 class="font-serif font-extrabold text-3xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold leading-tight drop-shadow-sm">
+                            Sri Ramayana Satram & <br/> Valmiki Ramayana Conference 2026
+                        </h1>
+                        <div class="flex items-center justify-center gap-4 my-3 md:my-6">
+                           <div class="h-[2px] w-8 md:w-12 bg-gold/50"></div>
+                           <div class="h-1.5 w-1.5 md:h-2 md:w-2 rotate-45 bg-gold"></div>
+                           <div class="h-[2px] w-8 md:w-12 bg-gold/50"></div>
+                        </div>
+                        <p class="font-sans text-cream text-base md:text-2xl max-w-4xl mx-auto font-medium leading-relaxed drop-shadow px-2 md:whitespace-nowrap">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
+                    </div>
+
+                    <!-- Dates -->
+                    <div class="flex flex-col md:flex-row gap-3 md:gap-4 mt-5 md:mt-8 w-full max-w-4xl px-2 md:px-4 mb-2 justify-center items-stretch">
+                        <div class="flex-1 bg-black/40 backdrop-blur-md border border-gold/30 p-3 md:p-4 rounded-xl flex flex-col items-center justify-center shadow-lg hover:-translate-y-1 transition-transform">
+                            <span class="text-gold font-bold text-base md:text-lg uppercase tracking-wider mb-0.5 md:mb-1">Pre-Conference</span>
+                            <span class="text-cream text-2xl md:text-4xl font-serif font-bold tracking-tight whitespace-nowrap">Mar 28 – Apr 3</span>
+                        </div>
+                        <div class="flex-1 bg-maroon/70 backdrop-blur-md border-2 border-gold p-3 md:p-5 rounded-xl flex flex-col items-center justify-center shadow-xl scale-100 md:scale-105 z-10">
+                            <span class="text-gold font-bold text-lg md:text-xl uppercase tracking-wider mb-0.5 md:mb-1">Conference</span>
+                            <span class="text-white text-4xl md:text-6xl font-serif font-extrabold tracking-tight drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] whitespace-nowrap">Apr 4 – 5</span>
+                        </div>
+                        <div class="flex-1 bg-black/40 backdrop-blur-md border border-gold/30 p-3 md:p-4 rounded-xl flex flex-col items-center justify-center shadow-lg hover:-translate-y-1 transition-transform">
+                            <span class="text-gold font-bold text-base md:text-lg uppercase tracking-wider mb-0.5 md:mb-1">Post-Conference</span>
+                            <span class="text-cream text-2xl md:text-4xl font-serif font-bold tracking-tight whitespace-nowrap">Apr 6 – 7</span>
+                        </div>
+                    </div>
+
+                    <!-- Welcome Text -->
+                    <p class="font-serif italic text-cream text-lg md:text-xl mt-4 mb-6 tracking-wide drop-shadow-md">
+                        All are welcome
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="flex flex-col md:flex-row gap-3 md:gap-4 w-full justify-center items-center z-20 px-4">
+                        <a href="https://docs.google.com/forms/d/" target="_blank" class="flex items-center justify-center gap-2 bg-gold hover:bg-yellow-400 text-maroon py-2.5 md:py-3 px-6 md:px-8 rounded-full font-bold text-base md:text-lg shadow-lg hover:scale-105 transition-all w-full md:w-auto">
+                            Accommodation Registration <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                        <a id="hero-location-trigger" href="https://www.google.com/maps" target="_blank" class="group relative flex items-center justify-center gap-2 bg-charcoal/80 hover:bg-black/90 backdrop-blur-sm text-cream py-2.5 md:py-3 px-6 rounded-full border border-gold/30 transition-all hover:border-gold hover:scale-105 shadow-lg w-full md:w-auto">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-gold group-hover:animate-bounce"></i>
+                            <span class="text-xs md:text-base font-medium tracking-wide">Srimad Valmiki Ashrama</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STICKY HEADER & STEPPER -->
+        <div id="sticky-header" class="sticky top-0 z-40 bg-gold/95 backdrop-blur-md border-b border-gold/30 shadow-md transition-all duration-300">
+            <!-- Brand Bar (Revealed on Scroll) -->
+            <div id="sticky-brand" class="overflow-hidden transition-all duration-500 ease-in-out bg-maroon border-b border-gold/20 max-h-0 opacity-0">
+                <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <img id="sticky-logo" class="h-10 md:h-12 w-auto object-contain" />
+                        <span class="font-serif font-extrabold text-gold text-xl md:text-3xl leading-tight drop-shadow-sm">Sri Ramayana Satram & Conference 2026</span>
+                    </div>
+                    <button onclick="toggleMobileMenu(true)" class="text-gold p-2 hover:bg-white/10 rounded-full transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Day Stepper -->
+            <div class="w-full bg-transparent relative z-30">
+                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-3 items-stretch w-full md:justify-center" style="scroll-snap-type: x mandatory;">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SCHEDULE SECTION -->
+        <section id="schedule" class="py-12 relative min-h-screen transition-colors duration-500">
+            <div id="schedule-bg" class="absolute inset-0 pointer-events-none opacity-5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEwIDAgQzUgNSAxNSAxNSAxMCAyMCIgc3Ryb2tlPSIjMjI4QjIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4='); background-size: 60px 60px;"></div>
+            
+            <div class="container mx-auto px-4 md:px-8 max-w-5xl relative z-10">
+                <div id="day-header" class="text-center mb-5">
+                    <!-- JS populated -->
+                </div>
+
+                <div id="events-container" class="relative pt-4 pb-4 flex flex-col">
+                    <!-- JS populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- DONATION -->
+        <section id="donate" class="py-16 bg-maroon text-cream scroll-mt-48">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h2 class="font-serif text-3xl text-center font-bold text-gold mb-8">Support WEBOLIM</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white/10 p-6 rounded-2xl border border-gold/30 text-center flex flex-col items-center">
+                        <h3 class="text-xl font-bold mb-4">Make a Contribution</h3>
+                        <div class="hidden md:block bg-white p-2 rounded-lg mb-4">
+                            <div class="w-48 h-48 bg-gray-100 flex items-center justify-center text-charcoal text-xs p-2 text-center">
+                                <img src="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/QR.png" alt="UPI QR" class="w-full h-full object-contain" />
+                            </div>
+                        </div>
+                        <p class="hidden md:block text-sm opacity-80 mb-4">Scan with any UPI App</p>
+                        <a href="upi://pay?pa=qr919443887456-9830@unionbankofindia&pn=WEBOLIM%20TRUST&cu=INR" class="md:hidden w-full bg-gold text-maroon font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg animate-pulse">
+                            <i data-lucide="qr-code" class="w-5 h-5"></i> Donate via UPI App
+                        </a>
+                        <p class="mt-4 text-xs bg-black/20 p-2 rounded text-left w-full"><span class="font-bold text-gold">Note:</span> All donations to WEBOLIM Trust are eligible for tax exemption under Section 80G.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-cream/5 p-4 rounded-xl border-l-4 border-gold">
+                            <h4 class="font-bold text-lg text-gold flex items-center gap-2"><i data-lucide="credit-card" class="w-4 h-4"></i> Union Bank of India</h4>
+                            <div class="mt-2 space-y-1 text-sm font-mono opacity-90"><p>Acct Name: WEBOLIM TRUST</p><p>Acct No: 520101257799830</p><p>IFSC: UBIN0912883</p></div>
+                        </div>
+                        <div class="bg-cream/5 p-4 rounded-xl border-l-4 border-gold">
+                            <h4 class="font-bold text-lg text-gold flex items-center gap-2"><i data-lucide="credit-card" class="w-4 h-4"></i> City Union Bank (CUB)</h4>
+                            <div class="mt-2 space-y-1 text-sm font-mono opacity-90"><p>Acct Name: WEBOLIM TRUST</p><p>Acct No: 500101013583858</p><p>IFSC: CIUB0000583</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="contact" class="bg-charcoal text-gray-300 py-20 scroll-mt-48">
+            <div class="container mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center gap-4">
+                    <img id="footer-logo" class="h-16 md:h-20" />
+                    <div class="flex flex-col"><span class="font-serif font-bold text-white leading-tight text-2xl md:text-3xl">WEBOLIM</span><span class="text-sm md:text-base uppercase tracking-widest text-gold/80">Web of Life Makers</span></div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-6 md:gap-16 text-lg md:text-xl text-center md:text-left font-medium">
+                    <a href="tel:+919369637283" class="flex items-center justify-center gap-3 hover:text-gold transition-colors"><i data-lucide="phone" class="text-gold w-6 h-6"></i> <span>+91 93696 37283</span></a>
+                    <a href="mailto:webolimclasses@gmail.com" class="flex items-center justify-center gap-3 hover:text-gold transition-colors"><i data-lucide="mail" class="text-gold w-6 h-6"></i> <span>webolimclasses@gmail.com</span></a>
+                    <a href="https://webolim.org" target="_blank" class="flex items-center justify-center gap-3 hover:text-gold transition-colors"><i data-lucide="globe" class="text-gold w-6 h-6"></i> <span>webolim.org</span></a>
+                </div>
+                <div class="text-sm md:text-base text-gray-500 mt-4 md:mt-0">&copy; 2026 WEBOLIM Trust.</div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- APPLICATION LOGIC -->
+    <script>
+        // --- 1. UTILS ---
+        const getCurrentISTTime = () => {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const istOffset = 5.5 * 60 * 60000;
+            return new Date(utc + istOffset);
+        };
+
+        const getYouTubeButtonState = (event, dayDate) => {
+            if (!event.youtubeLink) return 'hidden';
+            const now = getCurrentISTTime();
+            
+            const parseTime = (timeStr) => {
+                const [time, modifier] = timeStr.split(' ');
+                let [hours, minutes] = time.split(':').map(Number);
+                if (hours === 12) hours = 0;
+                if (modifier === 'PM') hours += 12;
+                const date = new Date(dayDate);
+                date.setHours(hours, minutes, 0, 0);
+                return date;
+            };
+
+            const start = parseTime(event.startTime);
+            const end = parseTime(event.endTime);
+            const fifteenMinsBefore = new Date(start.getTime() - 15 * 60000);
+
+            if (now < fifteenMinsBefore) return 'disabled';
+            if (now >= fifteenMinsBefore && now <= end) return 'live';
+            return 'recording';
+        };
+
+        // --- 2. RENDER FUNCTIONS ---
+        let currentDayId = 1;
+
+        function initImages() {
+            document.getElementById('pillar-left').src = ASSETS.pillarLeft;
+            document.getElementById('pillar-right').src = ASSETS.pillarRight;
+            document.getElementById('hero-img').src = ASSETS.heroImage;
+            document.getElementById('sticky-logo').src = ASSETS.logo;
+            document.getElementById('footer-logo').src = ASSETS.logo;
+        }
+
+        function renderDayStepper() {
+            const container = document.getElementById('day-stepper-container');
+            container.innerHTML = SCHEDULE_DATA.days.map(day => {
+                const isActive = day.dayNumber === currentDayId;
+                const isConference = day.phase === 'Conference';
+                const [month, dateStr] = day.displayDate.split(' ');
+                const shortDayName = day.dayName.substring(0, 3).toUpperCase();
+                
+                const activeClasses = 'bg-maroon border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10';
+                const confClasses = 'bg-yellow-50 border-yellow-400/60 text-charcoal hover:bg-yellow-100 hover:border-yellow-500 hover:shadow-md';
+                const defaultClasses = 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hover:border-gold/60 hover:shadow-sm';
+
+                // Color Logic for Text elements
+                const monthColor = isActive ? 'text-gold' : (isConference ? 'text-maroon' : 'text-gray-400');
+                const dateColor = isActive ? 'text-white' : (isConference ? 'text-maroon' : 'text-gray-800');
+                const dayColor = isActive ? 'text-gray-300' : (isConference ? 'text-maroon/80' : 'text-gray-400');
+                const themeColor = isActive ? 'text-gold' : (isConference ? 'text-maroon' : 'text-gray-600');
+
+                return `
+                    <button 
+                        onclick="setDay(${day.dayNumber})"
+                        id="day-btn-${day.dayNumber}"
+                        class="flex-shrink-0 flex flex-col items-center justify-center min-w-[160px] md:min-w-[180px] py-3 rounded-lg transition-all duration-300 snap-center border-2 cursor-pointer relative overflow-hidden ${isActive ? activeClasses : (isConference ? confClasses : defaultClasses)}"
+                    >
+                        ${!isActive && isConference ? '<div class="absolute top-0 right-0 w-4 h-4 bg-gold/40 rounded-bl-full"></div>' : ''}
+                        <div class="flex items-baseline gap-2 leading-none mb-1">
+                            <span class="text-xs md:text-sm font-bold tracking-wider uppercase ${monthColor}">${month.substring(0,3)}</span>
+                            <span class="text-3xl md:text-4xl font-serif font-bold ${dateColor}">${dateStr}</span>
+                            <span class="text-xs md:text-sm font-bold tracking-wider uppercase ${dayColor}">${shortDayName}</span>
+                        </div>
+                        <span class="text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-1 ${themeColor}">${day.theme}</span>
+                    </button>
+                `;
+            }).join('');
+            
+            // Scroll to active
+            setTimeout(() => {
+                const activeBtn = document.getElementById(`day-btn-${currentDayId}`);
+                if (activeBtn) {
+                     const scrollLeft = activeBtn.offsetLeft - container.offsetWidth / 2 + activeBtn.offsetWidth / 2;
+                     container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                }
+            }, 100);
+        }
+
+        function renderSchedule() {
+            const day = SCHEDULE_DATA.days.find(d => d.dayNumber === currentDayId);
+            if (!day) return;
+
+            const isConference = day.phase === 'Conference';
+            const borderColorClass = isConference ? 'border-gold' : 'border-deepGreen'; // Dynamic border color
+            
+            // Background
+            const section = document.getElementById('schedule');
+            section.className = `py-12 relative min-h-screen transition-colors duration-500 ${isConference ? 'bg-cream' : 'bg-green-50'}`;
+            
+            // Header
+            const header = document.getElementById('day-header');
+            // Reduced margin-bottom from mb-12 to mb-5
+            header.innerHTML = `
+                <span class="inline-block px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-2 ${isConference ? 'bg-gold/20 text-maroon' : 'bg-green-100 text-deepGreen'}">${day.phase}</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-maroon font-bold">${day.theme}</h2>
+                <p class="text-gray-600 mt-2">${day.dayName}, ${day.displayDate}, 2026</p>
+            `;
+
+            // Events
+            const container = document.getElementById('events-container');
+            
+            if (day.events.length === 0) {
+                container.innerHTML = '<div class="text-center py-20 text-gray-500 italic">Schedule details coming soon.</div>';
+                return;
+            }
+
+            container.innerHTML = day.events.map((event, index) => {
+                const isEven = index % 2 === 0; // 0, 2, 4 = Left Side on Desktop
+                const isLast = index === day.events.length - 1;
+                const isFirst = index === 0;
+                const ytState = getYouTubeButtonState(event, day.date);
+                const hasVideo = !!event.youtubeLink;
+                
+                // Alignment Classes for Desktop (md:)
+                const textAlignClass = isEven ? 'md:text-right' : 'md:text-left';
+                const itemsAlignClass = isEven ? 'md:items-end' : 'md:items-start';
+                const flexRowClass = isEven ? 'md:flex-row-reverse' : 'md:flex-row'; // For Icon+Text rows
+
+                // Card HTML
+                const cardHtml = `
+                    <div id="event-${event.id}" class="relative overflow-hidden transition-all duration-300 group text-left ${textAlignClass} ${hasVideo ? `bg-white rounded-xl shadow-lg border-l-4 ${borderColorClass} hover:shadow-xl p-5 md:p-6` : 'bg-transparent border-l-4 border-transparent pl-5 py-4 md:pl-6'} ${ytState === 'live' ? 'ring-2 ring-red-500 ring-offset-2' : ''}">
+                        ${ytState === 'live' && hasVideo ? `<div class="absolute top-3 ${isEven ? 'md:left-3' : 'right-3'} flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse z-10"><span class="w-2 h-2 bg-white rounded-full"></span> LIVE</div>` : ''}
+                        
+                        <div class="flex flex-col h-full ${itemsAlignClass}">
+                            <div class="${hasVideo ? 'border-b border-gray-100 pb-4 mb-4' : 'mb-2'} w-full">
+                                <div class="flex items-start gap-3 mb-2 ${flexRowClass}">
+                                    <div class="w-5 shrink-0 flex items-center justify-center mt-0.5"><i data-lucide="clock" class="text-gold w-5 h-5"></i></div>
+                                    <span class="font-bold text-lg md:text-xl text-maroon leading-tight">${event.startTime} – ${event.endTime}</span>
+                                </div>
+                                <div class="flex items-start gap-3 mb-2 ${flexRowClass}">
+                                    <div class="w-5 shrink-0 flex items-center justify-center mt-1"><i data-lucide="bell" class="text-gold w-5 h-5"></i></div>
+                                    <h3 class="font-serif leading-tight text-2xl md:text-3xl font-bold text-gray-900">${event.title}</h3>
+                                </div>
+                                ${event.venue && event.venue !== 'Venue' ? `<div class="flex items-start gap-3 ${flexRowClass}"><div class="w-5 shrink-0 flex items-center justify-center -mt-1"><i data-lucide="map-pin" class="text-gray-400 w-5 h-5"></i></div><span class="font-medium text-gray-600 text-base leading-tight">${event.venue}</span></div>` : ''}
+                            </div>
+
+                            ${event.speakers.length > 0 ? `
+                                <div class="flex flex-col gap-6 mb-5 mt-4 w-full ${itemsAlignClass}">
+                                    ${event.speakers.map(s => `
+                                        <div class="flex flex-col text-left gap-4 w-full ${itemsAlignClass} ${textAlignClass}">
+                                            <div class="relative flex-shrink-0">
+                                                <img src="${s.photo}" alt="${s.name}" loading="lazy" class="object-cover rounded-xl border-2 border-gold shadow-md bg-gray-100 w-40 h-40">
+                                            </div>
+                                            <div class="w-full">
+                                                <p class="font-bold text-maroon text-lg md:text-xl leading-tight">${s.name}</p>
+                                                ${event.isConference && s.bio ? `<div class="mt-3 text-base md:text-lg text-gray-800 leading-relaxed text-left">${s.bio}</div>` : ''}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+
+                            ${hasVideo && ytState !== 'hidden' ? `
+                                <div class="mt-auto pt-2 w-full">
+                                    <a href="${event.youtubeLink}" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 rounded-lg font-bold text-base md:text-lg transition-all shadow-sm ${ytState === 'disabled' ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none' : (ytState === 'live' ? 'bg-red-600 text-white hover:bg-red-700 animate-pulse' : 'bg-gradient-to-r from-gold to-yellow-500 text-maroon hover:shadow-md hover:scale-[1.01]')}">
+                                        ${ytState === 'disabled' ? '<i data-lucide="youtube" class="w-5 h-5"></i> Coming Soon' : (ytState === 'live' ? '<i data-lucide="play" class="w-5 h-5"></i> Watch LIVE Now' : '<i data-lucide="youtube" class="w-5 h-5"></i> Watch Recording')}
+                                    </a>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+
+                // Layout
+                return `
+                    <div class="relative flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-stretch w-full py-4 fade-in">
+                        ${day.events.length > 1 ? `<div class="absolute left-4 md:left-1/2 w-1 -ml-0.5 z-0 ${isConference ? 'bg-gold/50' : 'bg-deepGreen/30'}" style="top: ${isFirst ? '48px' : '0'}; height: ${(isFirst) ? 'calc(100% - 48px)' : (isLast ? '48px' : '100%')}"></div>` : ''}
+                        <div class="absolute left-4 md:left-1/2 top-7 w-12 h-12 -ml-6 flex items-center justify-center z-10">
+                            <img src="${isConference ? ASSETS.timelineConference : ASSETS.timelineSatram}" class="w-full h-full object-contain drop-shadow-md" alt="marker">
+                        </div>
+                        <div class="hidden md:block w-1/2"></div>
+                        <div class="w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'}">
+                            ${cardHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            lucide.createIcons(); // Refresh icons
+        }
+
+        // --- 3. ACTIONS ---
+        window.setDay = function(dayId) {
+            currentDayId = dayId;
+            renderDayStepper();
+            renderSchedule();
+        }
+
+        window.toggleMobileMenu = function(show) {
+            const menu = document.getElementById('mobile-menu');
+            const floatBtn = document.getElementById('float-menu-btn');
+            if (show) {
+                menu.classList.remove('hidden');
+                setTimeout(() => menu.classList.remove('opacity-0'), 10);
+                floatBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                menu.classList.add('opacity-0');
+                setTimeout(() => menu.classList.add('hidden'), 300);
+                floatBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        // --- 4. INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initImages();
+            
+            // Calculate current day
+            const now = getCurrentISTTime();
+            const todayStr = now.toISOString().split('T')[0];
+            const foundDay = SCHEDULE_DATA.days.find(d => d.date === todayStr);
+            if (foundDay) currentDayId = foundDay.dayNumber;
+
+            renderDayStepper();
+            renderSchedule();
+
+            // Sticky Header Observer
+            const observer = new IntersectionObserver(([entry]) => {
+                const brand = document.getElementById('sticky-brand');
+                const floatBtn = document.getElementById('float-menu-btn');
+                if (entry.boundingClientRect.top < 0 && !entry.isIntersecting) {
+                    brand.classList.remove('max-h-0', 'opacity-0');
+                    brand.classList.add('max-h-24', 'opacity-100');
+                    floatBtn.classList.add('opacity-0', 'pointer-events-none');
+                } else {
+                    brand.classList.add('max-h-0', 'opacity-0');
+                    brand.classList.remove('max-h-24', 'opacity-100');
+                    floatBtn.classList.remove('opacity-0', 'pointer-events-none');
+                }
+            }, { threshold: 0 });
+            observer.observe(document.getElementById('hero-location-trigger'));
+
+            // Live Update Timer
+            setInterval(() => {
+                renderSchedule(); // Refresh for Live badges
+            }, 60000);
+        });
+
+    </script>
 </body>
 </html>
