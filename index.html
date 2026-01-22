@@ -150,11 +150,13 @@
 
     <!-- INITIAL LOADING OVERLAY -->
     <div id="app-loader" class="fixed inset-0 z-[100] bg-cream flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="relative w-24 h-24 mb-4">
+        <div class="relative w-32 h-32 mb-6">
             <div class="absolute inset-0 border-4 border-maroon/20 rounded-full"></div>
             <div class="absolute inset-0 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
-            <!-- Minimal SVG Logo Placeholder if image fails or before load -->
-            <div class="absolute inset-0 flex items-center justify-center text-maroon font-serif font-bold text-2xl animate-pulse">W</div>
+            <!-- Logo Image -->
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+                 <img src="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/WEBOLIM_RGBLogo_20250521.gif" alt="Webolim" class="w-full h-full object-contain" />
+            </div>
         </div>
         <p class="text-maroon font-serif font-bold text-lg tracking-widest animate-pulse">LOADING...</p>
     </div>
