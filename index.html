@@ -243,9 +243,24 @@
             </div>
         </div>
 
-        <!-- STICKY HEADER & STEPPER - Removed expanding brand bar to fix jumpiness -->
+        <!-- STICKY HEADER & STEPPER - RESTORED Sticky Brand Header -->
         <div id="sticky-header" class="sticky top-0 z-40 bg-gold/95 backdrop-blur-md border-b border-gold/30 shadow-md transition-all duration-300">
-            
+            <!-- Brand Bar (Revealed on Scroll) -->
+            <div id="sticky-brand" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="overflow-hidden transition-all duration-500 ease-in-out bg-maroon border-b border-gold/20 max-h-0 opacity-0 cursor-pointer">
+                <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-2 md:gap-4 overflow-hidden w-full md:w-auto">
+                        <img id="sticky-logo" class="h-10 md:h-12 w-auto object-contain flex-shrink-0" />
+                        <div class="flex flex-col md:flex-row md:items-baseline md:gap-2 overflow-hidden">
+                            <span class="font-serif font-extrabold text-gold text-base md:text-2xl leading-tight drop-shadow-sm whitespace-nowrap truncate">Sri Ramayana Satram</span>
+                            <span class="font-serif font-extrabold text-gold/90 text-lg md:text-2xl leading-tight">& Conference 2026</span>
+                        </div>
+                    </div>
+                    <button onclick="event.stopPropagation(); toggleMobileMenu(true)" class="text-gold p-2 hover:bg-white/10 rounded-full transition-colors flex-shrink-0 ml-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
             <!-- Day Stepper -->
             <div class="w-full bg-transparent relative z-30 group">
                 
@@ -269,7 +284,8 @@
                     <i data-lucide="chevron-right" class="w-6 h-6"></i>
                 </button>
 
-                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-3 items-stretch w-full md:justify-center relative z-10" style="scroll-snap-type: x mandatory;">
+                <!-- Removed md:justify-center to fix left bounds clipping -->
+                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-3 items-stretch w-full relative z-10" style="scroll-snap-type: x mandatory;">
                     <!-- JS will populate this -->
                 </div>
             </div>
@@ -347,8 +363,8 @@
             heroImage: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/KalyanaRamar.gif',
             pillarLeft: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Pillar-left.gif',
             pillarRight: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Pillar-right.gif',
-            logo: 'https://webolim.org/wp-content/uploads/2025/08/WEBOLIM_RGBLogo_20250521.png',
-            placeholderSpeaker: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/generic_profile_400x400.jpg',
+            logo: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/WEBOLIM_RGBLogo_20250521.gif',
+            placeholderSpeaker: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif',
             timelineSatram: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/marigold2.gif',
             timelineConference: 'https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/lamp4.gif',
             // Speaker Images
@@ -558,6 +574,7 @@
             document.getElementById('pillar-left').src = ASSETS.pillarLeft;
             document.getElementById('pillar-right').src = ASSETS.pillarRight;
             document.getElementById('hero-img').src = ASSETS.heroImage;
+            document.getElementById('sticky-logo').src = ASSETS.logo;
             document.getElementById('footer-logo').src = ASSETS.logo;
         }
 
@@ -784,8 +801,14 @@
                     const itemsAlignClass = isEven ? 'md:items-end' : 'md:items-start';
                     const flexRowClass = isEven ? 'md:flex-row-reverse' : 'md:flex-row';
 
+                    // Determine padding class for the content div
+                    // If video-less AND right side (!isEven), reduce left padding to move closer to timeline
+                    const contentPaddingClass = (hasVideo) 
+                        ? 'bg-white rounded-xl shadow-lg hover:shadow-xl p-6 md:p-8' 
+                        : (isEven ? 'bg-transparent pl-6 py-4 md:pl-8' : 'bg-transparent pl-6 py-4 md:pl-0');
+
                     const cardHtml = `
-                        <div id="event-${event.id}" class="relative overflow-hidden transition-all duration-300 group text-left ${textAlignClass} ${hasVideo ? `bg-white rounded-xl shadow-lg hover:shadow-xl p-6 md:p-8` : 'bg-transparent pl-6 py-4 md:pl-8'}">
+                        <div id="event-${event.id}" class="relative overflow-hidden transition-all duration-300 group text-left ${textAlignClass} ${contentPaddingClass}">
                             <div id="event-live-${event.id}" class="hidden absolute top-3 ${isEven ? 'md:left-3' : 'right-3'} flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse z-10"><span class="w-2 h-2 bg-white rounded-full"></span> LIVE</div>
                             
                             <div class="flex flex-col ${itemsAlignClass}">
@@ -995,6 +1018,24 @@
                 stepperContainer.addEventListener('scroll', updateStepperArrows);
                 window.addEventListener('resize', updateStepperArrows);
             }
+
+            // Sticky Header Observer - RESTORED Logic
+            const stickyObserver = new IntersectionObserver(([entry]) => {
+                const brand = document.getElementById('sticky-brand');
+                const floatBtn = document.getElementById('float-menu-btn');
+                if (entry.boundingClientRect.top < 0 && !entry.isIntersecting) {
+                    brand.classList.remove('max-h-0', 'opacity-0');
+                    brand.classList.add('max-h-24', 'opacity-100');
+                    floatBtn.classList.add('opacity-0', 'pointer-events-none');
+                } else {
+                    brand.classList.add('max-h-0', 'opacity-0');
+                    brand.classList.remove('max-h-24', 'opacity-100');
+                    floatBtn.classList.remove('opacity-0', 'pointer-events-none');
+                }
+            }, { threshold: 0 });
+            
+            const trigger = document.getElementById('hero-location-trigger');
+            if(trigger) stickyObserver.observe(trigger);
 
             // Live Update Timer
             setInterval(() => {
