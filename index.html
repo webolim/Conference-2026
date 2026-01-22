@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WEBOLIM Sri Ramayana Satram 2026</title>
+    <meta name="description" content="Join us for the Sri Ramayana Satram & Valmiki Ramayana Conference 2026. A spiritual journey through Recensions, Readings, and Commentaries." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://webolim.org/" />
+    <meta property="og:title" content="WEBOLIM Sri Ramayana Satram 2026" />
+    <meta property="og:description" content="Join us for the Sri Ramayana Satram & Valmiki Ramayana Conference 2026. A spiritual journey through Recensions, Readings, and Commentaries." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/social1a.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://webolim.org/" />
+    <meta property="twitter:title" content="WEBOLIM Sri Ramayana Satram 2026" />
+    <meta property="twitter:description" content="Join us for the Sri Ramayana Satram & Valmiki Ramayana Conference 2026." />
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/social1a.jpg" />
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -387,7 +402,7 @@
                         </a>
                         <a id="hero-location-trigger" href="https://www.google.com/maps" target="_blank" class="group relative flex items-center justify-center gap-2 bg-charcoal/80 hover:bg-black/90 backdrop-blur-sm text-cream py-2.5 md:py-3 px-6 rounded-full border border-gold/30 transition-all hover:border-gold hover:scale-105 shadow-lg w-full md:w-auto">
                             <i data-lucide="map-pin" class="w-4 h-4 text-gold group-hover:animate-bounce"></i>
-                            <span class="text-xs md:text-base font-medium tracking-wide">Srimad Valmiki Ashrama</span>
+                            <span class="text-base md:text-lg font-medium tracking-wide">Srimad Valmiki Ashrama</span>
                         </a>
                     </div>
                 </div>
@@ -410,8 +425,29 @@
             </div>
 
             <!-- Day Stepper -->
-            <div class="w-full bg-transparent relative z-30">
-                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-3 items-stretch w-full md:justify-center" style="scroll-snap-type: x mandatory;">
+            <div class="w-full bg-transparent relative z-30 group">
+                
+                <!-- Left Gradient & Arrow -->
+                <div id="stepper-left-grad" class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-gold to-transparent z-20 pointer-events-none transition-opacity duration-300 opacity-0"></div>
+                <button 
+                    id="stepper-prev"
+                    onclick="scrollStepper(-200)"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-maroon text-gold border border-gold/50 p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 pointer-events-none"
+                >
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+
+                <!-- Right Gradient & Arrow -->
+                <div id="stepper-right-grad" class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-gold to-transparent z-20 pointer-events-none transition-opacity duration-300 opacity-0"></div>
+                <button 
+                    id="stepper-next"
+                    onclick="scrollStepper(200)"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-maroon text-gold border border-gold/50 p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 pointer-events-none"
+                >
+                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                </button>
+
+                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-3 items-stretch w-full md:justify-center relative z-10" style="scroll-snap-type: x mandatory;">
                     <!-- JS will populate this -->
                 </div>
             </div>
@@ -567,7 +603,56 @@
                      const scrollLeft = activeBtn.offsetLeft - container.offsetWidth / 2 + activeBtn.offsetWidth / 2;
                      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
                 }
+                updateStepperArrows();
             }, 100);
+        }
+
+        // Stepper Navigation Logic
+        window.scrollStepper = function(amount) {
+            const container = document.getElementById('day-stepper-container');
+            if (container) {
+                container.scrollBy({ left: amount, behavior: 'smooth' });
+            }
+        };
+
+        function updateStepperArrows() {
+            const container = document.getElementById('day-stepper-container');
+            const prevBtn = document.getElementById('stepper-prev');
+            const nextBtn = document.getElementById('stepper-next');
+            const leftGrad = document.getElementById('stepper-left-grad');
+            const rightGrad = document.getElementById('stepper-right-grad');
+            
+            if (!container || !prevBtn || !nextBtn) return;
+
+            const { scrollLeft, scrollWidth, clientWidth } = container;
+            
+            // Buffer of 10px
+            const canScrollLeft = scrollLeft > 10;
+            const canScrollRight = scrollLeft + clientWidth < scrollWidth - 10;
+
+            if (canScrollLeft) {
+                prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+                prevBtn.classList.add('opacity-100', 'pointer-events-auto');
+                leftGrad.classList.remove('opacity-0');
+                leftGrad.classList.add('opacity-100');
+            } else {
+                prevBtn.classList.add('opacity-0', 'pointer-events-none');
+                prevBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                leftGrad.classList.add('opacity-0');
+                leftGrad.classList.remove('opacity-100');
+            }
+
+            if (canScrollRight) {
+                nextBtn.classList.remove('opacity-0', 'pointer-events-none');
+                nextBtn.classList.add('opacity-100', 'pointer-events-auto');
+                rightGrad.classList.remove('opacity-0');
+                rightGrad.classList.add('opacity-100');
+            } else {
+                nextBtn.classList.add('opacity-0', 'pointer-events-none');
+                nextBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                rightGrad.classList.add('opacity-0');
+                rightGrad.classList.remove('opacity-100');
+            }
         }
 
         function renderSchedule() {
@@ -678,6 +763,21 @@
             currentDayId = dayId;
             renderDayStepper();
             renderSchedule();
+            
+            // Scroll to schedule header with offset for sticky nav
+            const scheduleSection = document.getElementById('schedule');
+            if (scheduleSection) {
+                // Approximate height of sticky header (expanded) ~180px, compact ~100px
+                // Using 140px as a safe middle ground offset
+                const offset = 140;
+                const elementPosition = scheduleSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
         }
 
         window.toggleMobileMenu = function(show) {
@@ -706,6 +806,13 @@
 
             renderDayStepper();
             renderSchedule();
+
+            // Setup Stepper Scroll Logic
+            const stepperContainer = document.getElementById('day-stepper-container');
+            if(stepperContainer) {
+                stepperContainer.addEventListener('scroll', updateStepperArrows);
+                window.addEventListener('resize', updateStepperArrows);
+            }
 
             // Sticky Header Observer
             const observer = new IntersectionObserver(([entry]) => {
