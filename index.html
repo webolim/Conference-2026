@@ -398,7 +398,7 @@
             VALEDICTORY: "linear-gradient(180deg, rgba(255, 245, 238, 1) 0%, rgba(255, 228, 225, 1) 40%, rgba(250, 218, 221, 1) 70%, rgba(128, 0, 0, 0.7) 100%)",
             
             // Default: All other Pre/Post Conference Days (The multi-color flow you provided)
-            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 95%, rgba(255, 206, 191, 1) 100%)"
+            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)"
         };
         
         const SCHEDULE_BG_COLOR = "#ffcebf"; 
@@ -700,6 +700,10 @@
                     const isLast = index === day.events.length - 1;
                     const roundedClass = (isFirst ? 'rounded-t-2xl md:rounded-t-3xl ' : '') + (isLast ? 'rounded-b-2xl md:rounded-b-3xl ' : '');
 
+                    const hideVenueTitles = ['Sandhyavandanam', 'Madyanikam', 'Madhyanikam', 'Meditation'];
+                    const isGenericVenue = !event.venue || event.venue === 'Venue';
+                    const showVenue = !isGenericVenue && !hideVenueTitles.includes(event.title);
+
                     return `
                         <div id="event-${event.id}" class="${roundedClass} group relative p-6 md:p-8 flex flex-row gap-4 md:gap-8 bg-white/95 backdrop-blur-xl hover:bg-white transition-colors duration-300">
                             <!-- Live Badge (Floating Mobile) -->
@@ -717,7 +721,7 @@
                             <div class="flex-1 min-w-0 flex flex-col gap-2">
                                 <div>
                                     <h3 class="text-xl md:text-2xl font-serif font-bold text-gray-900 leading-tight mb-1 group-hover:text-maroon transition-colors">${event.title}</h3>
-                                    ${event.venue ? `<div class="flex items-center gap-2 text-xs md:text-sm font-medium text-gray-500"><i data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4 text-gold"></i> ${event.venue}</div>` : ''}
+                                    ${showVenue ? `<div class="flex items-center gap-2 text-xs md:text-sm font-medium text-gray-500"><i data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4 text-gold"></i> ${event.venue}</div>` : ''}
                                 </div>
                                 
                                 <!-- Speakers -->
