@@ -38,20 +38,20 @@
     },
     "dolotsavam_series": {
         "_instructions": "This entry acts as a container for all Dolotsavam videos. The keys match the Event IDs in the schedule below.",
-        "name": "Dolotsavam Series",
+        "name": "Dolotsava Series",
         "photo": "",
         "bio": "",
         "videos": {
-            "d1-e4": "https://youtu.be/dolotsavam_d1",
-            "d2-e8": "https://youtu.be/dolotsavam_d2",
-            "d3-e8": "https://youtu.be/dolotsavam_d3",
-            "d4-e8": "https://youtu.be/dolotsavam_d4",
-            "d5-e8": "https://youtu.be/dolotsavam_d5",
+            "d1-e4": "https://youtu.be/dolotsava_d1",
+            "d2-e8": "https://youtu.be/dolotsava_d2",
+            "d3-e8": "https://youtu.be/dolotsava_d3",
+            "d4-e8": "https://youtu.be/dolotsava_d4",
+            "d5-e8": "https://youtu.be/dolotsava_d5",
             "d6-e8": "https://youtu.be/dolotsavam_d6",
-            "d7-e8": "https://youtu.be/dolotsavam_d7",
-            "d8-e9": "https://youtu.be/dolotsavam_d8",
-            "d9-e9": "https://youtu.be/dolotsavam_d9",
-            "d10-e8": "https://youtu.be/dolotsavam_d10"
+            "d7-e8": "https://youtu.be/dolotsava_d7",
+            "d8-e9": "https://youtu.be/dolotsava_d8",
+            "d9-e9": "https://youtu.be/dolotsava_d9",
+            "d10-e8": "https://youtu.be/dolotsava_d10"
         }
     },
     "madhavan": {
@@ -147,7 +147,7 @@
         "bio": ""
     },
     "santanaraman": {
-        "name": "Shri. Santhanaraman",
+        "name": "Shri. Santhanaraman Shroutigal",
         "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Santanaraman.jpg",
         "bio": "Shri. Santhanaraman (To be updated shortly)"
     },
@@ -178,7 +178,7 @@
           { "id": "d8-e0", "startTime": "5:30 AM", "endTime": "6:15 AM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
           { "id": "d8-e0b", "startTime": "6:15 AM", "endTime": "6:30 AM", "title": "Suprabhatam", "venue": "Ramayana Shala", "speakerIds": [] },
           { "id": "d8-e0c", "startTime": "6:30 AM", "endTime": "7:00 AM", "title": "Meditation", "venue": "Venue", "speakerIds": [] },
-          { "id": "d8-e1", "startTime": "7:00 AM", "endTime": "8:00 AM", "title": "Critical Edition of Valmiki Ramayana (Part 1)", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["dr_rangan"] },
+          { "id": "d8-e1", "startTime": "7:00 AM", "endTime": "8:00 AM", "title": "My Critical Edition of Valmiki Ramayana (Part 1)", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["dr_rangan"] },
           { "id": "d8-e1b", "startTime": "8:00 AM", "endTime": "9:00 AM", "title": "Breakfast", "venue": "Premika Madhura Bhavanam", "speakerIds": [] },
           { "id": "d8-e2", "startTime": "9:00 AM", "endTime": "10:00 AM", "title": "Bori's Critical Edition of Valmiki Ramayana", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["wakankar"], "youtubeLink": "https://youtu.be/Wakankar" },
           { "id": "d8-e3", "startTime": "10:00 AM", "endTime": "11:00 AM", "title": "Different Editions of Valmiki Ramayana", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["gawde"], "youtubeLink": "https://youtu.be/Gawde" },
@@ -203,7 +203,7 @@
             "id": "d9-e1",
             "startTime": "7:00 AM",
             "endTime": "8:00 AM",
-            "title": "Critical Edition of Valmiki Ramayana (Part 2)",
+            "title": "My Critical Edition of Valmiki Ramayana (Part 2)",
             "venue": "Ramayana Shala",
             "isConference": true,
             "speakerIds": ["dr_rangan"]
