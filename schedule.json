@@ -21,7 +21,7 @@
     },
     "dr_rangan": {
         "_instructions": "EDIT HERE: Update 'photo' for profile pic, 'bio' for text. The 'videos' object below maps Event IDs (e.g. d2-e1) to YouTube URLs so you can manage them all in one place.",
-        "name": "Dr. Rangan",
+        "name": "Dr. R. Rangan",
         "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/rangan.jpg",
         "bio": "D. Litt.",
         "videos": {
