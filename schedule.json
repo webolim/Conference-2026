@@ -149,7 +149,7 @@
     "santanaraman": {
         "name": "Shri. Santhanaraman Shroutigal",
         "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Santanaraman.jpg",
-        "bio": "Shri. Santhanaraman (To be updated shortly)"
+        "bio": ""
     },
     "nandakumar": { "name": "Shri. Nandalal", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Nandalal.jpg" },
     "vayidehi": { "name": "Shree Vayidehi", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Champaka.jpg" },
@@ -246,7 +246,7 @@
             "id": "d9-e5",
             "startTime": "2:30 PM",
             "endTime": "3:30 PM",
-            "title": "Sri Maheshwara Tirtha's Commentary",
+            "title": "On Sri Satyadharma Tirtha's commentary and the Rupa Raghunatha Vani edition of Sri Valmiki Ramayana",
             "venue": "Ramayana Shala",
             "isConference": true,
             "speakerIds": ["madhavan"],
