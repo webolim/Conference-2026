@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>WEBOLIM Sri Ramayana Satram 2026</title>
     <meta name="description" content="Join us for the Sri Ramayana Satram & Valmiki Ramayana Conference 2026. A spiritual journey through Recensions, Readings, and Commentaries of Valmiki Ramayana." />
     
@@ -90,6 +90,7 @@
       /* Smooth Scrolling Enabled */
       html {
         scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
       }
 
       .bio-scroll::-webkit-scrollbar { width: 6px; }
@@ -150,7 +151,8 @@
 
     <!-- INITIAL LOADING OVERLAY -->
     <div id="app-loader" class="fixed inset-0 z-[100] bg-cream flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="relative w-32 h-32 mb-6">
+        <!-- Increased size from w-32 h-32 to w-64 h-64 -->
+        <div class="relative w-64 h-64 mb-6">
             <div class="absolute inset-0 border-4 border-maroon/20 rounded-full"></div>
             <div class="absolute inset-0 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
             <!-- Logo Image -->
@@ -186,9 +188,9 @@
         <!-- HERO SECTION -->
         <div id="hero" class="hero-glitter-bg relative w-full overflow-hidden text-gold min-h-[500px] md:min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row items-center justify-center pt-12 pb-10 md:pt-8 md:pb-20 lg:pt-24 lg:pb-32 px-4 lg:px-16 gap-4 lg:gap-6">
             
-            <!-- Pillars: Reduced width by half (w-4 mobile, w-7 md, w-10 lg) -->
-            <div id="pillar-left" class="absolute left-0 top-0 h-full w-8 md:w-12 lg:w-16 bg-[length:100%_auto] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
-            <div id="pillar-right" class="absolute right-0 top-0 h-full w-8 md:w-12 lg:w-16 bg-[length:100%_auto] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
+            <!-- Pillars: Reduced width in mobile from w-8 to w-4 -->
+            <div id="pillar-left" class="absolute left-0 top-0 h-full w-4 md:w-12 lg:w-16 bg-[length:100%_auto] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
+            <div id="pillar-right" class="absolute right-0 top-0 h-full w-4 md:w-12 lg:w-16 bg-[length:100%_auto] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
             
             <!-- Left Column: Deity Image -->
             <div class="relative z-10 w-full lg:w-1/2 flex justify-center items-center order-1 lg:order-1">
@@ -695,7 +697,7 @@
                     const eventSpeakers = (event.speakerIds || []).map(id => SPEAKERS[id]).filter(Boolean);
                     
                     return `
-                        <div id="event-${event.id}" class="group relative p-6 md:p-8 flex flex-row gap-4 md:gap-8 border-b border-black/5 last:border-0 hover:bg-black/5 transition-all duration-300">
+                        <div id="event-${event.id}" class="group relative p-6 md:p-8 flex flex-row gap-4 md:gap-8 bg-white/95 backdrop-blur-xl hover:bg-white transition-colors duration-300">
                             <!-- Live Badge (Floating Mobile) -->
                             <div id="event-live-${event.id}" class="hidden absolute top-4 right-4 md:static md:hidden flex items-center gap-1 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse z-10"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> LIVE</div>
 
@@ -758,9 +760,9 @@
                             </div>
                             
                             <!-- The Single Card -->
-                            <div class="bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-white/40 overflow-hidden ring-1 ring-black/5">
-                                <div class="flex flex-col">
-                                    ${eventsHtml || '<div class="text-center py-12 text-gray-400 italic">Schedule details coming soon.</div>'}
+                            <div class="rounded-2xl md:rounded-3xl shadow-2xl border border-white/40 overflow-hidden ring-1 ring-black/5">
+                                <div class="flex flex-col gap-[2px] bg-transparent">
+                                    ${eventsHtml || '<div class="text-center py-12 text-gray-400 italic bg-white/95 backdrop-blur-xl">Schedule details coming soon.</div>'}
                                 </div>
                             </div>
                         </div>
@@ -797,22 +799,25 @@
                                  btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md bg-red-600 text-white hover:bg-red-700 animate-pulse";
                                  btn.innerHTML = '<i data-lucide="play" class="w-4 h-4"></i> Watch LIVE Now';
                                  if(row) {
-                                     row.classList.add('bg-red-50/80');
-                                     row.classList.remove('hover:bg-black/5');
+                                     // Remove default card bg classes and add live bg classes
+                                     row.classList.remove('bg-white/95', 'hover:bg-white');
+                                     row.classList.add('bg-red-50/95');
                                  }
                             } else if (ytState === 'disabled') {
                                  btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-none bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none";
                                  btn.innerHTML = '<i data-lucide="youtube" class="w-4 h-4"></i> Coming Soon';
                                  if(row) {
-                                     row.classList.remove('bg-red-50/80');
-                                     row.classList.add('hover:bg-black/5');
+                                     // Restore default card bg classes
+                                     row.classList.remove('bg-red-50/95');
+                                     row.classList.add('bg-white/95', 'hover:bg-white');
                                  }
                             } else {
                                  btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md";
                                  btn.innerHTML = '<i data-lucide="youtube" class="w-4 h-4"></i> Watch Recording';
                                  if(row) {
-                                     row.classList.remove('bg-red-50/80');
-                                     row.classList.add('hover:bg-black/5');
+                                     // Restore default card bg classes
+                                     row.classList.remove('bg-red-50/95');
+                                     row.classList.add('bg-white/95', 'hover:bg-white');
                                  }
                             }
                         }
@@ -918,11 +923,9 @@
                         }
                     }
                 }, { 
-                    // Root margin tuned for mobile/desktop. 
-                    // -20% from top means the detection line is 20% down from viewport top.
-                    // -60% from bottom means we ignore the bottom 60% of the screen.
-                    // Effectively scanning a strip near the top.
-                    rootMargin: '-20% 0px -60% 0px', 
+                    // Adjusted for mobile scrolling detection: Top 10% ignored, bottom 50% ignored.
+                    // This focuses detection on the upper half of the screen.
+                    rootMargin: '-10% 0px -50% 0px', 
                     threshold: 0
                 });
 
