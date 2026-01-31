@@ -23,7 +23,7 @@
         "_instructions": "EDIT HERE: Update 'photo' for profile pic, 'bio' for text. The 'videos' object below maps Event IDs (e.g. d2-e1) to YouTube URLs so you can manage them all in one place.",
         "name": "Dr. Rangan",
         "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/rangan.jpg",
-        "bio": "Dr. Ranganji is a Vedic scholar, spiritual guru, and cultural educator with deep expertise in the Ramayana, Vedas Sanskrit, Yoga, and Dharma. Spreading human values and spiritual consciousness across the globe for over 25 years through classes workshops camps and lectures",
+        "bio": "Dr. R. Rangan (D. Litt.)",
         "videos": {
             "d2-e1": "https://youtu.be/rangan_d1",
             "d3-e1": "https://youtu.be/rangan_d3",
