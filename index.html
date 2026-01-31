@@ -151,48 +151,50 @@
             linear-gradient(rgba(128, 0, 0, 0.95), rgba(128, 0, 0, 0.95));
       }
 
-      /* Rotating Gradient Border Animation - iOS Compatible Version (Pseudo-elements) */
-      .gradient-border-base {
+      /* Single Beam Rotating Border Animation - Hero Only */
+      .hero-glow-border {
         position: relative;
         overflow: hidden;
         border: none;
-        box-shadow: 0 4px 15px -3px rgba(212, 175, 55, 0.4);
-        /* Hardware acceleration to prevent flickering on iOS */
+        box-shadow: 0 10px 30px -5px rgba(212, 175, 55, 0.5);
         transform: translateZ(0); 
-        -webkit-mask-image: -webkit-radial-gradient(white, black); /* Fix for iOS border-radius clipping */
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
         isolation: isolate;
       }
 
-      .gradient-border-base::before {
+      .hero-glow-border::before {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 200%; 
-        height: 200%;
+        width: 250%; 
+        height: 250%;
+        /* Single tight beam gradient */
         background: conic-gradient(
             from 0deg, 
-            var(--c1, #800000) 0%, 
-            var(--c2, #D4AF37) 20%, 
-            var(--c3, #FFFDD0) 30%, 
-            var(--c2, #D4AF37) 40%, 
-            var(--c1, #800000) 60%
+            #800000 0%, 
+            #800000 85%, 
+            #D4AF37 92%, 
+            #FFFDD0 95%, 
+            #D4AF37 98%, 
+            #800000 100%
         );
-        animation: spin-gradient 3s linear infinite;
+        animation: spin-gradient 4s linear infinite;
         transform: translate(-50%, -50%);
+        will-change: transform;
         z-index: 0;
       }
 
-      .gradient-border-base::after {
+      .hero-glow-border::after {
         content: '';
         position: absolute;
-        top: 3px; left: 3px; right: 3px; bottom: 3px;
-        background: var(--bg-inner);
+        inset: 1.5px; /* Thinner border */
+        background: #800000;
         border-radius: inherit;
         z-index: 0;
       }
 
-      .gradient-border-base > * {
+      .hero-glow-border > * {
         position: relative;
         z-index: 1;
       }
@@ -200,20 +202,6 @@
       @keyframes spin-gradient {
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
-      }
-
-      .gradient-border-active {
-        --bg-inner: #800000;
-        --c1: #800000;
-        --c2: #D4AF37;
-        --c3: #FFFDD0;
-      }
-
-      .gradient-border-inactive {
-        --bg-inner: #FEFCE8; 
-        --c1: #FEFCE8;
-        --c2: #D4AF37;
-        --c3: #FFFDD0;
       }
     </style>
 </head>
@@ -299,22 +287,22 @@
                     <p class="font-sans text-cream text-base md:text-xl lg:text-2xl max-w-4xl lg:max-w-none font-medium leading-relaxed drop-shadow px-2 md:whitespace-nowrap lg:whitespace-normal opacity-95">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
                 </div>
 
-                <!-- Dates - Updated layout for mobile horizontal distribution -->
-                <div class="flex flex-row gap-2 md:gap-4 mt-5 md:mt-8 w-full max-w-full lg:max-w-xl px-0 mb-2 justify-between lg:justify-start items-stretch">
-                    <div onclick="setDay(1)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-lg flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1">
+                <!-- Dates - Updated layout: Side buttons small (flex-1), Center button large (flex-[1.5]) -->
+                <div class="flex flex-row gap-1 md:gap-2 mt-5 md:mt-8 w-full max-w-full lg:max-w-xl px-0 mb-2 justify-between lg:justify-start items-stretch">
+                    <div onclick="setDay(1)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-full flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
                         <span class="text-gold/80 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors text-center">Pre-Conference</span>
                         <span class="text-cream text-xs sm:text-sm md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Mar 28 – Apr 3</span>
                     </div>
                     
                     <!-- Hero Conference Button with Rotating Gradient Animation -->
-                    <div onclick="setDay(8)" class="flex-1 gradient-border-base gradient-border-active p-2 md:p-3 rounded-lg flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 cursor-pointer transition-all duration-300 hover:-translate-y-1">
+                    <div onclick="setDay(8)" class="flex-[1.5] hero-glow-border p-2 md:p-3 rounded-lg flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 cursor-pointer transition-all duration-300 hover:-translate-y-1">
                         <div class="relative z-10 flex flex-col items-center justify-center">
-                            <span class="text-gold font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 transition-colors text-center">Conference</span>
-                            <span class="text-white text-xs sm:text-sm md:text-2xl font-serif font-extrabold tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] whitespace-nowrap">Apr 4 – 5</span>
+                            <span class="text-gold font-bold text-[10px] sm:text-xs md:text-sm uppercase tracking-widest mb-1 transition-colors text-center">Conference</span>
+                            <span class="text-white text-sm sm:text-lg md:text-3xl font-serif font-extrabold tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] whitespace-nowrap">Apr 4 – 5</span>
                         </div>
                     </div>
 
-                    <div onclick="setDay(10)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-lg flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1">
+                    <div onclick="setDay(10)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-full flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
                         <span class="text-gold/80 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors text-center">Post-Conference</span>
                         <span class="text-cream text-xs sm:text-sm md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Apr 6 – 7</span>
                     </div>
@@ -580,6 +568,10 @@
             
             // Initial Render of all buttons
             container.innerHTML = SCHEDULE_DATA.days.map(day => {
+                // Determine shape based on phase
+                const isConference = day.phase === 'Conference';
+                const shapeClass = isConference ? 'rounded-lg' : 'rounded-full';
+
                 // Initial classes will be set by updateStepperVisuals immediately after
                 // Note: The structure here supports both regular buttons and train-animated buttons
                 // The class assignment happens in updateStepperVisuals
@@ -587,7 +579,7 @@
                     <button 
                         onclick="setDay(${day.dayNumber})"
                         id="day-btn-${day.dayNumber}"
-                        class="flex-shrink-0 flex flex-col items-center justify-center py-3 rounded-lg transition-all duration-300 snap-center cursor-pointer relative"
+                        class="flex-shrink-0 flex flex-col items-center justify-center py-3 ${shapeClass} transition-all duration-300 snap-center cursor-pointer relative"
                     >
                         <div class="relative z-10 flex flex-col items-center justify-center w-full">
                             <div id="day-conf-corner-${day.dayNumber}" class="absolute top-[-10px] right-[-10px] w-4 h-4 bg-gold/40 rounded-bl-full hidden"></div>
@@ -619,8 +611,15 @@
                 const shortDayName = day.dayName.substring(0, 3).toUpperCase();
                 
                 // Base Classes
-                let classes = "flex-shrink-0 flex flex-col items-center justify-center py-3 rounded-lg transition-all duration-300 snap-center cursor-pointer relative overflow-hidden ";
+                let classes = "flex-shrink-0 flex flex-col items-center justify-center py-3 transition-all duration-300 snap-center cursor-pointer relative overflow-hidden ";
                 
+                // Shape Logic
+                if (isConference) {
+                    classes += "rounded-lg ";
+                } else {
+                    classes += "rounded-full ";
+                }
+
                 // Sizing Logic
                 if (isActive) {
                     classes += "min-w-[180px] md:min-w-[200px] scale-100 z-10 ";
@@ -628,19 +627,19 @@
                     classes += "min-w-[160px] md:min-w-[170px] scale-90 opacity-80 ";
                 }
 
-                // Border & Background Logic
+                // Border & Background Logic - REFACTORED to remove rotation animation from stepper
                 if (isConference) {
-                    // Conference: Rotating Gradient Border for BOTH active and inactive
-                    classes += "gradient-border-base ";
                     if (isActive) {
-                        classes += "gradient-border-active text-white shadow-xl ";
+                         // Active Conference: Maroon background with Gold border (No animation)
+                        classes += "bg-maroon border-2 border-gold text-white shadow-xl ";
                     } else {
-                        classes += "gradient-border-inactive text-maroon hover:shadow-md ";
+                         // Inactive Conference: Cream background with Maroon border
+                        classes += "bg-cream border-2 border-maroon text-maroon hover:shadow-md ";
                     }
                 } else {
                     // Non-Conference
                     if (isActive) {
-                        // Active Regular: Gold Border (Green Bg)
+                        // Active Regular: Dark Green Bg with Gold Border
                         classes += "bg-[#1b4d1b] border-2 border-gold text-white shadow-lg ";
                     } else {
                          // Inactive Regular: White bg, Maroon Border
