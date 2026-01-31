@@ -150,16 +150,27 @@
             url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"),
             linear-gradient(rgba(128, 0, 0, 0.95), rgba(128, 0, 0, 0.95));
       }
+      
+      /* Hexagon Clip Path Utility */
+      .hex-clip {
+          clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%);
+      }
 
       /* Single Beam Rotating Border Animation - Hero Only */
       .hero-glow-border {
         position: relative;
-        overflow: hidden;
+        overflow: hidden; /* Changed to normal overflow for clip-path to work on parent? No, needs to be hidden for inner elements */
         border: none;
         box-shadow: 0 10px 30px -5px rgba(212, 175, 55, 0.5);
         transform: translateZ(0); 
-        -webkit-mask-image: -webkit-radial-gradient(white, black);
         isolation: isolate;
+      }
+      
+      /* Apply Hex Shape to Hero Button */
+      .hero-glow-border.hex-clip {
+        overflow: hidden;
+        /* Box shadow gets clipped, so we can use filter drop-shadow on parent if needed, 
+           but for now relying on the glow animation internal to it */
       }
 
       .hero-glow-border::before {
@@ -167,17 +178,18 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 250%; 
-        height: 250%;
-        /* Single tight beam gradient */
+        width: 300%; 
+        height: 300%;
+        /* Single tight beam gradient - Refined with buffer to prevent jump at 0/360 */
         background: conic-gradient(
             from 0deg, 
-            #800000 0%, 
-            #800000 85%, 
-            #D4AF37 92%, 
-            #FFFDD0 95%, 
-            #D4AF37 98%, 
-            #800000 100%
+            #800000 0deg, 
+            #800000 40deg, 
+            #D4AF37 160deg, 
+            #FFFDD0 180deg, 
+            #D4AF37 200deg, 
+            #800000 320deg, 
+            #800000 360deg
         );
         animation: spin-gradient 4s linear infinite;
         transform: translate(-50%, -50%);
@@ -190,13 +202,34 @@
         position: absolute;
         inset: 1.5px; /* Thinner border */
         background: #800000;
+        /* Inherit the clip path if applied to parent? No, standard rect. 
+           But if parent is clipped, this is clipped. */
         border-radius: inherit;
         z-index: 0;
       }
+      
+      /* For Hex buttons, we need to ensure the inner bg respects the shape 
+         Since inset is rect, we just let the parent clip it. 
+         Visually it creates the border effect. */
 
       .hero-glow-border > * {
         position: relative;
         z-index: 1;
+      }
+
+      /* Diagonal Sheen for Conference Buttons */
+      .sheen-bg {
+        position: relative;
+        overflow: hidden;
+        background-color: #800000;
+      }
+      .sheen-bg::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 200%; height: 100%;
+        background: linear-gradient(120deg, transparent 30%, rgba(212, 175, 55, 0.4) 50%, transparent 70%);
+        animation: shimmer 4s infinite linear;
+        pointer-events: none;
       }
 
       @keyframes spin-gradient {
@@ -287,22 +320,22 @@
                     <p class="font-sans text-cream text-base md:text-xl lg:text-2xl max-w-4xl lg:max-w-none font-medium leading-relaxed drop-shadow px-2 md:whitespace-nowrap lg:whitespace-normal opacity-95">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
                 </div>
 
-                <!-- Dates - Updated layout: Side buttons small (flex-1), Center button large (flex-[1.5]) -->
+                <!-- Dates - Updated layout: rounded-[2rem] for pre/post, rounded-lg for conference -->
                 <div class="flex flex-row gap-1 md:gap-2 mt-5 md:mt-8 w-full max-w-full lg:max-w-xl px-0 mb-2 justify-between lg:justify-start items-stretch">
-                    <div onclick="setDay(1)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-full flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
+                    <div onclick="setDay(1)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-[2rem] flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
                         <span class="text-gold/80 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors text-center">Pre-Conference</span>
                         <span class="text-cream text-xs sm:text-sm md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Mar 28 – Apr 3</span>
                     </div>
                     
-                    <!-- Hero Conference Button with Rotating Gradient Animation -->
-                    <div onclick="setDay(8)" class="flex-[1.5] hero-glow-border p-2 md:p-3 rounded-lg flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 cursor-pointer transition-all duration-300 hover:-translate-y-1">
+                    <!-- Hero Conference Button: Rounded Rectangle Shape -->
+                    <div onclick="setDay(8)" class="flex-[1.5] hero-glow-border rounded-lg p-2 md:p-3 flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 cursor-pointer transition-all duration-300 hover:-translate-y-1">
                         <div class="relative z-10 flex flex-col items-center justify-center">
                             <span class="text-gold font-bold text-[10px] sm:text-xs md:text-sm uppercase tracking-widest mb-1 transition-colors text-center">Conference</span>
                             <span class="text-white text-sm sm:text-lg md:text-3xl font-serif font-extrabold tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] whitespace-nowrap">Apr 4 – 5</span>
                         </div>
                     </div>
 
-                    <div onclick="setDay(10)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-full flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
+                    <div onclick="setDay(10)" class="flex-1 bg-black/40 backdrop-blur-md border border-gold/20 p-2 md:p-3 rounded-[2rem] flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:bg-black/60 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
                         <span class="text-gold/80 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors text-center">Post-Conference</span>
                         <span class="text-cream text-xs sm:text-sm md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Apr 6 – 7</span>
                     </div>
@@ -367,8 +400,8 @@
                     <i data-lucide="chevron-right" class="w-6 h-6"></i>
                 </button>
 
-                <!-- Removed md:justify-center to fix left bounds clipping -->
-                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-3 items-stretch w-full relative z-10" style="scroll-snap-type: x mandatory;">
+                <!-- Update gap to 1 -->
+                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-1 items-stretch w-full relative z-10" style="scroll-snap-type: x mandatory;">
                     <!-- JS will populate this -->
                 </div>
             </div>
@@ -570,7 +603,8 @@
             container.innerHTML = SCHEDULE_DATA.days.map(day => {
                 // Determine shape based on phase
                 const isConference = day.phase === 'Conference';
-                const shapeClass = isConference ? 'rounded-lg' : 'rounded-full';
+                // Updated default to rounded-lg or rounded-[2rem]
+                const shapeClass = isConference ? 'rounded-lg' : 'rounded-[2rem]';
 
                 // Initial classes will be set by updateStepperVisuals immediately after
                 // Note: The structure here supports both regular buttons and train-animated buttons
@@ -617,7 +651,7 @@
                 if (isConference) {
                     classes += "rounded-lg ";
                 } else {
-                    classes += "rounded-full ";
+                    classes += "rounded-[2rem] ";
                 }
 
                 // Sizing Logic
@@ -627,11 +661,12 @@
                     classes += "min-w-[160px] md:min-w-[170px] scale-90 opacity-80 ";
                 }
 
-                // Border & Background Logic - REFACTORED to remove rotation animation from stepper
+                // Border & Background Logic
                 if (isConference) {
+                    // Added sheen-bg for conference
                     if (isActive) {
-                         // Active Conference: Maroon background with Gold border (No animation)
-                        classes += "bg-maroon border-2 border-gold text-white shadow-xl ";
+                         // Active Conference: Maroon background with Gold border + Sheen
+                        classes += "sheen-bg border-2 border-gold text-white shadow-xl ";
                     } else {
                          // Inactive Conference: Cream background with Maroon border
                         classes += "bg-cream border-2 border-maroon text-maroon hover:shadow-md ";
@@ -668,7 +703,7 @@
                 document.getElementById(`day-theme-${day.dayNumber}`).className = `text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-1 ${themeColor}`;
                 document.getElementById(`day-theme-${day.dayNumber}`).textContent = day.theme;
 
-                // Corner decoration
+                // Corner decoration - restored for rectangle conference buttons
                 const corner = document.getElementById(`day-conf-corner-${day.dayNumber}`);
                 if (corner) {
                     if (!isActive && isConference) corner.classList.remove('hidden');
@@ -821,15 +856,21 @@
                                 <!-- Speakers -->
                                 ${eventSpeakers.length > 0 ? `
                                     <div class="flex flex-col gap-6 mt-3 mb-2">
-                                        ${eventSpeakers.map(s => `
-                                            <div class="flex flex-col sm:flex-row items-start gap-4">
+                                        ${eventSpeakers.map(s => {
+                                            // Determine alignment: Center if no bio (Pre/Post), Start if bio (Conference)
+                                            const hasBio = event.isConference && s.bio;
+                                            const alignClass = hasBio ? 'items-start' : 'items-center';
+                                            
+                                            return `
+                                            <div class="flex flex-col sm:flex-row ${alignClass} gap-4">
                                                 <img src="${s.photo}" alt="${s.name}" class="w-32 h-32 md:w-40 md:h-40 rounded-xl object-cover border border-gold/30 shadow-sm shrink-0 bg-gray-100">
                                                 <div class="flex flex-col">
                                                     <p class="font-bold text-maroon text-base md:text-lg leading-tight mb-1">${s.name}</p>
-                                                    ${event.isConference && s.bio ? `<p class="text-sm md:text-base text-gray-700 leading-relaxed">${s.bio}</p>` : ''}
+                                                    ${hasBio ? `<p class="text-sm md:text-base text-gray-700 leading-relaxed">${s.bio}</p>` : ''}
                                                 </div>
                                             </div>
-                                        `).join('')}
+                                            `;
+                                        }).join('')}
                                     </div>
                                 ` : ''}
 
