@@ -263,7 +263,7 @@
             "youtubeLink": "https://youtu.be/gauranga"
           },
           { "id": "d9-e7", "startTime": "5:00 PM", "endTime": "5:30 PM", "title": "Commentary by Shri Udaali Varadaraja", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["ma_venkatakrishnan"], "youtubeLink": "https://youtu.be/speaker" },
-          { "id": "d9-e7_2", "startTime": "5:30 PM", "endTime": "6:00 PM", "title": "Conclusion", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["dr_rangan"], "youtubeLink": "https://youtu.be/conclusion" },
+          { "id": "d9-e7_2", "startTime": "", "endTime": "", "title": "Conclusion", "venue": "Ramayana Shala", "isConference": true, "speakerIds": ["dr_rangan"], "youtubeLink": "https://youtu.be/conclusion" },
           { "id": "d9-e7b", "startTime": "6:00 PM", "endTime": "6:30 PM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
           { "id": "d9-e7c", "startTime": "6:00 PM", "endTime": "7:30 PM", "title": "Dinner", "venue": "Premika Madhura Bhavanam", "speakerIds": [] },
           { "id": "d9-e8", "startTime": "7:30 PM", "endTime": "8:30 PM", "title": "Annual Day", "venue": "Ramayana Shala", "speakerIds": [], "youtubeLink": "https://youtu.be/annualday" },
