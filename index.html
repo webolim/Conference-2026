@@ -187,8 +187,8 @@
         <div id="hero" class="hero-glitter-bg relative w-full overflow-hidden text-gold min-h-[500px] md:min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row items-center justify-center pt-12 pb-10 md:pt-8 md:pb-20 lg:pt-24 lg:pb-32 px-4 lg:px-16 gap-4 lg:gap-6">
             
             <!-- Pillars: Reduced width by half (w-4 mobile, w-7 md, w-10 lg) -->
-            <div id="pillar-left" class="absolute left-0 top-0 h-full w-4 md:w-7 lg:w-10 bg-[length:100%_25%] lg:bg-[length:100%_50%] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
-            <div id="pillar-right" class="absolute right-0 top-0 h-full w-4 md:w-7 lg:w-10 bg-[length:100%_25%] lg:bg-[length:100%_50%] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
+            <div id="pillar-left" class="absolute left-0 top-0 h-full w-4 md:w-12 lg:w-16 bg-[length:100%_auto] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
+            <div id="pillar-right" class="absolute right-0 top-0 h-full w-4 md:w-12 lg:w-16 bg-[length:100%_auto] bg-top bg-repeat-y z-0 opacity-90 drop-shadow-2xl pointer-events-none"></div>
             
             <!-- Left Column: Deity Image -->
             <div class="relative z-10 w-full lg:w-1/2 flex justify-center items-center order-1 lg:order-1">
@@ -387,16 +387,16 @@
         // Define distinct gradients for different types of days
         const GRADIENTS = {
             // Day 1: Inauguration (Grand start - Peach/Gold/Red)
-            INAUGURATION: "linear-gradient(180deg, rgba(217, 244, 255, 1) 0%, rgba(217, 244, 255, 1) 20%, rgba(255, 233, 196, 1) 50%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)",
+            INAUGURATION: "linear-gradient(180deg, rgba(255, 248, 220, 1) 0%, rgba(255, 230, 150, 1) 20%, rgba(255, 248, 220, 1) 50%, rgba(218, 165, 32, 0.4) 80%, rgba(128, 0, 0, 0.8) 100%)",
             
             // Days 8 & 9: Conference (Professional/Rich - Cream/Gold/Brown)
-            CONFERENCE: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 90%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)",
+            CONFERENCE: "linear-gradient(180deg, rgba(255, 253, 208, 1) 0%, rgba(255, 248, 225, 1) 30%, rgba(255, 236, 179, 1) 70%, rgba(93, 64, 55, 0.9) 100%)",
             
             // Day 11: Valedictory (Conclusion - Soft Sunset/Peaceful)
-            VALEDICTORY: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 100%)",
+            VALEDICTORY: "linear-gradient(180deg, rgba(255, 245, 238, 1) 0%, rgba(255, 228, 225, 1) 40%, rgba(250, 218, 221, 1) 70%, rgba(128, 0, 0, 0.7) 100%)",
             
             // Default: All other Pre/Post Conference Days (The multi-color flow you provided)
-            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 90%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)"
+            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 95%, rgba(255, 206, 191, 1) 100%)"
         };
         
         const SCHEDULE_BG_COLOR = "#ffcebf"; 
@@ -469,20 +469,27 @@
                         let [hours, minutes] = time.split(':').map(Number);
                         if (hours === 12) hours = 0;
                         if (modifier === 'PM') hours += 12;
-                        const startDate = new Date(day.date);
-                        startDate.setHours(hours, minutes, 0, 0);
-                        
+
                         // Parse End Time
                         const [endTime, endModifier] = event.endTime.split(' ');
                         let [endHours, endMinutes] = endTime.split(':').map(Number);
                         if (endHours === 12) endHours = 0;
                         if (endModifier === 'PM') endHours += 12;
-                        const endDate = new Date(day.date);
-                        endDate.setHours(endHours, endMinutes, 0, 0);
 
-                        // Store timestamps
-                        event._startTs = startDate.getTime();
-                        event._endTs = endDate.getTime();
+                        // Parse Date components manually to avoid browser inconsistencies and Timezone issues
+                        // day.date is YYYY-MM-DD
+                        const [y, m, d] = day.date.split('-').map(Number);
+                        
+                        // Construct UTC Timestamps matching the "Fake IST" logic of getCurrentISTTime
+                        // getCurrentISTTime returns (RealUTC + 5.5h).
+                        // So we create a UTC date that represents the Event Time (e.g. 16:30) as if it were UTC.
+                        // 16:30 IST is 11:00 UTC. 11:00 UTC + 5.5h = 16:30.
+                        // So using Date.UTC(y, m-1, d, hours, minutes) gives us the timestamp for 16:30 UTC, 
+                        // which matches the numeric value of the "Fake IST" timestamp.
+                        
+                        event._startTs = Date.UTC(y, m - 1, d, hours, minutes);
+                        event._endTs = Date.UTC(y, m - 1, d, endHours, endMinutes);
+                        
                         // Live starts 15 mins before
                         event._liveStartTs = event._startTs - (15 * 60000); 
                     }
@@ -674,7 +681,8 @@
                 else if (day.phase === 'Conference') bgGradient = GRADIENTS.CONFERENCE;
 
                 // Noise Pattern (Shared)
-                const noiseUrl = "url('data:image/svg+xml,%3Csvg viewBox=\\'0 0 200 200\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cfilter id=\\'noiseFilter\\'%3E%3CfeTurbulence type=\\'fractalNoise\\' baseFrequency=\\'0.65\\' numOctaves=\\'3\\' stitchTiles=\\'stitch\\'/%3E%3C/filter%3E%3Crect width=\\'100%25\\' height=\\'100%25\\' filter=\\'url(%23noiseFilter)\\' opacity=\\'0.05\\'/%3E%3C/svg%3E')";
+                // iOS FIX: Use %22 (URL encoded double quotes) inside the string to prevent unescaped single quote syntax errors in style attribute
+                const noiseUrl = "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')";
                 
                 // Unified background gradient logic
                 const sectionStyle = `background-image: ${noiseUrl}, ${bgGradient}; background-color: ${SCHEDULE_BG_COLOR};`;
