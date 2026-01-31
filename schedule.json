@@ -91,7 +91,7 @@
     "harish": { "name": "Shri Harish Chandar", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Harish.jpg" },
     "giridharan": { "name": "Shri Giridharan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "amruttha": { "name": "Kum. Amruttha", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Amruttha.jpg" },
-    "ananya_a": { "name": "Kum. Ananya A", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
+    "ananya_a": { "name": "Kum. Ananya A", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/AnanyaA.jpg" },
     "ananya_g": { "name": "Kum. Ananya G", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "srikanth": { "name": "Shri Srikanth", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "raghavan": { "name": "Shri. Raghavacharan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Raghav.jpg" },
@@ -103,7 +103,7 @@
     "mythili": { "name": "Kum. Mythili", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "prachi": { "name": "Kum. Prachi", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Prachi.jpg" },
     "vishakha": { "name": "Kum. Vishakha", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Vishakha.jpg" },
-    "akshaya": { "name": "Kum. Akshaya", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
+    "akshaya": { "name": "Kum. Akshaya A", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/AkshyaA.jpg" },
     "kamakshi": { "name": "Kum. Kamakshi", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "megha": { "name": "Kum. Megha H", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/MeghaH.jpg" },
     "pushpa": { "name": "Kum. Pushpalathaa", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Pushpalathaa" },
@@ -111,7 +111,7 @@
     "ranganayaki": { "name": "Kum. Ranganayaki", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "drushya": { "name": "Smt. Drushya Rangan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Drushya.jpg" },
     "soumya": { "name": "Kum. Soumya", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/soumya.jpg" },
-    "ramanan": { "name": "Shri. Ramanan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
+    "ramanan": { "name": "Shri. Venkataramanan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Ramanan.jpg" },
     "sai": { "name": "Kum. Sai", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "balasimhan": { "name": "Shri. Balasimhan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "amudan": { "name": "Shri. Amudan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
@@ -154,7 +154,7 @@
     "nandakumar": { "name": "Shri. Nandalal", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Nandalal.jpg" },
     "vayidehi": { "name": "Shree Vayidehi", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "sethuraman": { "name": "Shri. Sethuraman", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
-    "shyamji": { "name": "Sri Shyam Sundar", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" }
+    "shyamji": { "name": "Shri Shyamsundar", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Shyam.jpg" }
   },
   "schedule": {
     "_comment_DAYS": "Each object in this array represents a day. Events within the day list speaker IDs instead of full objects.",
