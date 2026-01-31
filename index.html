@@ -59,6 +59,7 @@
               'flicker': 'flicker 2s infinite',
               'shimmer': 'shimmer 8s linear infinite',
               'twinkle': 'twinkle 4s ease-in-out infinite',
+              'border-pulse': 'border-pulse 2s ease-in-out infinite',
             },
             keyframes: {
               'spin-reverse': {
@@ -79,6 +80,10 @@
               'twinkle': {
                 '0%, 100%': { opacity: 0.3, transform: 'scale(1)' },
                 '50%': { opacity: 0.8, transform: 'scale(1.2)' },
+              },
+              'border-pulse': {
+                '0%, 100%': { borderColor: 'rgba(212, 175, 55, 0.5)', boxShadow: '0 0 0px rgba(212, 175, 55, 0)' },
+                '50%': { borderColor: 'rgba(212, 175, 55, 1)', boxShadow: '0 0 10px rgba(212, 175, 55, 0.4)' },
               }
             }
           },
@@ -235,7 +240,7 @@
                         <span class="text-gold/80 font-bold text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors">Pre-Conference</span>
                         <span class="text-cream text-lg md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Mar 28 – Apr 3</span>
                     </div>
-                    <div onclick="setDay(8)" class="flex-1 bg-maroon/80 backdrop-blur-md border border-gold/50 p-3 rounded-lg flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 hover:bg-maroon/90 cursor-pointer transition-all duration-300 hover:-translate-y-1">
+                    <div onclick="setDay(8)" class="flex-1 bg-maroon/80 backdrop-blur-md border border-gold/50 p-3 rounded-lg flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 hover:bg-maroon/90 cursor-pointer transition-all duration-300 hover:-translate-y-1 animate-border-pulse">
                         <span class="text-gold font-bold text-xs md:text-sm uppercase tracking-widest mb-1 group-hover:text-white transition-colors">Conference</span>
                         <span class="text-white text-xl md:text-2xl font-serif font-extrabold tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] whitespace-nowrap">Apr 4 – 5</span>
                     </div>
@@ -398,7 +403,7 @@
             VALEDICTORY: "linear-gradient(180deg, rgba(255, 245, 238, 1) 0%, rgba(255, 228, 225, 1) 40%, rgba(250, 218, 221, 1) 70%, rgba(128, 0, 0, 0.7) 100%)",
             
             // Default: All other Pre/Post Conference Days (The multi-color flow you provided)
-            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)"
+            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 95%, rgba(255, 206, 191, 1) 100%)"
         };
         
         const SCHEDULE_BG_COLOR = "#ffcebf"; 
@@ -543,13 +548,13 @@
                 let activeClasses = '';
                 if (isActive) {
                     if (isConference) {
-                        activeClasses = 'bg-maroon border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10';
+                        activeClasses = 'bg-maroon border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10 animate-border-pulse';
                     } else {
                         // Dark Green for Pre/Post
                         activeClasses = 'bg-[#1b4d1b] border-gold text-white shadow-lg scale-105 ring-2 ring-gold/40 z-10'; 
                     }
                 }
-                const confClasses = 'bg-yellow-50 border-yellow-400/60 text-charcoal hover:bg-yellow-100 hover:border-yellow-500 hover:shadow-md';
+                const confClasses = 'bg-yellow-50 border-yellow-400/60 text-charcoal hover:bg-yellow-100 hover:border-yellow-500 hover:shadow-md animate-border-pulse';
                 const defaultClasses = 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hover:border-gold/60 hover:shadow-sm';
 
                 // Set Container Class
