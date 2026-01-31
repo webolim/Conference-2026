@@ -36,8 +36,8 @@
             "d10-e1": "https://youtu.be/rangan_d10"
         }
     },
-    "dolotsavam_series": {
-        "_instructions": "This entry acts as a container for all Dolotsavam videos. The keys match the Event IDs in the schedule below.",
+    "dolotsava_series": {
+        "_instructions": "This entry acts as a container for all Dolotsava videos. The keys match the Event IDs in the schedule below.",
         "name": "Dolotsava Series",
         "photo": "",
         "bio": "",
@@ -47,7 +47,7 @@
             "d3-e8": "https://youtu.be/dolotsava_d3",
             "d4-e8": "https://youtu.be/dolotsava_d4",
             "d5-e8": "https://youtu.be/dolotsava_d5",
-            "d6-e8": "https://youtu.be/dolotsavam_d6",
+            "d6-e8": "https://youtu.be/dolotsava_d6",
             "d7-e8": "https://youtu.be/dolotsava_d7",
             "d8-e9": "https://youtu.be/dolotsava_d8",
             "d9-e9": "https://youtu.be/dolotsava_d9",
@@ -88,7 +88,7 @@
     "daksha": { "name": "Kum. Daksha Chalsey", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Daksha.jpg" },
     "srinidhi": { "name": "Kum. Srinidhi Narendran", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Srinidhi.jpg" },
     "niharika": { "name": "Kum. Niharika", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Niharika.jpg" },
-    "harish": { "name": "Shri Harish Chandar", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Harish.jpg" },
+    "krishna": { "name": "Shri Krishna", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/generic-profile.gif" },
     "giridharan": { "name": "Shri Giridharan", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Giri.jpg" },
     "amruttha": { "name": "Kum. Amruttha", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Amruttha.jpg" },
     "ananya_a": { "name": "Kum. Ananya A", "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/AnanyaA.jpg" },
@@ -165,7 +165,7 @@
             { "id": "d1-e1", "startTime": "4:30 PM", "endTime": "6:30 PM", "title": "Abhishekha", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [], "youtubeLink": "https://youtu.be/Abhishekha1" },
             { "id": "d1-e2", "startTime": "6:30 PM", "endTime": "7:30 PM", "title": "Prasadam", "venue": "Premika Madhura Bhavanam", "speakerIds": [] },
             { "id": "d1-e3", "startTime": "7:30 PM", "endTime": "8:30 PM", "title": "Inauguration", "venue": "Ramayana Shala", "speakerIds": [], "youtubeLink": "https://youtu.be/inaguration" },
-            { "id": "d1-e4", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsavam", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
+            { "id": "d1-e4", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsava", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
         ]
       },
       { "dayNumber": 2, "date": "2026-03-29", "displayDate": "March 29", "dayName": "Sunday", "theme": "Ayodhya Kandam", "phase": "Pre-Conference", "events": [ { "id": "d2-e0", "startTime": "5:30 AM", "endTime": "6:15 AM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] }, { "id": "d2-e0b", "startTime": "6:15 AM", "endTime": "6:30 AM", "title": "Suprabhatam", "venue": "Ramayana Shala", "speakerIds": [] }, { "id": "d2-e0c", "startTime": "6:30 AM", "endTime": "8:00 AM", "title": "Parayanam", "venue": "Ramayana Shala", "speakerIds": [] }, { "id": "d2-e0d", "startTime": "8:00 AM", "endTime": "8:30 AM", "title": "Breakfast", "venue": "Premika Madhura Bhavanam", "speakerIds": [] }, { "id": "d2-e1", "startTime": "8:30 AM", "endTime": "9:30 AM", "title": "Pattabhishekha Prarambha", "venue": "Ramayana Shala", "speakerIds": ["dr_rangan"] }, { "id": "d2-e1b", "startTime": "9:30 AM", "endTime": "10:30 AM", "title": "Parayanam", "venue": "Ramayana Shala", "speakerIds": [] }, { "id": "d2-e2", "startTime": "10:30 AM", "endTime": "11:30 AM", "title": "Kausalya Mangalashasanam", "venue": "Ramayana Shala", "speakerIds": ["subhankriya", "daksha"], "youtubeLink": "https://youtu.be/Subhankriya" }, { "id": "d2-e2b", "startTime": "11:30 AM", "endTime": "12:00 PM", "title": "Pooja", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }, { "id": "d2-e2c", "startTime": "12:00 PM", "endTime": "1:00 PM", "title": "Lunch", "venue": "Premika Madhura Bhavanam", "speakerIds": [] }, { "id": "d2-e2d", "startTime": "1:00 PM", "endTime": "3:00 PM", "title": "Parayanam", "venue": "Ramayana Shala", "speakerIds": [] }, { "id": "d2-e3", "startTime": "3:00 PM", "endTime": "4:00 PM", "title": "Pitruvakya Paripalanam", "venue": "Ramayana Shala", "speakerIds": ["shrinidhi", "niharika"], "youtubeLink": "https://youtu.be/Shrinidhi" }, { "id": "d2-e3b", "startTime": "4:00 PM", "endTime": "5:00 PM", "title": "Parayanam", "venue": "Ramayana Shala", "speakerIds": [] }, { "id": "d2-e4", "startTime": "5:00 PM", "endTime": "6:00 PM", "title": "Guha Sakhyam", "venue": "Ramayana Shala", "speakerIds": ["harish"], "youtubeLink": "https://youtu.be/Harish" }, { "id": "d2-e5", "startTime": "6:00 PM", "endTime": "6:30 PM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] }, { "id": "d2-e6", "startTime": "6:00 PM", "endTime": "7:30 PM", "title": "Dinner", "venue": "Premika Madhura Bhavanam", "speakerIds": [] }, { "id": "d2-e7", "startTime": "7:30 PM", "endTime": "8:30 PM", "title": "Badhai", "venue": "Ramayana Shala", "speakerIds": [], "youtubeLink": "https://youtu.be/Bahai" }, { "id": "d2-e8", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsavam", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] } ] },
@@ -193,7 +193,7 @@
           { "id": "d8-e7b", "startTime": "6:00 PM", "endTime": "6:30 PM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
           { "id": "d8-e7c", "startTime": "6:00 PM", "endTime": "7:30 PM", "title": "Dinner", "venue": "Premika Madhura Bhavanam", "speakerIds": [] },
           { "id": "d8-e8", "startTime": "7:30 PM", "endTime": "8:30 PM", "title": "Theppam Utsava", "venue": "Vijayji's Backyard", "speakerIds": [], "youtubeLink": "https://youtu.be/theppamUtsava" },
-          { "id": "d8-e9", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsavam", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
+          { "id": "d8-e9", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsava", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
       ]},
       { "dayNumber": 9, "date": "2026-04-05", "displayDate": "April 05", "dayName": "Sunday", "theme": "Conference Day 2", "phase": "Conference", "events": [
           { "id": "d9-e0", "startTime": "5:30 AM", "endTime": "6:15 AM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
@@ -267,7 +267,7 @@
           { "id": "d9-e7b", "startTime": "6:00 PM", "endTime": "6:30 PM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
           { "id": "d9-e7c", "startTime": "6:00 PM", "endTime": "7:30 PM", "title": "Dinner", "venue": "Premika Madhura Bhavanam", "speakerIds": [] },
           { "id": "d9-e8", "startTime": "7:30 PM", "endTime": "8:30 PM", "title": "Annual Day", "venue": "Ramayana Shala", "speakerIds": [], "youtubeLink": "https://youtu.be/annualday" },
-          { "id": "d9-e9", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsavam", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
+          { "id": "d9-e9", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsava", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
       ]},
       { "dayNumber": 10, "date": "2026-04-06", "displayDate": "April 06", "dayName": "Monday", "theme": "Yuddha Kandam", "phase": "Post-Conference", "events": [
           { "id": "d10-e0", "startTime": "5:30 AM", "endTime": "6:15 AM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
@@ -286,7 +286,7 @@
           { "id": "d10-e5", "startTime": "6:00 PM", "endTime": "6:30 PM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
           { "id": "d10-e6", "startTime": "6:00 PM", "endTime": "7:30 PM", "title": "Dinner", "venue": "Premika Madhura Bhavanam", "speakerIds": [] },
           { "id": "d10-e7", "startTime": "7:30 PM", "endTime": "8:30 PM", "title": "Pushpaka Vimanam", "venue": "Ramayana Shala", "speakerIds": [], "youtubeLink": "https://youtu.be/pushpakavimanam" },
-          { "id": "d10-e8", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsavam", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
+          { "id": "d10-e8", "startTime": "8:30 PM", "endTime": "9:00 PM", "title": "Dolotsava", "venue": "Kalyana Ramar Sannidhi", "speakerIds": [] }
       ]},
       { "dayNumber": 11, "date": "2026-04-07", "displayDate": "April 07", "dayName": "Tuesday", "theme": "Valedictory", "phase": "Post-Conference", "events": [
           { "id": "d11-e0", "startTime": "5:30 AM", "endTime": "6:15 AM", "title": "Sandhyopasana", "venue": "Venue", "speakerIds": [] },
