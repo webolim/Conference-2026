@@ -246,6 +246,14 @@
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
       }
+
+      /* Special 7:30 PM Event Border */
+      .special-event-border {
+        border: 8px solid transparent;
+        padding: 15px !important;
+        border-image: url('https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/border.png') 35% round;
+        margin-bottom: 15px;
+      }
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans antialiased">
@@ -815,8 +823,8 @@
                             <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(hours).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Hours</span></div>
                             <span class="text-2xl md:text-3xl opacity-40">:</span>
                             <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(minutes).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Mins</span></div>
-                            <span class="text-2xl md:text-3xl opacity-40 hidden md:inline">:</span>
-                            <div class="flex flex-col items-center hidden md:flex"><span class="text-3xl md:text-4xl font-bold leading-none text-white">${String(seconds).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Secs</span></div>
+                            <span class="text-2xl md:text-3xl opacity-40">:</span>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none text-white">${String(seconds).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Secs</span></div>
                         </div>
                     </div>
                 `;
@@ -860,8 +868,12 @@
                     const isGenericVenue = !event.venue || event.venue === 'Venue';
                     const showVenue = !isGenericVenue && !hideVenueTitles.includes(event.title);
 
+                    // Check for special event time (7:30 PM)
+                    const isSpecialEvent = event.startTime === '7:30 PM';
+                    const specialBorderClass = isSpecialEvent ? 'special-event-border' : '';
+
                     return `
-                        <div id="event-${event.id}" class="${roundedClass} group relative p-6 md:p-8 flex flex-row gap-4 md:gap-8 bg-white/95 backdrop-blur-xl hover:bg-white transition-colors duration-300">
+                        <div id="event-${event.id}" class="${roundedClass} ${specialBorderClass} group relative p-6 md:p-8 flex flex-row gap-4 md:gap-8 bg-white/95 backdrop-blur-xl hover:bg-white transition-colors duration-300">
                             <!-- Live Badge (Floating Mobile) -->
                             <div id="event-live-${event.id}" class="hidden absolute top-4 right-4 md:static md:hidden flex items-center gap-1 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse z-10"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> LIVE</div>
 
