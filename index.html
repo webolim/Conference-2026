@@ -257,9 +257,15 @@
 
       /* Conference Day Button Border */
       .conf-btn-border {
-        border: 8px solid transparent;
-        border-image: url('https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/border.png') 30 stretch;
+        border: 6px solid transparent;
+        border-image: url('https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/border.png') 27 stretch;
       }
+      
+      /* Hero Section Decorative Frame *
+      .hero-border {
+        border: 15px solid transparent;
+        border-image: url('https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/border.png') 30 stretch;
+      }/
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans antialiased">
@@ -301,12 +307,8 @@
     <main class="min-h-screen flex flex-col font-sans bg-cream relative">
         
         <!-- HERO SECTION -->
-        <div id="hero" class="hero-glitter-bg hero-border relative w-full overflow-hidden text-gold min-h-[500px] md:min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row items-center justify-center pt-12 pb-10 md:pt-8 md:pb-20 lg:pt-24 lg:pb-32 px-4 lg:px-16 gap-4 lg:gap-6">
+        <div id="hero" class="hero-glitter-bg relative w-full overflow-hidden text-gold min-h-[500px] md:min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row items-center justify-center pt-12 pb-10 md:pt-8 md:pb-20 lg:pt-24 lg:pb-32 px-4 lg:px-16 gap-4 lg:gap-6">
             
-            <!-- Pillars (Added back) -->
-            <img id="pillar-left" class="hidden xl:block absolute left-0 bottom-0 h-[85%] w-auto object-contain z-0 pointer-events-none opacity-80" />
-            <img id="pillar-right" class="hidden xl:block absolute right-0 bottom-0 h-[85%] w-auto object-contain z-0 pointer-events-none opacity-80" />
-
             <!-- Left Column: Deity Image -->
             <div class="relative z-10 w-full lg:w-1/2 flex justify-center items-center order-1 lg:order-1">
                 <div class="relative flex justify-center items-center w-fit mx-auto">
@@ -553,8 +555,7 @@
             if(document.getElementById('hero-img')) document.getElementById('hero-img').src = ASSETS.heroImage;
             if(document.getElementById('sticky-logo')) document.getElementById('sticky-logo').src = ASSETS.logo;
             if(document.getElementById('footer-logo')) document.getElementById('footer-logo').src = ASSETS.logo;
-            if(document.getElementById('pillar-left')) document.getElementById('pillar-left').src = ASSETS.pillarLeft;
-            if(document.getElementById('pillar-right')) document.getElementById('pillar-right').src = ASSETS.pillarRight;
+            // Pillars removed
         }
 
         function preprocessScheduleData() {
