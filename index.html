@@ -23,6 +23,89 @@
     <!-- Preload Critical Hero Image -->
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/KalyanaRamar.gif">
 
+    <!-- Critical Fallback CSS: Ensures layout works even if CDN is blocked -->
+    <style>
+      :root {
+        --color-maroon: #800000;
+        --color-gold: #D4AF37;
+        --color-cream: #FFFDD0;
+        --color-charcoal: #333333;
+      }
+      /* Reset & Basic */
+      body { margin: 0; font-family: sans-serif; background-color: var(--color-cream); color: var(--color-charcoal); }
+      img { max-width: 100%; height: auto; display: block; }
+      .hidden { display: none !important; }
+      [hidden] { display: none !important; }
+
+      /* Layout Utilities Polyfill */
+      .flex { display: flex; }
+      .flex-col { flex-direction: column; }
+      .flex-row { flex-direction: row; }
+      .items-center { align-items: center; }
+      .items-start { align-items: flex-start; }
+      .justify-center { justify-content: center; }
+      .justify-between { justify-content: space-between; }
+      .justify-start { justify-content: flex-start; }
+      
+      /* Positioning */
+      .relative { position: relative; }
+      .absolute { position: absolute; }
+      .fixed { position: fixed; }
+      .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+      .top-0 { top: 0; }
+      .left-0 { left: 0; }
+      .z-10 { z-index: 10; }
+      .z-20 { z-index: 20; }
+      .z-50 { z-index: 50; }
+
+      /* Sizing */
+      .w-full { width: 100%; }
+      .h-full { height: 100%; }
+      .min-h-screen { min-height: 100vh; }
+      
+      /* Typography */
+      .text-center { text-align: center; }
+      .text-left { text-align: left; }
+      .font-bold { font-weight: bold; }
+      .uppercase { text-transform: uppercase; }
+      
+      /* Colors */
+      .text-white { color: white; }
+      .text-gold { color: var(--color-gold); }
+      .text-maroon { color: var(--color-maroon); }
+      .bg-cream { background-color: var(--color-cream); }
+      .bg-gold { background-color: var(--color-gold); }
+      .bg-maroon { background-color: var(--color-maroon); }
+      .bg-black\/20 { background-color: rgba(0,0,0,0.2); }
+      
+      /* Spacing (Approximate) */
+      .p-2 { padding: 0.5rem; }
+      .p-4 { padding: 1rem; }
+      .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+      .px-4 { padding-left: 1rem; padding-right: 1rem; }
+      .m-auto { margin: auto; }
+      .mx-auto { margin-left: auto; margin-right: auto; }
+      .mb-4 { margin-bottom: 1rem; }
+      .gap-2 { gap: 0.5rem; }
+      .gap-4 { gap: 1rem; }
+      
+      /* Decorations */
+      .rounded-full { border-radius: 9999px; }
+      .rounded-lg { border-radius: 0.5rem; }
+      .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+      /* Media Queries for Responsive Layouts */
+      @media (min-width: 768px) {
+        .md\:flex-row { flex-direction: row; }
+        .md\:w-auto { width: auto; }
+        .md\:text-left { text-align: left; }
+      }
+      @media (min-width: 1024px) {
+        .lg\:flex-row { flex-direction: row; }
+        .lg\:w-1\/2 { width: 50%; }
+      }
+    </style>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -556,7 +639,7 @@
         };
 
         const getYouTubeButtonState = (event, currentTime) => {
-            if (!event.youtubeLink) return 'hidden';
+            if (!event.videoLinks || event.videoLinks.length === 0) return 'hidden';
             // Use pre-calculated timestamps for performance
             if (event._liveStartTs && event._endTs) {
                 const nowTs = currentTime.getTime();
@@ -589,6 +672,14 @@
             SCHEDULE_DATA.days.forEach(day => {
                 day.events.forEach(event => {
                     eventMap[event.id] = event;
+                    // Initialize videoLinks array ONLY if not already present from JSON
+                    if (!event.videoLinks) {
+                        event.videoLinks = [];
+                        // Add default link if exists in JSON object directly
+                        if(event.youtubeLink) {
+                             event.videoLinks.push({ url: event.youtubeLink, label: 'Watch Recording' });
+                        }
+                    }
                 });
             });
 
@@ -598,7 +689,12 @@
                     if (speaker.videos) {
                         Object.entries(speaker.videos).forEach(([eventId, url]) => {
                             if (eventMap[eventId]) {
-                                eventMap[eventId].youtubeLink = url;
+                                // Check if this URL is already added (to avoid duplicates if matched with default)
+                                const exists = eventMap[eventId].videoLinks.find(v => v.url === url);
+                                if (!exists) {
+                                    // Use speaker name for label
+                                    eventMap[eventId].videoLinks.push({ url: url, label: `Watch ${speaker.name}` });
+                                }
                             }
                         });
                     }
@@ -608,7 +704,7 @@
 
             SCHEDULE_DATA.days.forEach(day => {
                 day.events.forEach(event => {
-                    if(event.youtubeLink) {
+                    if(event.videoLinks.length > 0) {
                         // Parse Start Time
                         const [time, modifier] = event.startTime.split(' ');
                         let [hours, minutes] = time.split(':').map(Number);
@@ -884,7 +980,7 @@
 
                 // Events List
                 const eventsHtml = day.events.map((event, index) => {
-                    const hasVideo = !!event.youtubeLink;
+                    const hasVideos = event.videoLinks && event.videoLinks.length > 0;
                     const eventSpeakers = (event.speakerIds || []).map(id => SPEAKERS[id]).filter(Boolean);
                     
                     const isFirst = index === 0;
@@ -962,11 +1058,13 @@
                                 ` : ''}
 
                                 <!-- Buttons -->
-                                ${hasVideo ? `
-                                    <div class="mt-2">
-                                        <a id="event-btn-${event.id}" href="${event.youtubeLink}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md">
-                                            <i data-lucide="youtube" class="w-4 h-4"></i> Watch Recording
-                                        </a>
+                                ${hasVideos ? `
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        ${event.videoLinks.map((video, vIndex) => `
+                                            <a id="event-btn-${event.id}-${vIndex}" href="${video.url}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md">
+                                                <i data-lucide="youtube" class="w-4 h-4"></i> ${video.label}
+                                            </a>
+                                        `).join('')}
                                     </div>
                                 ` : ''}
                             </div>
@@ -1011,56 +1109,64 @@
             
             days.forEach(day => {
                 day.events.forEach(event => {
-                    if(!event.youtubeLink) return;
+                    if(!event.videoLinks || event.videoLinks.length === 0) return;
                     
-                    const ytState = getYouTubeButtonState(event, now);
-                    const btn = document.getElementById(`event-btn-${event.id}`);
-                    const badge = document.getElementById(`event-live-${event.id}`);
-                    const badgeDesktop = document.getElementById(`event-live-desktop-${event.id}`);
-                    const row = document.getElementById(`event-${event.id}`);
-                    
-                    if (btn) {
-                        const currentStatus = btn.getAttribute('data-status');
-                        if (currentStatus !== ytState) {
-                            hasChanges = true;
-                            btn.setAttribute('data-status', ytState);
+                    // Determine state based on event time (applies to all buttons for this event)
+                    let ytState = 'recording';
+                    if (event._liveStartTs && event._endTs) {
+                        const nowTs = now.getTime();
+                        if (nowTs < event._liveStartTs) ytState = 'disabled';
+                        else if (nowTs >= event._liveStartTs && nowTs <= event._endTs) ytState = 'live';
+                        else ytState = 'recording';
+                    }
 
-                            if (ytState === 'live') {
-                                 btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md bg-red-600 text-white hover:bg-red-700 animate-pulse";
-                                 btn.innerHTML = '<i data-lucide="play" class="w-4 h-4"></i> Watch LIVE Now';
-                                 if(row) {
-                                     // Remove default card bg classes and add live bg classes
-                                     row.classList.remove('bg-white/95', 'hover:bg-white');
-                                     row.classList.add('bg-red-50/95');
-                                 }
-                            } else if (ytState === 'disabled') {
-                                 btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-none bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none";
-                                 btn.innerHTML = '<i data-lucide="youtube" class="w-4 h-4"></i> Coming Soon';
-                                 if(row) {
-                                     // Restore default card bg classes
-                                     row.classList.remove('bg-red-50/95');
-                                     row.classList.add('bg-white/95', 'hover:bg-white');
-                                 }
-                            } else {
-                                 btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md";
-                                 btn.innerHTML = '<i data-lucide="youtube" class="w-4 h-4"></i> Watch Recording';
-                                 if(row) {
-                                     // Restore default card bg classes
-                                     row.classList.remove('bg-red-50/95');
-                                     row.classList.add('bg-white/95', 'hover:bg-white');
-                                 }
+                    // Update ALL buttons for this event
+                    event.videoLinks.forEach((video, vIndex) => {
+                        const btn = document.getElementById(`event-btn-${event.id}-${vIndex}`);
+                        if (btn) {
+                            const currentStatus = btn.getAttribute('data-status');
+                            if (currentStatus !== ytState) {
+                                hasChanges = true;
+                                btn.setAttribute('data-status', ytState);
+
+                                if (ytState === 'live') {
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md bg-red-600 text-white hover:bg-red-700 animate-pulse";
+                                     btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> ${video.label.replace('Watch', 'Live:')}`;
+                                } else if (ytState === 'disabled') {
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-none bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none";
+                                     btn.innerHTML = `<i data-lucide="youtube" class="w-4 h-4"></i> ${video.label} (Soon)`;
+                                } else {
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md";
+                                     btn.innerHTML = `<i data-lucide="youtube" class="w-4 h-4"></i> ${video.label}`;
+                                }
                             }
                         }
+                    });
+
+                    // Update Row BG based on whether ANY video is live (based on time)
+                    const row = document.getElementById(`event-${event.id}`);
+                    if(row) {
+                        const isLive = (ytState === 'live');
+                        // Toggle logic based on class presence to avoid thrashing
+                        if (isLive && !row.classList.contains('bg-red-50/95')) {
+                            row.classList.remove('bg-white/95', 'hover:bg-white');
+                            row.classList.add('bg-red-50/95');
+                        } else if (!isLive && row.classList.contains('bg-red-50/95')) {
+                             row.classList.remove('bg-red-50/95');
+                             row.classList.add('bg-white/95', 'hover:bg-white');
+                        }
                     }
+
                     // Badge Toggling
                     const shouldBeVisible = (ytState === 'live');
+                    const badge = document.getElementById(`event-live-${event.id}`);
+                    const badgeDesktop = document.getElementById(`event-live-desktop-${event.id}`);
                     [badge, badgeDesktop].forEach(b => {
                         if(b) {
                             const isVisible = !b.classList.contains('hidden');
                             if(isVisible !== shouldBeVisible) {
                                 if(shouldBeVisible) {
                                     b.classList.remove('hidden');
-                                    // If it's the desktop badge, make sure it displays inline-flex
                                     if(b.id.includes('desktop')) b.classList.add('inline-flex');
                                 } else {
                                     b.classList.add('hidden');
