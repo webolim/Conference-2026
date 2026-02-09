@@ -150,4 +150,795 @@
         <p class="text-maroon font-serif font-bold text-lg tracking-widest animate-pulse">LOADING...</p>
     </div>
 
-    
+    <!-- FLOATING MENU BUTTON -->
+    <button id="float-menu-btn" onclick="toggleMobileMenu(true)" class="fixed top-4 right-4 z-50 bg-black/20 backdrop-blur-md text-gold p-3 rounded-full border border-gold/20 shadow-lg hover:bg-black/40 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] text-white flex flex-col items-center justify-center space-y-8 backdrop-blur-md hidden transition-opacity duration-300 opacity-0" style="background: rgba(128, 0, 0, 0.95);">
+        <button onclick="toggleMobileMenu(false)" class="absolute top-6 right-6 text-white/80 hover:text-white">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#hero" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Home</a>
+        <a href="javascript:void(0)" onclick="setDay(1); toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Schedule</a>
+        <a href="#donate" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Donate</a>
+        <a href="#contact" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Contact</a>
+        <a href="https://webolim.github.io/Registration/" target="_blank" class="text-2xl font-serif font-bold text-gold flex items-center gap-2 bg-white/10 px-6 py-2 rounded-full border border-gold/50">
+            Accommodation <i data-lucide="external-link" class="w-6 h-6"></i>
+        </a>
+    </div>
+
+    <!-- IMAGE MODAL OVERLAY (GALLERY) -->
+    <div id="image-modal" class="fixed inset-0 z-[80] bg-black/95 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center select-none">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/40 hover:bg-black/60 rounded-full p-2 pointer-events-auto transition-colors z-[100]">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        
+        <!-- Left Arrow -->
+        <button onclick="changeGalleryImage(-1)" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/90 hover:text-white bg-black/20 hover:bg-black/50 rounded-full p-4 pointer-events-auto transition-all hidden md:block backdrop-blur-sm z-[100]">
+            <i data-lucide="chevron-left" class="w-8 h-8 md:w-10 md:h-10"></i>
+        </button>
+
+        <!-- Right Arrow -->
+        <button onclick="changeGalleryImage(1)" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/90 hover:text-white bg-black/20 hover:bg-black/50 rounded-full p-4 pointer-events-auto transition-all hidden md:block backdrop-blur-sm z-[100]">
+            <i data-lucide="chevron-right" class="w-8 h-8 md:w-10 md:h-10"></i>
+        </button>
+
+        <!-- Image Container for Touch Gestures -->
+        <div id="modal-img-container" class="relative w-full h-full flex items-center justify-center p-0 md:p-4">
+            <img id="modal-img" src="" class="max-w-[100vw] max-h-[85vh] md:max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" onclick="event.stopPropagation()" />
+            <p id="modal-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-mono bg-black/50 px-4 py-1.5 rounded-full pointer-events-none backdrop-blur-md border border-white/10">1 / 5</p>
+        </div>
+    </div>
+
+    <!-- MAIN APP STRUCTURE -->
+    <main class="min-h-screen flex flex-col font-sans bg-cream relative">
+        
+        <!-- HERO SECTION -->
+        <div id="hero" class="hero-glitter-bg relative w-full overflow-hidden text-gold min-h-[500px] md:min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row items-center justify-center pt-12 pb-10 md:pt-8 md:pb-20 lg:pt-24 lg:pb-32 px-4 lg:px-16 gap-4 lg:gap-6">
+            
+            <!-- Hero Left -->
+            <div class="relative z-10 w-full lg:w-1/2 flex justify-center items-center order-1 lg:order-1">
+                <div class="relative flex justify-center items-center w-fit mx-auto">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] md:w-[720px] md:h-[720px] lg:w-[600px] lg:h-[600px] pointer-events-none z-0">
+                        <div class="w-full h-full animate-spin-slow rounded-full blur-[1px]" style="background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.5) 0deg 15deg, transparent 15deg 30deg); mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] md:w-[550px] md:h-[550px] lg:w-[450px] lg:h-[450px] pointer-events-none z-0">
+                        <div class="w-full h-full animate-spin-reverse-medium rounded-full blur-[1px]" style="background: repeating-conic-gradient(from 0deg, rgba(255, 255, 220, 0.4) 0deg 10deg, transparent 10deg 20deg); mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[320px] md:h-[320px] lg:w-[300px] lg:h-[300px] bg-white/60 blur-[70px] rounded-full z-10"></div>
+                    <img id="hero-img" class="h-[220px] md:h-[420px] lg:h-[480px] object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] z-20 relative transform hover:scale-105 transition-transform duration-700" width="480" height="480" />
+                </div>
+            </div>
+
+            <!-- Hero Right: Content -->
+            <div class="relative z-10 w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left gap-3 md:gap-6 order-2 lg:order-2">
+                <div class="space-y-2 md:space-y-4 w-full">
+                    <p class="font-serif font-bold text-cream text-xs md:text-sm tracking-[0.3em] uppercase drop-shadow-md mb-2 opacity-90">Webolim Presents</p>
+                    <h1 class="font-serif font-extrabold text-3xl md:text-6xl lg:text-5xl xl:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-100 to-gold leading-tight drop-shadow-sm pb-1">
+                        Sri Ramayana Satram & <br class="hidden lg:block"/> Valmiki Ramayana Conference 2026
+                    </h1>
+                    <div id="hero-countdown" class="flex flex-col items-center lg:items-start w-full my-3"></div>
+                    <p class="font-sans text-cream text-base md:text-xl lg:text-2xl max-w-4xl lg:max-w-none font-medium leading-relaxed drop-shadow px-2 md:whitespace-nowrap lg:whitespace-normal opacity-95">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
+                </div>
+                <div class="flex flex-row gap-1 md:gap-2 mt-5 md:mt-8 w-full max-w-full lg:max-w-xl px-0 mb-2 justify-between lg:justify-start items-stretch">
+                    <div onclick="setDay(1)" class="flex-1 border border-gold/20 p-2 md:p-3 rounded-[2rem] flex flex-col items-center justify-center shadow-sm hover:shadow-md hover:bg-white/5 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
+                        <span class="text-gold/80 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors text-center">Pre-Conference</span>
+                        <span class="text-cream text-xs sm:text-sm md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Mar 28 – Apr 3</span>
+                    </div>
+                    <div onclick="setDay(8)" class="flex-1 hero-glow-border rounded-lg p-2 md:p-3 flex flex-col items-center justify-center shadow-lg hover:shadow-xl scale-100 md:scale-105 z-10 cursor-pointer transition-all duration-300 hover:-translate-y-1">
+                        <div class="relative z-10 flex flex-col items-center justify-center">
+                            <span class="text-gold font-bold text-[10px] sm:text-xs md:text-sm uppercase tracking-widest mb-1 transition-colors text-center">Conference</span>
+                            <span class="text-white text-sm sm:text-lg md:text-3xl font-serif font-extrabold tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] whitespace-nowrap">Apr 4 – 5</span>
+                        </div>
+                    </div>
+                    <div onclick="setDay(10)" class="flex-1 border border-gold/20 p-2 md:p-3 rounded-[2rem] flex flex-col items-center justify-center shadow-sm hover:shadow-md hover:bg-white/5 cursor-pointer transition-all duration-300 group hover:-translate-y-1 scale-95 opacity-90">
+                        <span class="text-gold/80 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mb-1 group-hover:text-gold transition-colors text-center">Post-Conference</span>
+                        <span class="text-cream text-xs sm:text-sm md:text-xl font-serif font-bold tracking-tight whitespace-nowrap">Apr 6 – 7</span>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 md:gap-4 w-full justify-center lg:justify-start items-center z-20 px-4 lg:px-0 mt-6">
+                    <a id="hero-location-trigger" href="https://maps.app.goo.gl/x5cT4fMKbuzQKkBJ8" target="_blank" class="group relative flex items-center justify-center gap-2 bg-charcoal/80 hover:bg-black/90 backdrop-blur-sm text-cream py-2.5 md:py-3 px-6 rounded-full border border-gold/30 transition-all hover:border-gold hover:scale-105 shadow-md w-full md:w-auto">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-gold group-hover:animate-bounce"></i>
+                        <span class="text-sm md:text-base font-medium tracking-wide">Srimad Valmiki Ashrama</span>
+                    </a>
+                    <a href="https://webolim.github.io/Registration/" target="_blank" class="flex items-center justify-center gap-2 bg-gold hover:bg-yellow-400 text-maroon py-2.5 md:py-3 px-6 md:px-8 rounded-full font-bold text-sm md:text-base shadow-lg hover:scale-105 transition-all w-full md:w-auto">
+                        Accommodation Registration <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STICKY HEADER & STEPPER -->
+        <div id="sticky-header" class="sticky top-0 z-40 bg-gold/95 backdrop-blur-md border-b border-gold/30 shadow-md transition-all duration-300">
+            <div id="sticky-brand" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="overflow-hidden transition-all duration-500 ease-in-out bg-maroon border-b border-gold/20 max-h-0 opacity-0 cursor-pointer">
+                <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-2 md:gap-4 overflow-hidden w-full md:w-auto">
+                        <img id="sticky-logo" class="h-10 md:h-12 w-auto object-contain flex-shrink-0" />
+                        <div class="flex flex-col md:flex-row md:items-baseline md:gap-2 overflow-hidden">
+                            <span class="font-serif font-extrabold text-gold text-base md:text-2xl leading-tight drop-shadow-sm whitespace-nowrap truncate">Sri Ramayana Satram</span>
+                            <span class="font-serif font-extrabold text-gold/90 text-lg md:text-2xl leading-tight">& Conference 2026</span>
+                        </div>
+                    </div>
+                    <button onclick="event.stopPropagation(); toggleMobileMenu(true)" class="text-gold p-2 hover:bg-white/10 rounded-full transition-colors flex-shrink-0 ml-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="w-full bg-transparent relative z-30 group">
+                <div id="stepper-left-grad" class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-gold to-transparent z-20 pointer-events-none transition-opacity duration-300 opacity-0"></div>
+                <button id="stepper-prev" onclick="navigateDay(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-maroon text-gold border border-gold/50 p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 pointer-events-none"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+                <div id="stepper-right-grad" class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-gold to-transparent z-20 pointer-events-none transition-opacity duration-300 opacity-0"></div>
+                <button id="stepper-next" onclick="navigateDay(1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-maroon text-gold border border-gold/50 p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 pointer-events-none"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
+                <div id="day-stepper-container" class="flex overflow-x-auto no-scrollbar py-2 px-4 gap-1 items-stretch w-full relative z-10" style="scroll-snap-type: x mandatory;"></div>
+            </div>
+        </div>
+
+        <!-- SCHEDULE SECTIONS CONTAINER -->
+        <div id="schedule-container"></div>
+
+        <!-- DONATION -->
+        <section id="donate" class="py-16 bg-maroon text-cream scroll-mt-48">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h2 class="font-serif text-3xl text-center font-bold text-gold mb-8">Support WEBOLIM</h2>
+                
+                <div class="flex flex-col gap-8">
+                    <!-- Contribution Box -->
+                    <div class="bg-white/10 p-6 rounded-2xl border border-gold/30 text-center flex flex-col items-center w-full md:max-w-xl mx-auto">
+                        <h3 class="text-xl font-bold mb-4">Make a Contribution</h3>
+                        <div class="hidden md:block bg-white p-2 rounded-lg mb-4">
+                            <div class="w-48 h-48 bg-gray-100 flex items-center justify-center text-charcoal text-xs p-2 text-center">
+                                <img src="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/QR.png" alt="UPI QR" class="w-full h-full object-contain" />
+                            </div>
+                        </div>
+                        <p class="hidden md:block text-sm opacity-80 mb-4">Scan with any UPI App</p>
+                        <a href="upi://pay?pa=qr919443887456-9830@unionbankofindia&pn=WEBOLIM%20TRUST&cu=INR" class="md:hidden w-full bg-gold text-maroon font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg animate-pulse">
+                            <i data-lucide="qr-code" class="w-5 h-5"></i> Donate via UPI App
+                        </a>
+                        <p class="mt-4 text-xs p-2 text-left w-full opacity-80"><span class="font-bold text-gold">Note:</span> All donations to WEBOLIM Trust are eligible for tax exemption under Section 80G.</p>
+                    </div>
+
+                    <!-- Bank Transfer Section -->
+                    <div class="w-full">
+                        <h3 class="text-lg font-bold text-gold opacity-90 text-center mb-6">For NEFT / RTGS use the following details</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Bank 1 -->
+                            <div class="p-6 rounded-xl bg-white/5 border border-gold/20 hover:bg-white/10 transition-colors">
+                                <h4 class="font-bold text-xl text-gold flex items-center gap-2 mb-3">UNION BANK OF INDIA</h4>
+                                <div class="space-y-2 text-base font-mono opacity-90">
+                                    <p>Acct Name: WEBOLIM TRUST</p>
+                                    <p>Acct No: <span class="text-white font-bold select-all">520101257799830</span></p>
+                                    <p>IFSC: <span class="text-white font-bold select-all">UBIN0912883</span></p>
+                                    <p>MICR: <span class="text-white font-bold select-all">562026356</span></p>
+                                    <p>Branch: Jigani</p>
+                                </div>
+                            </div>
+                            <!-- Bank 2 -->
+                            <div class="p-6 rounded-xl bg-white/5 border border-gold/20 hover:bg-white/10 transition-colors">
+                                <h4 class="font-bold text-xl text-gold flex items-center gap-2 mb-3">City Union Bank Ltd (CUB)</h4>
+                                <div class="space-y-2 text-base font-mono opacity-90">
+                                    <p>Acct Name: WEBOLIM TRUST</p>
+                                    <p>Acct No: <span class="text-white font-bold select-all">500101013583858</span></p>
+                                    <p>IFSC: <span class="text-white font-bold select-all">CIUB0000583</span></p>
+                                    <p>MICR: <span class="text-white font-bold select-all">560054026</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="contact" class="bg-charcoal text-cream py-16 scroll-mt-48 border-t-4 border-maroon">
+            <div class="container mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center justify-center">
+                    <img id="footer-logo" class="h-24 md:h-32" />
+                </div>
+                <div class="flex flex-col md:flex-row gap-6 md:gap-12 text-base md:text-lg text-center md:text-left font-medium">
+                    <a href="tel:+919369637283" class="flex items-center justify-center gap-3 hover:text-gold transition-colors text-cream"><i data-lucide="phone" class="w-5 h-5 text-gold"></i> <span>+91 93696 37283</span></a>
+                    <a href="mailto:webolimclasses@gmail.com" class="flex items-center justify-center gap-3 hover:text-gold transition-colors text-cream"><i data-lucide="mail" class="w-5 h-5 text-gold"></i> <span>webolimclasses@gmail.com</span></a>
+                    <a href="https://webolim.org" target="_blank" class="flex items-center justify-center gap-3 hover:text-gold transition-colors text-cream"><i data-lucide="globe" class="w-5 h-5 text-gold"></i> <span>webolim.org</span></a>
+                </div>
+                <div class="text-xs md:text-sm text-white/40 mt-4 md:mt-0">&copy; 2026 WEBOLIM Trust.</div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- APPLICATION LOGIC & DATA -->
+    <script>
+        let ASSETS = {}, SCHEDULE_DATA = {}, SPEAKERS = {}, EVENT_START_DATE, EVENT_END_DATE;
+        let currentDayId = 1, isScrolling = false, isStepperInit = false;
+
+        // Modal/Gallery State
+        let galleryImages = [];
+        let galleryIndex = 0;
+        let controlsTimeout;
+
+        const GRADIENTS = {
+            INAUGURATION: "linear-gradient(180deg, rgba(217, 244, 255, 1) 0%, rgba(217, 244, 255, 1) 20%, rgba(255, 233, 196, 1) 50%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)",
+            CONFERENCE: "linear-gradient(180deg, rgba(255, 253, 208, 1) 0%, rgba(255, 248, 225, 1) 30%, rgba(255, 236, 179, 1) 70%, rgba(93, 64, 55, 0.9) 100%)",
+            VALEDICTORY: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 100%)",
+            DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)"
+        };
+        const SCHEDULE_BG_COLOR = "#ffcebf"; 
+
+        function initImages() {
+            if(document.getElementById('hero-img')) document.getElementById('hero-img').src = ASSETS.heroImage;
+            if(document.getElementById('sticky-logo')) document.getElementById('sticky-logo').src = ASSETS.logo;
+            if(document.getElementById('footer-logo')) document.getElementById('footer-logo').src = ASSETS.logo;
+        }
+
+        function preprocessScheduleData() {
+            if (!SCHEDULE_DATA.days) return;
+            
+            const timeFormatter = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+                timeZone: 'Asia/Kolkata'
+            });
+
+            // Hydrate events with speaker videos
+            const eventMap = {};
+            SCHEDULE_DATA.days.forEach(day => {
+                day.events.forEach(event => {
+                    eventMap[event.id] = event;
+                    if (!event.videoLinks) {
+                        event.videoLinks = [];
+                        if(event.youtubeLink) event.videoLinks.push({ url: event.youtubeLink, label: 'Watch Recording' });
+                    }
+                });
+            });
+
+            SCHEDULE_DATA.days.forEach(day => {
+                day.events.forEach(event => {
+                    const sDate = new Date(event.start);
+                    const eDate = new Date(event.end);
+                    
+                    event.startTime = timeFormatter.format(sDate);
+                    event.endTime = timeFormatter.format(eDate);
+                    event._startTs = sDate.getTime();
+                    event._endTs = eDate.getTime();
+                    event._liveStartTs = event._startTs - (20 * 60 * 1000); // 20 mins before
+                });
+            });
+        }
+        
+        function renderAllDays() {
+            const container = document.getElementById('schedule-container');
+            if(!container) return;
+            
+            container.innerHTML = SCHEDULE_DATA.days.map(day => {
+                const isConference = day.phase === 'Conference';
+                let bgGradient = GRADIENTS.DEFAULT;
+                if (day.dayNumber === 1) bgGradient = GRADIENTS.INAUGURATION;
+                else if (day.dayNumber === 11) bgGradient = GRADIENTS.VALEDICTORY;
+                else if (day.phase === 'Conference') bgGradient = GRADIENTS.CONFERENCE;
+
+                const noiseUrl = "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')";
+                const sectionStyle = `background-image: ${noiseUrl}, ${bgGradient}; background-color: ${SCHEDULE_BG_COLOR};`;
+                const iconSrc = isConference ? ASSETS.timelineConference : ASSETS.timelineSatram;
+
+                const eventsHtml = day.events.map((event, index) => {
+                    // Map video links to include their original index to preserve ID generation logic
+                    const allLinks = (event.videoLinks || []).map((v, i) => ({...v, idx: i}));
+                    
+                    // Filter general links (those without specific speakerId)
+                    const generalLinks = allLinks.filter(l => !l.speakerId);
+                    const hasGeneralVideos = generalLinks.length > 0;
+
+                    const eventSpeakers = (event.speakerIds || []).map(id => {
+                        const speaker = SPEAKERS[id];
+                        return speaker ? { ...speaker, id: id } : null;
+                    }).filter(Boolean);
+
+                    const isFirst = index === 0;
+                    const isLast = index === day.events.length - 1;
+                    const roundedClass = (isFirst ? 'rounded-t-2xl md:rounded-t-3xl ' : '') + (isLast ? 'rounded-b-2xl md:rounded-b-3xl ' : '');
+                    
+                    const hideVenueTitles = ['Sandhyavandanam', 'Madyanikam', 'Madhyanikam', 'Meditation'];
+                    const isGenericVenue = !event.venue || event.venue === 'Venue';
+                    const showVenue = !isGenericVenue && !hideVenueTitles.includes(event.title);
+
+                    const images = event.eventImages || (event.eventPhoto ? [event.eventPhoto] : []);
+                    const carouselCaption = event.carouselCaption || "Photos from last year";
+                    const imagesJson = JSON.stringify(images).replace(/"/g, '&quot;');
+
+                    return `
+                        <div id="event-${event.id}" class="${roundedClass} group relative p-6 md:p-8 flex flex-col md:flex-row gap-1 md:gap-8 bg-white/95 backdrop-blur-xl hover:bg-white transition-colors duration-300">
+                            <div id="event-live-${event.id}" class="hidden absolute top-4 right-4 md:static md:hidden flex items-center gap-1 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse z-10"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> LIVE</div>
+
+                            <!-- Time Column -->
+                            <div class="w-full md:w-32 shrink-0 flex flex-row md:flex-col items-center md:items-end justify-center md:justify-start gap-2 md:gap-0.5">
+                                <span class="text-sm md:text-xl font-medium md:font-bold text-maroon md:text-maroon/80 leading-tight">${event.startTime}</span>
+                                <span class="md:hidden text-sm text-maroon">-</span>
+                                <span class="text-sm md:text-sm font-medium md:font-normal text-maroon md:text-gray-500 leading-tight">${event.endTime}</span>
+                                <div id="event-live-desktop-${event.id}" class="hidden mt-2 items-center gap-1 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> LIVE</div>
+                            </div>
+
+                            <!-- Content Column -->
+                            <div class="flex-1 min-w-0 flex flex-col gap-2">
+                                <div class="text-center md:text-left">
+                                    <h3 class="text-2xl md:text-3xl font-serif font-bold text-gray-900 leading-tight mb-1 group-hover:text-gold transition-colors">${event.title}</h3>
+                                    ${event.subhead ? `<p class="text-base md:text-lg text-maroon/80 font-serif italic mb-2 leading-relaxed">${event.subhead}</p>` : ''}
+                                    ${showVenue ? `<div class="flex items-center justify-center md:justify-start gap-2 text-xs md:text-sm font-medium text-gray-500"><i data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4 text-gold"></i> ${event.venue}</div>` : ''}
+                                </div>
+                                
+                                <!-- Speakers (PRIORITIZED FIRST) -->
+                                ${eventSpeakers.length > 0 ? `
+                                    <div class="flex flex-col gap-6 mt-3 mb-2">
+                                        ${eventSpeakers.map(s => {
+                                            const hasBio = event.isConference && s.bio;
+                                            const alignClass = hasBio ? 'items-center md:items-start' : 'items-center md:items-center';
+                                            
+                                            // Find specific links for this speaker
+                                            const speakerLinks = allLinks.filter(l => l.speakerId === s.id);
+                                            
+                                            return `
+                                            <div class="flex flex-col sm:flex-row ${alignClass} gap-4">
+                                                <img src="${s.photo}" alt="${s.name}" class="w-36 h-36 md:w-40 md:h-40 rounded-xl object-cover border border-gold/30 shadow-sm shrink-0 bg-gray-100">
+                                                <div class="flex flex-col w-full text-center sm:text-left">
+                                                    <p class="font-bold text-maroon text-base md:text-lg leading-tight mb-1">${s.name}</p>
+                                                    ${hasBio ? `<p class="text-sm md:text-base text-gray-700 leading-relaxed text-left">${s.bio}</p>` : ''}
+                                                    
+                                                    <!-- INLINE SPEAKER BUTTONS -->
+                                                    ${speakerLinks.length > 0 ? `
+                                                        <div class="mt-2 flex flex-wrap gap-2 justify-center sm:justify-start">
+                                                            ${speakerLinks.map(video => `
+                                                                <a id="event-btn-${event.id}-${video.idx}" href="${video.url}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md">
+                                                                    <i data-lucide="youtube" class="w-3 h-3"></i> ${video.label}
+                                                                </a>
+                                                            `).join('')}
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                            </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                ` : ''}
+
+                                <!-- General Bottom Buttons -->
+                                ${hasGeneralVideos ? `
+                                    <div class="mt-2 flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
+                                        ${generalLinks.map(video => `
+                                            <a id="event-btn-${event.id}-${video.idx}" href="${video.url}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md">
+                                                <i data-lucide="youtube" class="w-4 h-4"></i> ${video.label}
+                                            </a>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+
+                                <!-- Carousel / Image Strip (NOW SECOND) -->
+                                ${images.length > 0 ? `
+                                    <div class="w-[calc(100%+3rem)] -ml-6 md:w-full md:ml-0 h-px bg-gold/20 my-6"></div>
+                                    <div class="w-[calc(100%+3rem)] -ml-6 md:w-full md:ml-0 overflow-hidden relative rounded-xl border border-gold/30 shadow-inner bg-black/5">
+                                        <div class="absolute left-0 top-0 bottom-0 w-8 z-10 bg-gradient-to-r from-white/90 to-transparent pointer-events-none"></div>
+                                        <div class="absolute right-0 top-0 bottom-0 w-8 z-10 bg-gradient-to-l from-white/90 to-transparent pointer-events-none"></div>
+                                        <div class="flex animate-marquee gap-4 py-3 px-3">
+                                            ${[...images, ...images].map((img, i) => `
+                                                <img src="${img}" onclick="openGallery(${imagesJson}, ${i % images.length})" class="h-40 md:h-56 w-auto object-cover rounded-lg border border-gold/10 shadow-sm shrink-0 cursor-pointer hover:scale-105 transition-transform duration-300">
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <p class="w-[calc(100%+3rem)] -ml-6 md:w-full md:ml-0 text-center text-sm text-maroon/60 italic mt-2">${carouselCaption}</p>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <section id="day-section-${day.dayNumber}" class="py-12 md:py-20 relative transition-colors duration-500" style="${sectionStyle}">
+                        <div class="container mx-auto px-4 md:px-8 max-w-4xl relative z-10">
+                            <div class="text-center mb-8 md:mb-12">
+                                <img src="${iconSrc}" class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 object-contain drop-shadow-md opacity-90" />
+                                <span class="inline-block px-4 py-1 rounded-full text-xs md:text-sm font-bold uppercase tracking-wider mb-3 ${isConference ? 'bg-gold/20 text-maroon' : 'bg-green-800/10 text-deepGreen'} backdrop-blur-sm border border-black/5 shadow-sm">${day.phase}</span>
+                                <h2 class="font-serif text-3xl md:text-5xl text-maroon font-extrabold mb-2 drop-shadow-sm">${day.theme}</h2>
+                                <div class="flex items-center justify-center gap-3 text-gray-800 font-medium text-lg md:text-xl opacity-80">
+                                    <span>${day.dayName}</span> <span class="w-1.5 h-1.5 rounded-full bg-gold"></span> <span>${day.displayDate}, 2026</span>
+                                </div>
+                            </div>
+                            <div class="rounded-2xl md:rounded-3xl shadow-2xl border border-white/40 overflow-hidden ring-1 ring-black/5 transform-gpu isolate">
+                                <div class="flex flex-col gap-[2px] bg-transparent">
+                                    ${eventsHtml || '<div class="text-center py-12 text-gray-400 italic bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl">Schedule details coming soon.</div>'}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        // --- GALLERY / MODAL LOGIC ---
+        window.openGallery = function(images, index) {
+            galleryImages = images;
+            galleryIndex = index;
+            updateGalleryImage();
+            
+            const modal = document.getElementById('image-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        window.closeModal = function() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        window.changeGalleryImage = function(direction) {
+            galleryIndex += direction;
+            if (galleryIndex < 0) galleryIndex = galleryImages.length - 1;
+            if (galleryIndex >= galleryImages.length) galleryIndex = 0;
+            updateGalleryImage();
+        }
+
+        function updateGalleryImage() {
+            const img = document.getElementById('modal-img');
+            const counter = document.getElementById('modal-counter');
+            
+            // Simple transition
+            img.style.opacity = '0.7';
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = '1';
+                if(counter) counter.textContent = `${galleryIndex + 1} / ${galleryImages.length}`;
+            }, 100);
+        }
+
+        // Swipe Gestures
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const modalContainer = document.getElementById('image-modal');
+        
+        modalContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        modalContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeGalleryImage(1); // Swipe Left -> Next
+            if (touchEndX > touchStartX + 50) changeGalleryImage(-1); // Swipe Right -> Prev
+        }
+
+        // Keyboard Nav
+        document.addEventListener('keydown', (e) => { 
+            if (document.getElementById('image-modal').classList.contains('hidden')) return;
+            if (e.key === "Escape") window.closeModal();
+            if (e.key === "ArrowLeft") window.changeGalleryImage(-1);
+            if (e.key === "ArrowRight") window.changeGalleryImage(1);
+        });
+
+        function updateLiveStatus() {
+            const days = SCHEDULE_DATA.days;
+            const now = new Date();
+            let hasChanges = false;
+            
+            days.forEach(day => {
+                day.events.forEach(event => {
+                    if(!event.videoLinks || event.videoLinks.length === 0) return;
+                    
+                    let ytState = 'recording';
+                    const nowTs = now.getTime();
+                    const startTs = event._startTs;
+                    const endTs = event._endTs;
+                    const soonTs = startTs - (20 * 60 * 1000); // 20 mins before
+
+                    if (event._startTs && event._endTs) {
+                        if (nowTs < soonTs) {
+                             ytState = 'scheduled';
+                        } else if (nowTs >= soonTs && nowTs < startTs) {
+                             ytState = 'soon';
+                        } else if (nowTs >= startTs && nowTs <= endTs) {
+                             ytState = 'live';
+                        } else {
+                             ytState = 'recording';
+                        }
+                    }
+
+                    event.videoLinks.forEach((video, vIndex) => {
+                        const btn = document.getElementById(`event-btn-${event.id}-${vIndex}`);
+                        if (btn) {
+                            const currentStatus = btn.getAttribute('data-status');
+                            if (currentStatus !== ytState) {
+                                hasChanges = true;
+                                btn.setAttribute('data-status', ytState);
+
+                                if (ytState === 'live') {
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md bg-red-600 text-white hover:bg-red-700 animate-pulse";
+                                     let text = "Watch livestream on Youtube";
+                                     if(event.videoLinks.length > 1 && video.label.includes('Watch ')) {
+                                         text = `${video.label.replace('Watch ', '')} Livestream`;
+                                     }
+                                     btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> ${text}`;
+                                } else if (ytState === 'soon') {
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-yellow-100 text-yellow-800 border border-yellow-300 hover:bg-yellow-200 cursor-pointer";
+                                     btn.innerHTML = `<i data-lucide="clock" class="w-4 h-4"></i> Starting Soon`;
+                                } else if (ytState === 'scheduled') {
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-none bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none";
+                                     btn.innerHTML = `<i data-lucide="calendar" class="w-4 h-4"></i> Scheduled for ${day.displayDate}`;
+                                } else {
+                                     // Recording
+                                     btn.className = "inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm bg-gray-100 text-gray-600 hover:bg-gold hover:text-maroon hover:shadow-md";
+                                     let text = "Watch recording on Youtube";
+                                     if(event.videoLinks.length > 1 && video.label.includes('Watch ')) {
+                                         text = `${video.label.replace('Watch ', '')} Recording`;
+                                     }
+                                     btn.innerHTML = `<i data-lucide="youtube" class="w-4 h-4"></i> ${text}`;
+                                }
+                            }
+                        }
+                    });
+
+                    const row = document.getElementById(`event-${event.id}`);
+                    if(row) {
+                        const isLive = (ytState === 'live');
+                        if (isLive && !row.classList.contains('bg-red-50/95')) {
+                            row.classList.remove('bg-white/95', 'hover:bg-white');
+                            row.classList.add('bg-red-50/95');
+                        } else if (!isLive && row.classList.contains('bg-red-50/95')) {
+                             row.classList.remove('bg-red-50/95');
+                             row.classList.add('bg-white/95', 'hover:bg-white');
+                        }
+                    }
+
+                    const shouldBeVisible = (ytState === 'live');
+                    const badge = document.getElementById(`event-live-${event.id}`);
+                    const badgeDesktop = document.getElementById(`event-live-desktop-${event.id}`);
+                    [badge, badgeDesktop].forEach(b => {
+                        if(b) {
+                            const isVisible = !b.classList.contains('hidden');
+                            if(isVisible !== shouldBeVisible) {
+                                if(shouldBeVisible) {
+                                    b.classList.remove('hidden');
+                                    if(b.id.includes('desktop')) b.classList.add('inline-flex');
+                                } else {
+                                    b.classList.add('hidden');
+                                    if(b.id.includes('desktop')) b.classList.remove('inline-flex');
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+            if (hasChanges) lucide.createIcons();
+        }
+
+        window.setDay = function(dayId) {
+            isScrolling = true; currentDayId = dayId; updateStepperVisuals();
+            const el = document.getElementById(`day-section-${dayId}`);
+            if (el) {
+                const headerOffset = 140;
+                const elementPosition = el.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                setTimeout(() => { isScrolling = false; }, 1000);
+            } else isScrolling = false;
+        }
+
+        window.toggleMobileMenu = function(show) {
+            const menu = document.getElementById('mobile-menu');
+            const floatBtn = document.getElementById('float-menu-btn');
+            if (show) {
+                menu.classList.remove('hidden'); setTimeout(() => menu.classList.remove('opacity-0'), 10);
+                floatBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                menu.classList.add('opacity-0'); setTimeout(() => menu.classList.add('hidden'), 300);
+                floatBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+        
+        function initDayStepper() {
+            const container = document.getElementById('day-stepper-container');
+            if(!container || isStepperInit) return;
+            
+            container.innerHTML = SCHEDULE_DATA.days.map(day => {
+                const isConference = day.phase === 'Conference';
+                let shapeClass = isConference ? 'rounded-lg' : 'rounded-full';
+                return `<button onclick="setDay(${day.dayNumber})" id="day-btn-${day.dayNumber}" class="flex-shrink-0 flex flex-col items-center justify-center py-2 ${shapeClass} transition-all duration-300 snap-center cursor-pointer relative">
+                        <div class="relative z-10 flex flex-col items-center justify-center w-full">
+                            <div id="day-conf-corner-${day.dayNumber}" class="absolute top-[-10px] right-[-10px] w-4 h-4 bg-gold/40 rounded-bl-full hidden"></div>
+                            <div class="flex items-center gap-1 leading-none mb-0">
+                                <span id="day-month-${day.dayNumber}" class="text-xs md:text-sm font-bold tracking-wider uppercase"></span>
+                                <span id="day-date-${day.dayNumber}" class="text-3xl md:text-4xl font-serif font-bold"></span>
+                                <span id="day-name-${day.dayNumber}" class="text-xs md:text-sm font-bold tracking-wider uppercase"></span>
+                            </div>
+                            <span id="day-theme-${day.dayNumber}" class="text-xs md:text-sm font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 mt-0"></span>
+                        </div></button>`;
+            }).join('');
+            isStepperInit = true;
+            updateStepperVisuals();
+        }
+
+        function updateStepperVisuals() {
+            const container = document.getElementById('day-stepper-container');
+            if(!container) return;
+
+            SCHEDULE_DATA.days.forEach(day => {
+                const btn = document.getElementById(`day-btn-${day.dayNumber}`);
+                if (!btn) return;
+                const isActive = day.dayNumber === currentDayId;
+                const isConference = day.phase === 'Conference';
+                const [month, dateStr] = day.displayDate.split(' ');
+                
+                let classes = "flex-shrink-0 flex flex-col items-center justify-center py-2 transition-all duration-300 snap-center cursor-pointer relative ";
+                classes += isConference ? "rounded-lg " : "rounded-full ";
+
+                if (isActive) {
+                    if (isConference) classes += "min-w-[180px] md:min-w-[240px] scale-100 z-10 sheen-bg text-white shadow-xl conf-btn-border ";
+                    else classes += "min-w-[180px] md:min-w-[180px] scale-100 z-10 bg-[#1b4d1b] border-2 border-gold text-white shadow-lg ";
+                } else {
+                    if (isConference) classes += "min-w-[155px] md:min-w-[185px] scale-90 opacity-80 bg-cream text-maroon hover:shadow-md conf-btn-border ";
+                    else classes += "min-w-[145px] md:min-w-[155px] scale-90 opacity-80 bg-white border-2 border-maroon text-gray-500 hover:bg-gray-50 hover:shadow-sm ";
+                }
+                btn.className = classes;
+
+                const monthColor = isActive ? 'text-gold' : (isConference ? 'text-maroon' : 'text-gray-400');
+                const dateColor = isActive ? 'text-white' : (isConference ? 'text-maroon' : 'text-gray-800');
+                const dayColor = isActive ? 'text-gray-300' : (isConference ? 'text-maroon/80' : 'text-gray-400');
+                const themeColor = isActive ? 'text-gold' : (isConference ? 'text-maroon' : 'text-gray-600');
+
+                document.getElementById(`day-month-${day.dayNumber}`).className = `text-[10px] md:text-xs font-bold tracking-wider uppercase ${monthColor}`;
+                document.getElementById(`day-month-${day.dayNumber}`).textContent = month.substring(0,3);
+                document.getElementById(`day-date-${day.dayNumber}`).className = `text-2xl md:text-3xl font-serif font-bold ${dateColor}`;
+                document.getElementById(`day-date-${day.dayNumber}`).textContent = dateStr;
+                document.getElementById(`day-name-${day.dayNumber}`).className = `text-[10px] md:text-xs font-bold tracking-wider uppercase ${dayColor}`;
+                document.getElementById(`day-name-${day.dayNumber}`).textContent = day.dayName.substring(0, 3).toUpperCase();
+                document.getElementById(`day-theme-${day.dayNumber}`).className = `text-[10px] md:text-xs font-bold uppercase tracking-wide text-center w-full whitespace-nowrap overflow-hidden text-ellipsis px-2 -mt-1 leading-none ${themeColor}`;
+                document.getElementById(`day-theme-${day.dayNumber}`).textContent = day.theme;
+
+                const corner = document.getElementById(`day-conf-corner-${day.dayNumber}`);
+                if (corner) corner.classList.toggle('hidden', isActive || !isConference);
+            });
+            const activeBtn = document.getElementById(`day-btn-${currentDayId}`);
+            if (activeBtn) {
+                 const scrollLeft = activeBtn.offsetLeft - container.offsetWidth / 2 + activeBtn.offsetWidth / 2;
+                 container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+            updateStepperArrows();
+        }
+
+        window.navigateDay = function(direction) {
+            const nextDayId = currentDayId + direction;
+            if (nextDayId >= 1 && nextDayId <= SCHEDULE_DATA.days.length) setDay(nextDayId);
+        };
+
+        function updateStepperArrows() {
+            const prevBtn = document.getElementById('stepper-prev');
+            const nextBtn = document.getElementById('stepper-next');
+            const leftGrad = document.getElementById('stepper-left-grad');
+            const rightGrad = document.getElementById('stepper-right-grad');
+            
+            if (!prevBtn || !nextBtn) return;
+            const hasPrev = currentDayId > 1;
+            const hasNext = currentDayId < SCHEDULE_DATA.days.length;
+
+            if (hasPrev) {
+                prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+                prevBtn.classList.add('opacity-100', 'pointer-events-auto');
+                if(leftGrad) leftGrad.classList.add('opacity-100');
+            } else {
+                prevBtn.classList.add('opacity-0', 'pointer-events-none');
+                prevBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                if(leftGrad) leftGrad.classList.remove('opacity-100');
+            }
+
+            if (hasNext) {
+                nextBtn.classList.remove('opacity-0', 'pointer-events-none');
+                nextBtn.classList.add('opacity-100', 'pointer-events-auto');
+                if(rightGrad) rightGrad.classList.add('opacity-100');
+            } else {
+                nextBtn.classList.add('opacity-0', 'pointer-events-none');
+                nextBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                if(rightGrad) rightGrad.classList.remove('opacity-100');
+            }
+        }
+
+        function renderCountdown() {
+            const heroCountdown = document.getElementById('hero-countdown');
+            const now = new Date();
+            if (now >= EVENT_START_DATE) {
+                if (heroCountdown) heroCountdown.innerHTML = '';
+                return;
+            }
+            const diff = EVENT_START_DATE.getTime() - now.getTime();
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            if (heroCountdown) {
+                heroCountdown.innerHTML = `
+                    <div class="flex flex-col items-center lg:items-start">
+                        <div class="text-gold/80 font-bold uppercase text-xs md:text-sm tracking-widest mb-2">Starts In</div>
+                        <div class="flex gap-4 md:gap-6 text-gold/90 font-serif">
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(days).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Days</span></div>
+                            <span class="text-2xl md:text-3xl opacity-40">:</span>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(hours).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Hours</span></div>
+                            <span class="text-2xl md:text-3xl opacity-40">:</span>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none">${String(minutes).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Mins</span></div>
+                            <span class="text-2xl md:text-3xl opacity-40">:</span>
+                            <div class="flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold leading-none text-white">${String(seconds).padStart(2, '0')}</span><span class="text-[10px] uppercase tracking-widest text-cream/80 font-bold">Secs</span></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('schedule.json');
+                const data = await response.json();
+                
+                ASSETS = data.assets;
+                SCHEDULE_DATA = data.schedule;
+                SPEAKERS = data.speakers;
+                EVENT_START_DATE = new Date(data.config.eventStartDate);
+                EVENT_END_DATE = new Date(data.config.eventEndDate);
+
+                initImages();
+                preprocessScheduleData();
+                
+                const now = new Date();
+                const todayStr = now.toLocaleDateString('en-CA'); // YYYY-MM-DD in local time
+                const foundDay = SCHEDULE_DATA.days.find(d => d.date === todayStr);
+                if (foundDay) currentDayId = foundDay.dayNumber;
+
+                renderAllDays();
+                initDayStepper();
+                renderCountdown();
+                updateLiveStatus();
+
+                const observer = new IntersectionObserver((entries) => {
+                    if (isScrolling) return;
+                    const visibleEntries = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+                    if(visibleEntries.length > 0) {
+                        const id = visibleEntries[0].target.id;
+                        const num = parseInt(id.replace('day-section-', ''));
+                        if(!isNaN(num) && num !== currentDayId) {
+                            currentDayId = num;
+                            updateStepperVisuals();
+                        }
+                    }
+                }, { rootMargin: '-10% 0px -50% 0px', threshold: 0 });
+                SCHEDULE_DATA.days.forEach(d => { const el = document.getElementById(`day-section-${d.dayNumber}`); if(el) observer.observe(el); });
+
+                const stepperContainer = document.getElementById('day-stepper-container');
+                if(stepperContainer) { stepperContainer.addEventListener('scroll', updateStepperArrows); window.addEventListener('resize', updateStepperArrows); }
+
+                const stickyObserver = new IntersectionObserver(([entry]) => {
+                    const brand = document.getElementById('sticky-brand');
+                    const floatBtn = document.getElementById('float-menu-btn');
+                    if (entry.boundingClientRect.top < 0 && !entry.isIntersecting) {
+                        brand.classList.remove('max-h-0', 'opacity-0'); brand.classList.add('max-h-24', 'opacity-100');
+                        floatBtn.classList.add('opacity-0', 'pointer-events-none');
+                    } else {
+                        brand.classList.add('max-h-0', 'opacity-0'); brand.classList.remove('max-h-24', 'opacity-100');
+                        floatBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    }
+                }, { threshold: 0 });
+                const trigger = document.getElementById('hero-location-trigger');
+                if(trigger) stickyObserver.observe(trigger);
+
+                setInterval(() => { updateLiveStatus(); renderCountdown(); }, 1000);
+
+                const loader = document.getElementById('app-loader');
+                if (loader) { loader.classList.add('opacity-0', 'pointer-events-none'); setTimeout(() => loader.remove(), 700); }
+
+            } catch (error) { console.error("Failed to load schedule data:", error); }
+        });
+    </script>
+</body>
+</html>
