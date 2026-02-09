@@ -68,6 +68,7 @@
               'spin-slow': 'spin 60s linear infinite',
               'spin-reverse-medium': 'spin-reverse 45s linear infinite',
               'spin-medium': 'spin 30s linear infinite',
+              'spin-badge': 'spin 12s linear infinite',
               'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'shimmer': 'shimmer 8s linear infinite',
               'twinkle': 'twinkle 4s ease-in-out infinite',
@@ -130,10 +131,6 @@
         background: linear-gradient(120deg, transparent 30%, rgba(212, 175, 55, 0.4) 50%, transparent 70%);
         animation: shimmer 4s infinite linear; pointer-events: none;
       }
-      .conf-btn-border {
-        border: 8px solid transparent;
-        border-image: url('https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/border.png') 30 stretch;
-      }
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans antialiased">
@@ -148,6 +145,12 @@
             </div>
         </div>
         <p class="text-maroon font-serif font-bold text-lg tracking-widest animate-pulse">LOADING...</p>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-charcoal text-white px-6 py-3 rounded-full shadow-2xl z-[100] transition-all duration-300 opacity-0 translate-y-10 pointer-events-none flex items-center gap-3 border border-gold/30 backdrop-blur-md">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <span id="toast-msg" class="font-medium tracking-wide">Copied to clipboard</span>
     </div>
 
     <!-- FLOATING MENU BUTTON -->
@@ -165,7 +168,7 @@
         <a href="#donate" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Donate</a>
         <a href="#contact" onclick="toggleMobileMenu(false)" class="text-2xl font-serif font-bold text-gold hover:text-white transition-colors">Contact</a>
         <a href="https://webolim.github.io/Registration/" target="_blank" class="text-2xl font-serif font-bold text-gold flex items-center gap-2 bg-white/10 px-6 py-2 rounded-full border border-gold/50">
-            Accommodation <i data-lucide="external-link" class="w-6 h-6"></i>
+            Confirm Attendance <i data-lucide="external-link" class="w-6 h-6"></i>
         </a>
     </div>
 
@@ -244,8 +247,8 @@
                         <i data-lucide="map-pin" class="w-4 h-4 text-gold group-hover:animate-bounce"></i>
                         <span class="text-sm md:text-base font-medium tracking-wide">Srimad Valmiki Ashrama</span>
                     </a>
-                    <a href="https://webolim.github.io/Registration/" target="_blank" class="flex items-center justify-center gap-2 bg-gold hover:bg-yellow-400 text-maroon py-2.5 md:py-3 px-6 md:px-8 rounded-full font-bold text-sm md:text-base shadow-lg hover:scale-105 transition-all w-full md:w-auto">
-                        Accommodation Registration <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <a href="https://webolim.github.io/Registration/" target="_blank" class="flex items-center justify-center gap-2 bg-gold hover:bg-yellow-400 text-maroon py-3 md:py-4 px-8 md:px-10 rounded-full font-extrabold text-base md:text-lg shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] hover:scale-105 transition-all w-full md:w-auto border-2 border-yellow-200">
+                        Confirm Attendance <i data-lucide="external-link" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
@@ -281,48 +284,108 @@
 
         <!-- DONATION -->
         <section id="donate" class="py-16 bg-maroon text-cream scroll-mt-48">
-            <div class="container mx-auto px-4 max-w-4xl">
-                <h2 class="font-serif text-3xl text-center font-bold text-gold mb-8">Support WEBOLIM</h2>
+            <div class="container mx-auto px-4 max-w-6xl">
+                <h2 class="font-serif text-3xl md:text-4xl text-center font-bold text-gold mb-10 drop-shadow-md">Support WEBOLIM</h2>
                 
-                <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-6 md:gap-8">
                     <!-- Contribution Box -->
-                    <div class="bg-white/10 p-6 rounded-2xl border border-gold/30 text-center flex flex-col items-center w-full md:max-w-xl mx-auto">
-                        <h3 class="text-xl font-bold mb-4">Make a Contribution</h3>
-                        <div class="hidden md:block bg-white p-2 rounded-lg mb-4">
+                    <div class="bg-white/10 p-6 rounded-2xl border border-gold/30 text-center flex flex-col items-center w-full shadow-xl">
+                        <h3 class="text-2xl font-bold mb-4 text-cream font-serif">Make a Contribution</h3>
+                        <div class="hidden md:block bg-white p-3 rounded-xl mb-4 shadow-inner">
                             <div class="w-48 h-48 bg-gray-100 flex items-center justify-center text-charcoal text-xs p-2 text-center">
                                 <img src="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/QR.png" alt="UPI QR" class="w-full h-full object-contain" />
                             </div>
                         </div>
-                        <p class="hidden md:block text-sm opacity-80 mb-4">Scan with any UPI App</p>
-                        <a href="upi://pay?pa=qr919443887456-9830@unionbankofindia&pn=WEBOLIM%20TRUST&cu=INR" class="md:hidden w-full bg-gold text-maroon font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg animate-pulse">
-                            <i data-lucide="qr-code" class="w-5 h-5"></i> Donate via UPI App
+                        <p class="hidden md:block text-base opacity-90 mb-4 text-gold/80 font-medium">Scan with any UPI App</p>
+                        <a href="upi://pay?pa=qr919443887456-9830@unionbankofindia&pn=WEBOLIM%20TRUST&cu=INR" class="md:hidden w-full bg-gold text-maroon font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg animate-pulse text-lg">
+                            <i data-lucide="qr-code" class="w-6 h-6"></i> Donate via UPI App
                         </a>
-                        <p class="mt-4 text-xs p-2 text-left w-full opacity-80"><span class="font-bold text-gold">Note:</span> All donations to WEBOLIM Trust are eligible for tax exemption under Section 80G.</p>
+                        <p class="mt-2 text-sm text-center w-full opacity-80"><span class="font-bold text-gold">Note:</span> All donations to WEBOLIM Trust are eligible for tax exemption under Section 80G.</p>
                     </div>
 
                     <!-- Bank Transfer Section -->
                     <div class="w-full">
-                        <h3 class="text-lg font-bold text-gold opacity-90 text-center mb-6">For NEFT / RTGS use the following details</h3>
+                        <h3 class="text-xl font-bold text-gold text-center mb-4 font-serif tracking-wide drop-shadow-sm">For NEFT / RTGS use the following details</h3>
+                        
                         <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Bank 1 -->
-                            <div class="p-6 rounded-xl bg-white/5 border border-gold/20 hover:bg-white/10 transition-colors">
-                                <h4 class="font-bold text-xl text-gold flex items-center gap-2 mb-3">UNION BANK OF INDIA</h4>
-                                <div class="space-y-2 text-base font-mono opacity-90">
-                                    <p>Acct Name: WEBOLIM TRUST</p>
-                                    <p>Acct No: <span class="text-white font-bold select-all">520101257799830</span></p>
-                                    <p>IFSC: <span class="text-white font-bold select-all">UBIN0912883</span></p>
-                                    <p>MICR: <span class="text-white font-bold select-all">562026356</span></p>
-                                    <p>Branch: Jigani</p>
+                            <!-- Bank 1: Union Bank -->
+                            <div class="p-6 md:p-8 rounded-2xl bg-white/10 border border-gold/30 shadow-lg hover:bg-white/15 transition-all duration-300">
+                                <h4 class="font-bold text-2xl text-gold flex items-center gap-3 mb-6 border-b border-white/10 pb-3">
+                                    <img src="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/UNIONBANK.png" alt="Union Bank" class="w-8 h-8 object-contain bg-white rounded-full p-1" />
+                                    UNION BANK OF INDIA
+                                </h4>
+                                <div class="space-y-4 font-mono text-lg text-cream/90">
+                                    <!-- Account Name -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('WEBOLIM TRUST')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">Beneficiary Name</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl">
+                                            WEBOLIM TRUST <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- Account No -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('520101257799830')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">Account No</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl tracking-wider">
+                                            520101257799830 <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- IFSC -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('UBIN0912883')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">IFSC Code</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl tracking-wider">
+                                            UBIN0912883 <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- MICR -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('562026356')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">MICR Code</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl tracking-wider">
+                                            562026356 <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- Branch -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-2 -mx-2">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">Branch</span>
+                                        <span class="font-bold text-white text-lg md:text-xl">Jigani</span>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- Bank 2 -->
-                            <div class="p-6 rounded-xl bg-white/5 border border-gold/20 hover:bg-white/10 transition-colors">
-                                <h4 class="font-bold text-xl text-gold flex items-center gap-2 mb-3">City Union Bank Ltd (CUB)</h4>
-                                <div class="space-y-2 text-base font-mono opacity-90">
-                                    <p>Acct Name: WEBOLIM TRUST</p>
-                                    <p>Acct No: <span class="text-white font-bold select-all">500101013583858</span></p>
-                                    <p>IFSC: <span class="text-white font-bold select-all">CIUB0000583</span></p>
-                                    <p>MICR: <span class="text-white font-bold select-all">560054026</span></p>
+
+                            <!-- Bank 2: City Union Bank -->
+                            <div class="p-6 md:p-8 rounded-2xl bg-white/10 border border-gold/30 shadow-lg hover:bg-white/15 transition-all duration-300">
+                                <h4 class="font-bold text-2xl text-gold flex items-center gap-3 mb-6 border-b border-white/10 pb-3">
+                                    <img src="https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/CUB.png" alt="CUB" class="w-8 h-8 object-contain bg-white rounded-full p-0.5" />
+                                    City Union Bank Ltd
+                                </h4>
+                                <div class="space-y-4 font-mono text-lg text-cream/90">
+                                    <!-- Account Name -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('WEBOLIM TRUST')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">Beneficiary Name</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl">
+                                            WEBOLIM TRUST <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- Account No -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('500101013583858')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">Account No</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl tracking-wider">
+                                            500101013583858 <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- IFSC -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('CIUB0000583')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">IFSC Code</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl tracking-wider">
+                                            CIUB0000583 <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
+                                    <!-- MICR -->
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center group cursor-pointer hover:bg-black/20 p-2 -mx-2 rounded transition-colors" onclick="window.copyText('560054026')">
+                                        <span class="opacity-70 text-sm sm:text-base font-sans font-medium">MICR Code</span>
+                                        <span class="font-bold text-white flex items-center gap-2 text-lg md:text-xl tracking-wider">
+                                            560054026 <i data-lucide="copy" class="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -335,7 +398,9 @@
         <footer id="contact" class="bg-charcoal text-cream py-16 scroll-mt-48 border-t-4 border-maroon">
             <div class="container mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-10">
                 <div class="flex items-center justify-center">
-                    <img id="footer-logo" class="h-24 md:h-32" />
+                    <a href="print.html" target="_blank" title="View Printable Schedule">
+                        <img id="footer-logo" class="h-24 md:h-32" />
+                    </a>
                 </div>
                 <div class="flex flex-col md:flex-row gap-6 md:gap-12 text-base md:text-lg text-center md:text-left font-medium">
                     <a href="tel:+919369637283" class="flex items-center justify-center gap-3 hover:text-gold transition-colors text-cream"><i data-lucide="phone" class="w-5 h-5 text-gold"></i> <span>+91 93696 37283</span></a>
@@ -364,6 +429,44 @@
             DEFAULT: "linear-gradient(180deg, rgba(255, 206, 191, 1) 0%, rgba(186, 231, 255, 1) 10%, rgba(217, 244, 255, 1) 60%, rgba(255, 233, 196, 1) 80%, rgba(47, 69, 102, 1) 99%, rgba(255, 206, 191, 1) 100%)"
         };
         const SCHEDULE_BG_COLOR = "#ffcebf"; 
+        
+        // --- TOAST & CLIPBOARD UTILS ---
+        window.copyText = function(text) {
+            if (!navigator.clipboard) {
+                // Fallback for older browsers or non-secure contexts
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed"; // Avoid scrolling to bottom
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(`Copied: ${text}`);
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`Copied: ${text}`);
+            }).catch(err => {
+                 console.error('Failed to copy', err);
+            });
+        }
+
+        window.showToast = function(msg) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            if(toast && msgEl) {
+                msgEl.textContent = msg;
+                toast.classList.remove('opacity-0', 'translate-y-10');
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-10');
+                }, 3000);
+            }
+        }
 
         function initImages() {
             if(document.getElementById('hero-img')) document.getElementById('hero-img').src = ASSETS.heroImage;
@@ -462,7 +565,10 @@
                             <!-- Content Column -->
                             <div class="flex-1 min-w-0 flex flex-col gap-2">
                                 <div class="text-center md:text-left">
-                                    <h3 class="text-2xl md:text-3xl font-serif font-bold text-gray-900 leading-tight mb-1 group-hover:text-gold transition-colors">${event.title}</h3>
+                                    <h3 class="text-2xl md:text-[25px] font-serif font-bold text-gray-900 leading-tight mb-1 group-hover:text-gold transition-colors">
+                                        ${event.title}${event.isNew ? `
+                                        <span class="ml-2 inline-flex items-center px-2.5 py-1 rounded text-[10px] md:text-xs font-sans font-bold tracking-wider text-white bg-maroon uppercase align-middle -translate-y-0.5 shadow-sm">New</span>` : ''}
+                                    </h3>
                                     ${event.subhead ? `<p class="text-base md:text-lg text-maroon/80 font-serif italic mb-2 leading-relaxed">${event.subhead}</p>` : ''}
                                     ${showVenue ? `<div class="flex items-center justify-center md:justify-start gap-2 text-xs md:text-sm font-medium text-gray-500"><i data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4 text-gold"></i> ${event.venue}</div>` : ''}
                                 </div>
@@ -777,10 +883,10 @@
                 classes += isConference ? "rounded-lg " : "rounded-full ";
 
                 if (isActive) {
-                    if (isConference) classes += "min-w-[180px] md:min-w-[240px] scale-100 z-10 sheen-bg text-white shadow-xl conf-btn-border ";
+                    if (isConference) classes += "min-w-[180px] md:min-w-[240px] scale-100 z-10 sheen-bg text-white shadow-xl ";
                     else classes += "min-w-[180px] md:min-w-[180px] scale-100 z-10 bg-[#1b4d1b] border-2 border-gold text-white shadow-lg ";
                 } else {
-                    if (isConference) classes += "min-w-[155px] md:min-w-[185px] scale-90 opacity-80 bg-cream text-maroon hover:shadow-md conf-btn-border ";
+                    if (isConference) classes += "min-w-[155px] md:min-w-[185px] scale-90 opacity-80 bg-cream text-maroon hover:shadow-md ";
                     else classes += "min-w-[145px] md:min-w-[155px] scale-90 opacity-80 bg-white border-2 border-maroon text-gray-500 hover:bg-gray-50 hover:shadow-sm ";
                 }
                 btn.className = classes;
