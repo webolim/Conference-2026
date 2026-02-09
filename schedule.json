@@ -2407,6 +2407,20 @@
             "start": "2026-04-07T06:30:00+05:30",
             "end": "2026-04-07T09:30:00+05:30",
             "title": "Pattabhishekam & Valedictory",
+            "eventImages": [
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00001.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00002.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00003.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00004.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00005.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00006.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00007.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00008.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00009.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00010.webp",
+              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00011.webp"
+            ],
+            "carouselCaption": "Photos from last year",
             "venue": "Ramayana Shala",
             "speakerIds": ["dr_rangan"],
             "videoLinks": [
