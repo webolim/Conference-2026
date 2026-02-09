@@ -2,226 +2,216 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Printable Schedule - WEBOLIM Sri Ramayana Satram 2026</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
+    <title>Program Schedule - Sri Ramayana Satram 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Tailwind Config -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              maroon: '#800000',
-              gold: '#D4AF37',
-              cream: '#FFFDD0',
-              charcoal: '#333333',
+              gold: '#bfa15f',
+              charcoal: '#222222',
             },
             fontFamily: {
-              serif: ['"Merriweather"', 'serif'],
-              sans: ['Roboto', 'sans-serif'],
+              serif: ['"Crimson Text"', 'serif'],
+              sans: ['"Inter"', 'sans-serif'],
             },
+            screens: {
+                'print': {'raw': 'print'},
+            }
           },
         },
       }
     </script>
-
     <style>
-        body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         @media print {
+            @page { margin: 10mm 15mm; size: A4; }
+            body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .no-print { display: none !important; }
             .page-break { page-break-before: always; }
-            body { background-color: white; }
+            .break-inside-avoid { break-inside: avoid; }
             a { text-decoration: none; color: inherit; }
+            /* Force background colors in print */
+            .bg-gray-100 { background-color: #f3f4f6 !important; }
         }
-        .table-row-striped:nth-child(even) { background-color: #f9f9f9; }
+        body { background-color: white; font-size: 11pt; line-height: 1.4; color: #222; }
+        .max-w-a4 { max-width: 210mm; margin: 0 auto; background: white; }
     </style>
 </head>
-<body class="bg-white text-charcoal font-sans p-4 md:p-8 max-w-[1200px] mx-auto selection:bg-gold selection:text-white">
+<body class="bg-gray-100 print:bg-white">
 
-    <!-- NAVIGATION / PRINT BUTTON -->
+    <!-- Print Controls -->
     <div class="no-print fixed top-4 right-4 z-50 flex gap-2">
-        <a href="index.html" class="bg-charcoal text-white px-4 py-2 rounded shadow hover:bg-black transition">Back to App</a>
-        <button onclick="window.print()" class="bg-gold text-white px-4 py-2 rounded shadow hover:bg-yellow-600 transition font-bold">Print / Save PDF</button>
+        <a href="index.html" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-black text-sm font-medium">Back to App</a>
+        <button onclick="window.print()" class="bg-gold text-white px-4 py-2 rounded shadow hover:bg-yellow-700 font-bold text-sm">Print / Save PDF</button>
     </div>
 
-    <!-- HEADER SECTION -->
-    <header class="text-center mb-12 border-b-4 border-gold pb-8">
-        <img id="print-hero-img" class="h-32 md:h-48 mx-auto mb-6 object-contain" alt="Sri Ramayana Satram" />
+    <div class="max-w-a4 p-8 md:p-12 print:p-0 min-h-screen shadow-lg print:shadow-none">
         
-        <h1 class="font-serif font-extrabold text-3xl md:text-5xl text-charcoal mb-4 uppercase tracking-tight">Sri Ramayana Satram <span class="text-gold">&</span><br/>Valmiki Ramayana Conference 2026</h1>
+        <!-- Header -->
+        <header class="text-center mb-6 border-b-2 border-gold pb-4">
+            <div class="flex items-center justify-center gap-4 mb-3">
+                <img id="print-hero-img" class="h-24 object-contain" />
+            </div>
+            <h1 class="font-serif font-bold text-3xl text-charcoal uppercase tracking-tight mb-1">Sri Ramayana Satram <span class="text-gold">&</span> Conference 2026</h1>
+            <p class="font-sans text-sm text-gray-600 font-medium uppercase tracking-widest mb-4">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
+            
+            <!-- Dates Table -->
+            <div class="flex border border-gray-300 rounded overflow-hidden text-center max-w-2xl mx-auto text-sm">
+                <div class="flex-1 border-r border-gray-300">
+                    <div class="bg-gray-100 py-1 font-bold text-gray-600 text-[10px] uppercase">Pre-Conference</div>
+                    <div class="py-1 font-bold">Mar 28 – Apr 3</div>
+                </div>
+                <div class="flex-1 border-r border-gray-300 bg-gold/10 print:bg-gray-50">
+                    <div class="bg-gold print:bg-gray-200 print:text-black text-white py-1 font-bold text-[10px] uppercase">Conference</div>
+                    <div class="py-1 font-bold text-charcoal">Apr 4 – 5</div>
+                </div>
+                <div class="flex-1">
+                    <div class="bg-gray-100 py-1 font-bold text-gray-600 text-[10px] uppercase">Post-Conference</div>
+                    <div class="py-1 font-bold">Apr 6 – 7</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Schedule -->
+        <div id="schedule-container" class="space-y-4">
+            <div class="text-center py-4 text-gray-400 text-sm">Loading schedule data...</div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Speakers -->
+        <div class="mt-8">
+            <h2 class="font-sans font-bold text-xl text-charcoal uppercase border-b-2 border-gold pb-1 mb-6">Distinguished Speakers</h2>
+            <div id="conf-speakers-grid" class="grid grid-cols-2 gap-x-6 gap-y-6">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="font-sans font-bold text-lg text-gray-600 uppercase border-b border-gray-300 pb-1 mb-4">Speakers & Performers</h2>
+            <div id="other-speakers-grid" class="grid grid-cols-6 gap-3 text-center">
+                <!-- Injected via JS -->
+            </div>
+        </div>
         
-        <p class="font-serif text-xl md:text-2xl text-gray-600 italic mb-6">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
-        
-        <!-- Key Dates Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-8">
-            <div class="border-2 border-gray-200 p-4 rounded-lg bg-gray-50">
-                <h3 class="text-gold font-bold uppercase tracking-widest text-sm mb-1">Pre-Conference</h3>
-                <p class="font-serif text-xl font-bold text-charcoal">Mar 28 – Apr 3</p>
-            </div>
-            <div class="border-2 border-gold p-4 rounded-lg bg-gold/10 relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-gold text-white text-[10px] px-2 py-0.5 font-bold uppercase">Main Event</div>
-                <h3 class="text-gold font-bold uppercase tracking-widest text-sm mb-1">Conference</h3>
-                <p class="font-serif text-2xl font-bold text-maroon">Apr 4 – 5</p>
-            </div>
-            <div class="border-2 border-gray-200 p-4 rounded-lg bg-gray-50">
-                <h3 class="text-gold font-bold uppercase tracking-widest text-sm mb-1">Post-Conference</h3>
-                <p class="font-serif text-xl font-bold text-charcoal">Apr 6 – 7</p>
-            </div>
-        </div>
-    </header>
-
-    <!-- SCHEDULE SECTION -->
-    <section id="schedule-section" class="mb-16">
-        <h2 class="font-serif text-3xl font-bold text-charcoal border-l-8 border-gold pl-4 mb-8 uppercase tracking-wide">Detailed Schedule</h2>
-        <div id="schedule-content" class="flex flex-col gap-10">
-            <!-- JS will populate tables here -->
-             <div class="text-center py-10 text-gray-400">Loading Schedule...</div>
-        </div>
-    </section>
-
-    <div class="page-break"></div>
-
-    <!-- CONFERENCE SPEAKERS -->
-    <section id="conf-speakers-section" class="mb-16 pt-8">
-        <h2 class="font-serif text-3xl font-bold text-charcoal border-l-8 border-gold pl-4 mb-8 uppercase tracking-wide">Distinguished Speakers</h2>
-        <div id="conf-speakers-list" class="grid grid-cols-1 gap-8">
-            <!-- JS will populate -->
-        </div>
-    </section>
-
-    <!-- OTHER SPEAKERS GRID -->
-    <section id="other-speakers-section" class="mb-16">
-        <h2 class="font-serif text-2xl font-bold text-gray-500 mb-6 border-b border-gray-200 pb-2">All Speakers & Performers</h2>
-        <div id="other-speakers-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 text-center">
-            <!-- JS will populate -->
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="text-center text-gray-400 text-sm border-t border-gray-200 pt-8 pb-12">
-        <p>&copy; 2026 WEBOLIM Trust. All rights reserved.</p>
-        <p class="mt-1">www.webolim.org</p>
-    </footer>
+        <footer class="mt-8 pt-4 border-t border-gray-200 text-center text-[10px] text-gray-400 font-sans">
+            <p>WEBOLIM Trust &copy; 2026 | www.webolim.org | Srimad Valmiki Ashrama</p>
+        </footer>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            const scheduleContainer = document.getElementById('schedule-container');
+            const confSpeakersGrid = document.getElementById('conf-speakers-grid');
+            const otherSpeakersGrid = document.getElementById('other-speakers-grid');
+
             try {
                 const response = await fetch('schedule.json');
+                if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
+
+                // 1. Hero Image
+                if(data.assets.heroImage) {
+                    document.getElementById('print-hero-img').src = data.assets.heroImage;
+                }
+
+                // 2. Process Dates & Render Schedule
+                const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
+
+                scheduleContainer.innerHTML = ''; // Clear loading
                 
-                // 1. Setup Hero
-                document.getElementById('print-hero-img').src = data.assets.heroImage;
-
-                // 2. Render Schedule
-                const scheduleContainer = document.getElementById('schedule-content');
-                scheduleContainer.innerHTML = '';
-
+                // Group by Phase to optimize space? No, linear by day is better for flow.
+                
                 data.schedule.days.forEach(day => {
-                    const isConference = day.phase === 'Conference';
-                    const headerBg = isConference ? 'bg-charcoal text-white' : 'bg-gray-100 text-charcoal';
-                    const borderClass = isConference ? 'border-charcoal' : 'border-gray-200';
-                    const themeColor = isConference ? 'text-gold' : 'text-maroon';
-
-                    let tableRows = '';
-                    day.events.forEach(event => {
-                        // Resolve Speakers
-                        const speakerNames = (event.speakerIds || []).map(id => {
-                            return data.speakers[id] ? data.speakers[id].name : id;
-                        }).join(', ');
-
-                        const highlightClass = event.isConference ? 'font-bold bg-gold/5' : '';
-
-                        tableRows += `
-                            <tr class="table-row-striped border-b border-gray-100 ${highlightClass}">
-                                <td class="p-3 w-32 md:w-40 align-top text-sm font-bold text-gray-500 border-r border-gray-100">${event.startTime} - ${event.endTime}</td>
-                                <td class="p-3 align-top">
-                                    <div class="font-bold text-lg text-charcoal leading-tight">${event.title}</div>
-                                    ${event.subhead ? `<div class="text-sm text-gray-500 italic mt-0.5">${event.subhead}</div>` : ''}
-                                    ${speakerNames ? `<div class="text-sm font-semibold text-maroon mt-1">By: ${speakerNames}</div>` : ''}
-                                </td>
-                                <td class="p-3 w-32 md:w-48 align-top text-sm text-gray-500 text-right hidden md:table-cell">${event.venue || ''}</td>
-                            </tr>
-                        `;
+                    // Preprocess times
+                    day.events.forEach(e => {
+                        e.formattedStart = timeFormatter.format(new Date(e.start));
+                        e.formattedEnd = timeFormatter.format(new Date(e.end));
                     });
 
-                    const dayHTML = `
-                        <div class="break-inside-avoid">
-                            <div class="${headerBg} p-4 rounded-t-lg flex flex-col md:flex-row justify-between items-baseline border-b-4 border-gold">
-                                <div class="flex items-baseline gap-3">
-                                    <span class="font-bold text-gold text-lg uppercase tracking-wider">${day.dayName}</span>
-                                    <span class="font-serif text-2xl font-bold">${day.displayDate}</span>
-                                </div>
-                                <div class="font-serif italic text-lg ${themeColor} mt-1 md:mt-0">${day.theme}</div>
+                    const isConference = day.phase === 'Conference';
+                    const headerClass = isConference ? 'bg-charcoal text-white print:bg-gray-800 print:text-white' : 'bg-gray-100 text-charcoal print:bg-gray-200';
+                    const accentColor = isConference ? 'text-gold' : 'text-charcoal';
+
+                    let rows = day.events.map(e => {
+                        const speakers = (e.speakerIds || []).map(id => data.speakers[id]?.name).filter(Boolean).join(', ');
+                        return `
+                            <tr class="border-b border-gray-100 break-inside-avoid">
+                                <td class="py-1.5 pr-2 w-24 text-xs font-bold text-gray-500 align-top">${e.formattedStart}</td>
+                                <td class="py-1.5 pr-2 align-top">
+                                    <div class="font-bold text-sm text-charcoal leading-snug">${e.title}</div>
+                                    ${e.subhead ? `<div class="text-xs text-gray-500 italic">${e.subhead}</div>` : ''}
+                                </td>
+                                <td class="py-1.5 align-top w-1/3">
+                                    ${speakers ? `<div class="text-xs font-semibold text-charcoal">${speakers}</div>` : ''}
+                                    ${e.venue && e.venue !== 'Venue' ? `<div class="text-[10px] text-gray-400 uppercase tracking-wide">${e.venue}</div>` : ''}
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+
+                    const dayBlock = `
+                        <div class="break-inside-avoid mb-4">
+                            <div class="${headerClass} px-3 py-1.5 flex justify-between items-baseline rounded-t-sm border-b-2 border-gold">
+                                <div class="font-sans font-bold text-sm uppercase tracking-wider">${day.dayName}, ${day.displayDate}</div>
+                                <div class="font-serif italic text-sm opacity-90">${day.theme}</div>
                             </div>
-                            <div class="border-l-2 border-r-2 border-b-2 ${borderClass} rounded-b-lg overflow-hidden">
-                                <table class="w-full text-left border-collapse">
-                                    <thead class="bg-gray-50 text-xs font-bold uppercase text-gray-400 border-b border-gray-200">
-                                        <tr>
-                                            <th class="p-3">Time</th>
-                                            <th class="p-3">Event Details</th>
-                                            <th class="p-3 hidden md:table-cell text-right">Venue</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${tableRows}
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="w-full text-left border-collapse">
+                                <tbody class="bg-white">
+                                    ${rows}
+                                </tbody>
+                            </table>
                         </div>
                     `;
-                    scheduleContainer.insertAdjacentHTML('beforeend', dayHTML);
+                    scheduleContainer.insertAdjacentHTML('beforeend', dayBlock);
                 });
 
                 // 3. Render Speakers
-                const confSpeakersList = document.getElementById('conf-speakers-list');
-                const otherSpeakersGrid = document.getElementById('other-speakers-grid');
-                
-                // Separate speakers with bio (Conference/Main) vs without (Performers/Other)
-                // Also exclude 'placeholder'
                 const allSpeakerIds = Object.keys(data.speakers).filter(id => id !== 'placeholder');
-                const confSpeakers = allSpeakerIds.filter(id => data.speakers[id].bio && data.speakers[id].bio.length > 0);
-                const otherSpeakers = allSpeakerIds.filter(id => !data.speakers[id].bio || data.speakers[id].bio.length === 0);
+                const confSpeakers = [];
+                const otherSpeakers = [];
 
-                // Render Conference Speakers (List View)
-                confSpeakers.forEach(id => {
+                allSpeakerIds.forEach(id => {
                     const s = data.speakers[id];
-                    const html = `
-                        <div class="flex flex-col md:flex-row gap-6 items-start p-6 border border-gray-200 rounded-xl bg-gray-50 break-inside-avoid shadow-sm">
-                            <img src="${s.photo}" alt="${s.name}" class="w-32 h-32 md:w-48 md:h-48 rounded-lg object-cover border-2 border-gold shadow-md shrink-0 bg-white">
+                    if (s.bio && s.bio.length > 50) confSpeakers.push(s);
+                    else otherSpeakers.push(s);
+                });
+
+                // Conf Speakers (Rich Grid)
+                confSpeakers.forEach(s => {
+                    const card = `
+                        <div class="flex gap-4 break-inside-avoid border border-gray-100 p-3 rounded bg-white shadow-sm print:shadow-none print:border-gray-200">
+                            <img src="${s.photo}" class="w-20 h-20 object-cover rounded border border-gray-200 bg-gray-50 grayscale print:grayscale-0">
                             <div>
-                                <h3 class="font-serif text-2xl font-bold text-maroon mb-2">${s.name}</h3>
-                                <p class="text-gray-700 leading-relaxed text-sm md:text-base text-justify">${s.bio}</p>
+                                <h3 class="font-bold text-charcoal text-sm mb-1">${s.name}</h3>
+                                <p class="font-serif text-xs text-gray-600 leading-snug text-justify">${s.bio}</p>
                             </div>
                         </div>
                     `;
-                    confSpeakersList.insertAdjacentHTML('beforeend', html);
+                    confSpeakersGrid.insertAdjacentHTML('beforeend', card);
                 });
 
-                // Render Other Speakers (Grid View)
-                otherSpeakers.forEach(id => {
-                    const s = data.speakers[id];
-                    const html = `
+                // Other Speakers (Mini Grid)
+                otherSpeakers.forEach(s => {
+                    const card = `
                         <div class="flex flex-col items-center break-inside-avoid">
-                            <div class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-gray-200 mb-3 shadow-sm bg-gray-100">
-                                <img src="${s.photo}" alt="${s.name}" class="w-full h-full object-cover">
-                            </div>
-                            <h4 class="font-bold text-sm text-charcoal leading-tight">${s.name}</h4>
+                            <img src="${s.photo}" class="w-12 h-12 rounded-full object-cover border border-gray-200 mb-1 bg-gray-50">
+                            <div class="font-bold text-[10px] text-charcoal leading-tight">${s.name}</div>
                         </div>
                     `;
-                    otherSpeakersGrid.insertAdjacentHTML('beforeend', html);
+                    otherSpeakersGrid.insertAdjacentHTML('beforeend', card);
                 });
 
-            } catch (e) {
-                console.error(e);
-                document.body.innerHTML = '<p class="text-center text-red-600 p-10">Error loading data. Please run on a server.</p>';
+            } catch (err) {
+                console.error(err);
+                scheduleContainer.innerHTML = `<div class="p-4 border border-red-200 bg-red-50 text-red-700 text-center rounded">
+                    <strong>Error loading data.</strong><br/>
+                    If you are opening this file locally, browsers block "fetch" requests.<br/>
+                    Please use a local server (e.g. VS Code Live Server) or view on the hosted website.
+                </div>`;
             }
         });
     </script>
