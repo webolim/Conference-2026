@@ -1407,13 +1407,7 @@
             "start": "2026-04-02T19:30:00+05:30",
             "end": "2026-04-02T20:30:00+05:30",
             "title": "Sundarakanda Utsava (Gaja Vahanam)",
-            "eventImages": [
-              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Image_placeholder.jpeg",
-              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/KalyanaRamar.gif",
-              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Image_placeholder.jpeg",
-              "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/KalyanaRamar.gif"
-            ],
-            "carouselCaption": "Photos from last year",
+            "isNew": true,
             "venue": "Ramayana Shala",
             "speakerIds": [],
             "videoLinks": [
@@ -1879,6 +1873,7 @@
             "start": "2026-04-04T19:30:00+05:30",
             "end": "2026-04-04T20:30:00+05:30",
             "title": "Theppam",
+            "isNew": true,
             "venue": "Mithila",
             "speakerIds": [],
             "videoLinks": [
