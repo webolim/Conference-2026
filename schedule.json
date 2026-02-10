@@ -52,9 +52,9 @@
       "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/vishal.jpg",
       "bio": "Disciple of Padmavibhushana Swami Ramabhadracharya. Researcher in IKS in IIT Kanpur, contributing in remodification of Valmiki Ramayana IIT Kanpur website, integration of Valmiki Ramayana commentaries & digitization and translation of Avadhi manuscripts related to Sri Ramananda Sampradaya."
     },
-    "subhankriya": {
-      "name": "Kum. Subhankriya",
-      "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Subhankriya.jpg",
+    "shubhankriya": {
+      "name": "Kum. Shubhankriya",
+      "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Shubhankriya.jpg",
       "bio": ""
     },
     "daksha": {
@@ -220,7 +220,7 @@
     "gawde": {
       "name": "Dr. Shakuntala Gawde",
       "photo": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/assets/Gawde.jpg",
-      "bio": "An Associate Professor and former Head of the Department of Sanskrit at the University of Mumbai, an accomplished academician, researcher, and educator, a recipient of multiple coveted awards like Academisthan Best Teacher of the year award in 2021, author of several masterpieces like 'Narrative Analysis of Bhagavata Purana."
+      "bio": "An Associate Professor and former Head of the Department of Sanskrit at the University of Mumbai, an accomplished academician, researcher, and educator, a recipient of multiple coveted awards like Academisthan Best Teacher of the year award in 2021, author of several masterpieces like 'Narrative Analysis of Bhagavata Purana'."
     },
     "krishnakrupa": {
       "name": "Smt. Krishna Krupa",
@@ -410,12 +410,12 @@
             "end": "2026-03-29T11:30:00+05:30",
             "title": "Kausalya Mangalashasana",
             "venue": "Ramayana Shala",
-            "speakerIds": ["subhankriya", "daksha"],
+            "speakerIds": ["shubhankriya", "daksha"],
             "videoLinks": [
               {
-                "url": "https://youtu.be/Subhankriya",
+                "url": "https://youtu.be/Shubhankriya",
                 "label": "Watch Kausalya Mangalashasana",
-                "speakerId": "subhankriya"
+                "speakerId": "shubhankriya"
               },
               {
                 "url": "https://youtu.be/Daksha",
@@ -2056,7 +2056,7 @@
             "id": "d9-e6",
             "start": "2026-04-05T15:30:00+05:30",
             "end": "2026-04-05T16:30:00+05:30",
-            "title": "On Sri Satyadharma Tirtha's commentary and the Rupa Raghunatha Vani edition of Sri Valmiki Ramayana",
+            "title": "Sri Satyadharma Tirtha's commentary and the Rupa Raghunatha Vani edition of Sri Valmiki Ramayana",
             "venue": "Ramayana Shala",
             "isConference": true,
             "speakerIds": ["gauranga"],
@@ -2336,7 +2336,7 @@
             "id": "d10-e7",
             "start": "2026-04-06T19:30:00+05:30",
             "end": "2026-04-06T20:30:00+05:30",
-            "title": "Ravana Vadha & Pattabhishekam Utsava",
+            "title": "Pattabhishekha Utsava",
             "eventImages": [
               "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/ValmikiAshramaFamily_00001.webp",
               "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/ValmikiAshramaFamily_00002.webp",
