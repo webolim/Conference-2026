@@ -168,7 +168,6 @@
         <section class="mt-12">
             <div class="flex items-center gap-4 border-b border-gray-200 pb-3 mb-8">
                 <h2 class="text-2xl font-bold text-dark uppercase tracking-tight">Distinguished Speakers</h2>
-                <div class="flex-1 h-px bg-gray-100"></div>
             </div>
 
             <div id="main-speakers-list" class="grid grid-cols-2 gap-x-8 gap-y-8">
@@ -177,7 +176,6 @@
 
             <div class="flex items-center gap-4 border-b border-gray-200 pb-3 mb-8 mt-12">
                 <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest">Other Speakers & Artists</h2>
-                <div class="flex-1 h-px bg-gray-100"></div>
             </div>
 
             <div id="other-speakers-grid" class="grid grid-cols-8 gap-4">
@@ -222,7 +220,7 @@
                 const speakers = data.speakers;
                 
                 // Set images
-                if(document.getElementById('print-hero-img')) document.getElementById('print-hero-img').src = data.assets.heroImage;
+                if(document.getElementById('print-hero-img')) document.getElementById('print-hero-img').src = "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Kalyana-Ramar.webp";
                 if(document.getElementById('print-footer-logo')) document.getElementById('print-footer-logo').src = data.assets.logo;
 
                 const timeFormatter = new Intl.DateTimeFormat('en-US', { 
@@ -297,7 +295,10 @@
                 const mainSpeakersContainer = document.getElementById('main-speakers-list');
                 const otherSpeakersContainer = document.getElementById('other-speakers-grid');
                 
-                Object.values(speakers).forEach(s => {
+                // Sorted speakers
+                const sortedSpeakers = Object.values(speakers).sort((a, b) => a.name.localeCompare(b.name));
+                
+                sortedSpeakers.forEach(s => {
                     if (s.name === 'TBA') return;
 
                     if (s.bio && s.bio.length > 50) {
