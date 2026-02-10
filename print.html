@@ -33,11 +33,11 @@
         body { font-family: 'Inter', sans-serif; color: #1a1a1a; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         
         @media print {
-            @page { margin: 5mm 8mm; size: A4; }
+            @page { margin: 8mm 8mm; size: A4; }
             .no-print { display: none !important; }
             .page-break { page-break-before: always; }
             .avoid-break { break-inside: avoid; }
-            body { font-size: 8.5pt; }
+            body { font-size: 9pt; }
         }
 
         /* Utilities */
@@ -46,42 +46,42 @@
         .border-gold { border-color: #856404; }
         
         /* Tables */
-        .routine-table th { font-weight: 600; color: #888; text-transform: uppercase; font-size: 7px; letter-spacing: 0.05em; padding-bottom: 4px; border-bottom: 1px solid #ddd; }
-        .routine-table td { padding: 3px 4px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .routine-table th { font-weight: 700; color: #666; text-transform: uppercase; font-size: 8px; letter-spacing: 0.05em; padding-bottom: 6px; border-bottom: 1px solid #ccc; }
+        .routine-table td { padding: 6px 4px; border-bottom: 1px solid #eee; vertical-align: top; }
         .routine-table tr:last-child td { border-bottom: none; }
     </style>
 </head>
 <body class="bg-white">
 
-    <div class="max-w-[210mm] mx-auto p-4 md:p-0">
+    <div class="max-w-[210mm] mx-auto p-4 md:p-0 pb-16">
         
         <!-- HEADER -->
-        <header class="text-center mb-6 border-b-2 border-dark pb-4 pt-8">
-            <img id="print-hero-img" class="h-64 mx-auto object-contain mb-4" alt="Kalyana Ramar" />
-            <h1 class="font-extrabold text-2xl uppercase tracking-tighter text-dark leading-none">Sri Ramayana Satram <span class="text-gold">&</span> Conference 2026</h1>
-            <div class="flex items-center justify-center gap-2 mt-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
+        <header class="text-center mb-8 border-b-2 border-dark pb-6 pt-6">
+            <img id="print-hero-img" class="h-64 mx-auto object-contain mb-5" alt="Kalyana Ramar" />
+            <h1 class="font-extrabold text-3xl uppercase tracking-tighter text-dark leading-none">Sri Ramayana Satram <span class="text-gold">&</span> Conference 2026</h1>
+            <div class="flex items-center justify-center gap-3 mt-3 text-sm font-bold text-gray-500 uppercase tracking-widest">
                 <span>Mar 28 – Apr 07</span>
                 <span class="text-gold">•</span>
                 <span>Srimad Valmiki Ashrama, Bengaluru</span>
             </div>
-            <p class="text-xs mt-3 text-dark font-bold uppercase tracking-widest bg-gray-50 inline-block px-3 py-1 rounded">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
+            <p class="text-xs mt-4 text-white font-bold uppercase tracking-widest bg-gold inline-block px-4 py-1.5 rounded-md shadow-sm">Theme: Recensions / Readings and Commentaries of Valmiki Ramayana</p>
         </header>
 
         <!-- PRE-CONFERENCE SECTION -->
-        <section id="pre-conf-section" class="mb-8 avoid-break">
-            <div class="flex items-baseline justify-between border-b border-gray-200 mb-3 pb-1">
-                <h2 class="text-lg font-bold text-dark uppercase tracking-tight">Pre-Conference <span class="text-gold text-sm font-medium ml-2">Mar 28 – Apr 03</span></h2>
+        <section id="pre-conf-section" class="mb-10 avoid-break">
+            <div class="flex items-baseline justify-between border-b border-gray-200 mb-4 pb-2">
+                <h2 class="text-xl font-bold text-dark uppercase tracking-tight">Pre-Conference <span class="text-gold text-base font-medium ml-3">Mar 28 – Apr 03</span></h2>
             </div>
             
-            <div class="flex gap-4 mb-4">
-                <!-- Routine Side (Wider to accommodate columns) -->
-                <div class="w-[30%] bg-gray-50 rounded p-2.5 border border-gray-100 self-start">
-                    <h3 class="text-[10px] font-bold text-gold uppercase tracking-widest mb-2 border-b border-gray-200 pb-1">Daily Routine</h3>
-                    <table class="w-full text-[8px] routine-table table-fixed">
+            <div class="flex gap-6 mb-4">
+                <!-- Routine Side -->
+                <div class="w-[28%] bg-gray-50 rounded-lg p-3 border border-gray-100 self-start">
+                    <h3 class="text-[10px] font-bold text-gold uppercase tracking-widest mb-3 border-b border-gray-200 pb-1">Daily Routine</h3>
+                    <table class="w-full text-[9px] routine-table table-fixed">
                         <thead>
                             <tr>
-                                <th class="w-8 text-left">From</th>
-                                <th class="w-8 text-left">To</th>
+                                <th class="w-10 text-left">From</th>
+                                <th class="w-10 text-left">To</th>
                                 <th class="w-auto text-left">Event</th>
                             </tr>
                         </thead>
@@ -90,8 +90,8 @@
                 </div>
 
                 <!-- Unique Events Grid -->
-                <div class="w-[70%]">
-                    <div id="pre-conf-grid" class="grid grid-cols-4 gap-x-3 gap-y-3">
+                <div class="w-[72%]">
+                    <div id="pre-conf-grid" class="grid grid-cols-4 gap-x-4 gap-y-6">
                         <!-- Injected JS -->
                     </div>
                 </div>
@@ -99,20 +99,22 @@
         </section>
 
         <!-- CONFERENCE SECTION -->
-        <section id="conf-section" class="mb-8 avoid-break">
-             <div class="flex items-baseline justify-between border-b-2 border-gold mb-3 pb-1 bg-dark text-white px-2 rounded-t-sm mt-4">
-                <h2 class="text-lg font-bold uppercase tracking-tight">Conference <span class="text-gold text-sm font-medium ml-2">Apr 04 – 05</span></h2>
+        <section id="conf-section" class="mb-10 avoid-break">
+             <!-- Gold Band Header -->
+             <div class="flex items-center justify-between mb-6 bg-gold text-white px-4 py-2 rounded shadow-sm mt-6">
+                <h2 class="text-xl font-bold uppercase tracking-tight">Conference</h2>
+                <span class="text-base font-bold">Apr 04 – 05</span>
             </div>
 
-            <div class="flex gap-4">
+            <div class="flex gap-6">
                 <!-- Routine Side -->
-                <div class="w-[30%] bg-gray-50 rounded p-2.5 border border-gray-100 self-start">
-                    <h3 class="text-[10px] font-bold text-gold uppercase tracking-widest mb-2 border-b border-gray-200 pb-1">Daily Routine</h3>
-                    <table class="w-full text-[8px] routine-table table-fixed">
+                <div class="w-[28%] bg-gray-50 rounded-lg p-3 border border-gray-100 self-start">
+                    <h3 class="text-[10px] font-bold text-gold uppercase tracking-widest mb-3 border-b border-gray-200 pb-1">Daily Routine</h3>
+                    <table class="w-full text-[9px] routine-table table-fixed">
                         <thead>
                             <tr>
-                                <th class="w-8 text-left">From</th>
-                                <th class="w-8 text-left">To</th>
+                                <th class="w-10 text-left">From</th>
+                                <th class="w-10 text-left">To</th>
                                 <th class="w-auto text-left">Event</th>
                             </tr>
                         </thead>
@@ -121,8 +123,8 @@
                 </div>
 
                 <!-- Days -->
-                <div class="w-[70%]">
-                    <div id="conf-grid" class="grid grid-cols-2 gap-x-4 gap-y-3">
+                <div class="w-[72%]">
+                    <div id="conf-grid" class="grid grid-cols-2 gap-x-6 gap-y-6">
                         <!-- Injected JS -->
                     </div>
                 </div>
@@ -130,20 +132,20 @@
         </section>
 
         <!-- POST-CONFERENCE SECTION -->
-        <section id="post-conf-section" class="mb-4 avoid-break">
-            <div class="flex items-baseline justify-between border-b border-gray-200 mb-3 pb-1 mt-4">
-                <h2 class="text-lg font-bold text-dark uppercase tracking-tight">Post-Conference <span class="text-gold text-sm font-medium ml-2">Apr 06 – 07</span></h2>
+        <section id="post-conf-section" class="mb-6 avoid-break">
+            <div class="flex items-baseline justify-between border-b border-gray-200 mb-4 pb-2 mt-8">
+                <h2 class="text-xl font-bold text-dark uppercase tracking-tight">Post-Conference <span class="text-gold text-base font-medium ml-3">Apr 06 – 07</span></h2>
             </div>
 
-            <div class="flex gap-4">
+            <div class="flex gap-6">
                 <!-- Routine Side -->
-                <div class="w-[30%] bg-gray-50 rounded p-2.5 border border-gray-100 self-start">
-                    <h3 class="text-[10px] font-bold text-gold uppercase tracking-widest mb-2 border-b border-gray-200 pb-1">Daily Routine</h3>
-                    <table class="w-full text-[8px] routine-table table-fixed">
+                <div class="w-[28%] bg-gray-50 rounded-lg p-3 border border-gray-100 self-start">
+                    <h3 class="text-[10px] font-bold text-gold uppercase tracking-widest mb-3 border-b border-gray-200 pb-1">Daily Routine</h3>
+                    <table class="w-full text-[9px] routine-table table-fixed">
                         <thead>
                             <tr>
-                                <th class="w-8 text-left">From</th>
-                                <th class="w-8 text-left">To</th>
+                                <th class="w-10 text-left">From</th>
+                                <th class="w-10 text-left">To</th>
                                 <th class="w-auto text-left">Event</th>
                             </tr>
                         </thead>
@@ -152,8 +154,8 @@
                 </div>
 
                 <!-- Days -->
-                <div class="w-[70%]">
-                    <div id="post-conf-grid" class="grid grid-cols-2 gap-x-4 gap-y-3">
+                <div class="w-[72%]">
+                    <div id="post-conf-grid" class="grid grid-cols-2 gap-x-6 gap-y-6">
                          <!-- Injected JS -->
                     </div>
                 </div>
@@ -163,41 +165,41 @@
         <div class="page-break"></div>
 
         <!-- SPEAKERS SECTION -->
-        <section class="mt-8">
-            <div class="flex items-center gap-4 border-b border-gray-200 pb-2 mb-6">
-                <h2 class="text-xl font-bold text-dark uppercase tracking-tight">Distinguished Speakers</h2>
+        <section class="mt-12">
+            <div class="flex items-center gap-4 border-b border-gray-200 pb-3 mb-8">
+                <h2 class="text-2xl font-bold text-dark uppercase tracking-tight">Distinguished Speakers</h2>
                 <div class="flex-1 h-px bg-gray-100"></div>
             </div>
 
-            <div id="main-speakers-list" class="grid grid-cols-2 gap-x-6 gap-y-6">
+            <div id="main-speakers-list" class="grid grid-cols-2 gap-x-8 gap-y-8">
                 <!-- JS Injected -->
             </div>
 
-            <div class="flex items-center gap-4 border-b border-gray-200 pb-2 mb-6 mt-10">
+            <div class="flex items-center gap-4 border-b border-gray-200 pb-3 mb-8 mt-12">
                 <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest">Other Speakers & Artists</h2>
                 <div class="flex-1 h-px bg-gray-100"></div>
             </div>
 
-            <div id="other-speakers-grid" class="grid grid-cols-8 gap-3">
+            <div id="other-speakers-grid" class="grid grid-cols-8 gap-4">
                 <!-- JS Injected -->
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="mt-8 pt-4 border-t border-gray-100 flex flex-row items-center justify-center gap-8 break-inside-avoid">
-            <img id="print-footer-logo" class="h-8 object-contain" />
+        <footer class="mt-12 pt-8 pb-8 border-t border-gray-100 flex flex-row items-center justify-center gap-10 break-inside-avoid">
+            <img id="print-footer-logo" class="h-10 object-contain" />
             
-            <div class="flex flex-row items-center gap-6 text-[9px] font-bold text-gray-600 uppercase tracking-wide">
-                <div class="flex items-center gap-1.5">
-                    <i data-lucide="phone" class="w-3 h-3 text-gold"></i>
+            <div class="flex flex-row items-center gap-8 text-[10px] font-bold text-gray-600 uppercase tracking-wide">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="phone" class="w-4 h-4 text-gold"></i>
                     <span>+91 93696 37283</span>
                 </div>
-                <div class="flex items-center gap-1.5">
-                    <i data-lucide="mail" class="w-3 h-3 text-gold"></i>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4 text-gold"></i>
                     <span>webolimclasses@gmail.com</span>
                 </div>
-                <div class="flex items-center gap-1.5">
-                    <i data-lucide="globe" class="w-3 h-3 text-gold"></i>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="globe" class="w-4 h-4 text-gold"></i>
                     <span>www.webolim.org</span>
                 </div>
             </div>
@@ -241,9 +243,9 @@
                     
                     const routineHtml = routineEvents.map(e => `
                         <tr>
-                            <td class="whitespace-nowrap font-medium text-gray-500">${fmtTime(e.start)}</td>
-                            <td class="whitespace-nowrap font-medium text-gray-500">${fmtTime(e.end)}</td>
-                            <td class="font-bold text-dark leading-tight">${e.title}</td>
+                            <td class="whitespace-nowrap font-medium text-gray-500 align-middle">${fmtTime(e.start)}</td>
+                            <td class="whitespace-nowrap font-medium text-gray-500 align-middle">${fmtTime(e.end)}</td>
+                            <td class="font-bold text-dark leading-snug align-middle">${e.title}</td>
                         </tr>
                     `).join('');
                     document.getElementById(routineContainerId).innerHTML = routineHtml;
@@ -257,23 +259,23 @@
                         const eventsHtml = uniqueEvents.map(e => {
                             const speakerIds = e.speakerIds || [];
                             return `
-                                <div class="mb-2.5 pb-2 border-b border-gray-100 last:border-0">
-                                    <div class="flex items-baseline gap-1 mb-0.5 opacity-80">
+                                <div class="mb-3 pb-2 border-b border-gray-100 last:border-0">
+                                    <div class="flex items-baseline gap-1 mb-1 opacity-80">
                                         <span class="text-[9px] font-bold text-gold whitespace-nowrap">${fmtTime(e.start)}</span>
                                         <span class="text-[9px] font-medium text-gray-400 whitespace-nowrap">- ${fmtTime(e.end)}</span>
                                     </div>
-                                    <div class="text-[10px] font-bold text-dark leading-tight mb-0.5">${e.title}</div>
-                                    ${e.subhead ? `<div class="text-[8px] text-gray-500 italic leading-tight mb-0.5">${e.subhead}</div>` : ''}
-                                    ${speakerIds.length ? `<div class="text-[8px] text-gray-600 font-semibold truncate">by ${speakers[speakerIds[0]]?.name}</div>` : ''}
+                                    <div class="text-[11px] font-bold text-dark leading-snug mb-0.5">${e.title}</div>
+                                    ${e.subhead ? `<div class="text-[9px] text-gray-500 italic leading-snug mb-1">${e.subhead}</div>` : ''}
+                                    ${speakerIds.length ? `<div class="text-[9px] text-gray-600 font-semibold truncate mt-0.5">by ${speakers[speakerIds[0]]?.name}</div>` : ''}
                                 </div>
                             `;
                         }).join('');
 
                         const dayHtml = `
                             <div class="avoid-break bg-white mb-2">
-                                <div class="border-b border-dark mb-2 pb-1">
-                                    <div class="text-[9px] font-bold text-gold uppercase tracking-wider">${day.dayName.substring(0,3)}, ${day.displayDate}</div>
-                                    <div class="text-[11px] font-bold text-dark italic leading-none">${day.theme}</div>
+                                <div class="border-b border-dark mb-3 pb-1">
+                                    <div class="text-[10px] font-bold text-gold uppercase tracking-wider">${day.dayName.substring(0,3)}, ${day.displayDate}</div>
+                                    <div class="text-[12px] font-bold text-dark italic leading-snug">${day.theme}</div>
                                 </div>
                                 <div>${eventsHtml}</div>
                             </div>
@@ -300,19 +302,19 @@
 
                     if (s.bio && s.bio.length > 50) {
                         mainSpeakersContainer.insertAdjacentHTML('beforeend', `
-                            <div class="flex gap-3 avoid-break">
-                                <img src="${s.photo}" class="w-14 h-14 object-cover rounded bg-gray-100 shrink-0 border border-gray-100">
+                            <div class="flex gap-4 avoid-break items-start">
+                                <img src="${s.photo}" class="w-16 h-16 object-cover rounded bg-gray-100 shrink-0 border border-gray-100 mt-1">
                                 <div>
-                                    <h3 class="font-bold text-xs text-dark mb-0.5 leading-tight">${s.name}</h3>
-                                    <p class="text-[9px] leading-relaxed text-gray-600 text-justify">${s.bio}</p>
+                                    <h3 class="font-bold text-sm text-dark mb-1 leading-tight">${s.name}</h3>
+                                    <p class="text-[10px] leading-relaxed text-gray-600 text-justify">${s.bio}</p>
                                 </div>
                             </div>
                         `);
                     } else {
                         otherSpeakersContainer.insertAdjacentHTML('beforeend', `
                             <div class="text-center avoid-break">
-                                <img src="${s.photo}" class="w-10 h-10 mx-auto object-cover rounded-full bg-gray-100 mb-1 border border-gray-100">
-                                <div class="text-[8px] font-bold text-dark leading-tight">${s.name}</div>
+                                <img src="${s.photo}" class="w-12 h-12 mx-auto object-cover rounded-full bg-gray-100 mb-2 border border-gray-100">
+                                <div class="text-[9px] font-bold text-dark leading-tight">${s.name}</div>
                             </div>
                         `);
                     }
