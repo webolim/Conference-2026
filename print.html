@@ -312,7 +312,7 @@
                                     </div>
                                     <div class="text-[10px] font-bold text-dark leading-snug mb-0.5">${e.title}</div>
                                     ${e.subhead ? `<div class="text-[9px] text-gray-500 italic leading-snug mb-0.5">${e.subhead}</div>` : ''}
-                                    ${speakerNames ? `<div class="text-[9px] text-gray-600 font-semibold truncate mt-0.5">by ${speakerNames}</div>` : ''}
+                                    ${speakerNames ? `<div class="text-[9px] text-gray-600 font-semibold leading-tight mt-0.5">by ${speakerNames}</div>` : ''}
                                 </div>
                             `;
                         }).join('');
@@ -355,7 +355,7 @@
                                 <img src="${s.photo}" class="w-11 h-11 object-cover rounded bg-gray-100 shrink-0 border border-gray-200 mt-0.5">
                                 <div>
                                     <h3 class="font-bold text-[11px] text-dark mb-0.5 leading-tight">${s.name}</h3>
-                                    <p class="text-[9px] leading-snug text-gray-600 text-justify line-clamp-4">${s.bio}</p>
+                                    <p class="text-[9px] leading-snug text-gray-600 text-justify">${s.bio}</p>
                                 </div>
                             </div>
                         `);
