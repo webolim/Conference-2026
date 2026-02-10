@@ -65,10 +65,6 @@
 </head>
 <body class="bg-white relative min-h-screen">
 
-    <!-- Pillars (Edges of Screen) -->
-    <div id="pillar-left" class="absolute top-0 bottom-0 left-0 w-5 z-50 pointer-events-none opacity-90" style="background-repeat: repeat-y; background-size: 100% auto;"></div>
-    <div id="pillar-right" class="absolute top-0 bottom-0 right-0 w-5 z-50 pointer-events-none opacity-90" style="background-repeat: repeat-y; background-size: 100% auto;"></div>
-
     <div class="max-w-[210mm] mx-auto relative z-10 px-10 pt-6 pb-16">
         
         <!-- HEADER -->
@@ -238,16 +234,6 @@
                 // Set images
                 if(document.getElementById('print-hero-img')) document.getElementById('print-hero-img').src = "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Kalyana-Rama.webp";
                 if(document.getElementById('print-footer-logo')) document.getElementById('print-footer-logo').src = data.assets.logo;
-
-                // Set Pillar Images
-                if(data.assets.pillarLeft) {
-                    const el = document.getElementById('pillar-left');
-                    if(el) el.style.backgroundImage = `url('${data.assets.pillarLeft}')`;
-                }
-                if(data.assets.pillarRight) {
-                    const el = document.getElementById('pillar-right');
-                    if(el) el.style.backgroundImage = `url('${data.assets.pillarRight}')`;
-                }
 
                 const timeFormatter = new Intl.DateTimeFormat('en-US', { 
                     hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'Asia/Kolkata' 
