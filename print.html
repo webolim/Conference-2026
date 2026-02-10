@@ -60,8 +60,8 @@
         .border-gold { border-color: #856404; }
         
         /* Tables */
-        .routine-table th { font-weight: 800; color: #333; text-transform: uppercase; font-size: 8px; letter-spacing: 0.05em; padding-bottom: 3px; border-bottom: 1px solid #999; }
-        .routine-table td { padding: 3px 2px; border-bottom: 1px solid #ccc; vertical-align: top; color: #222; font-size: 9px; }
+        .routine-table th { font-weight: 800; color: #666; text-transform: uppercase; font-size: 8px; letter-spacing: 0.05em; padding-bottom: 3px; border-bottom: 1px solid #999; }
+        .routine-table td { padding: 3px 2px; border-bottom: 1px solid #ccc; vertical-align: top; color: #555; font-size: 9px; }
         .routine-table tr:last-child td { border-bottom: none; }
     </style>
 </head>
@@ -86,7 +86,7 @@
             <header class="w-full">
                 <img id="print-hero-img" class="h-80 mx-auto object-contain mb-8" alt="Kalyana Rama Sannidhi" />
                 <h1 class="font-extrabold text-4xl uppercase tracking-tighter text-dark leading-none mb-4">Sri Ramayana Satram <span class="text-gold">&</span> Conference 2026</h1>
-                <div class="flex items-center justify-center gap-4 mt-6 text-lg font-bold text-gray-700 uppercase tracking-widest">
+                <div class="flex items-center justify-center gap-4 mt-6 text-lg font-bold text-gray-600 uppercase tracking-widest">
                     <span>Mar 28 – Apr 07</span>
                     <span class="text-gold">•</span>
                     <span>Srimad Valmiki Ashrama, Bengaluru</span>
@@ -211,7 +211,7 @@
             <!-- Other Speakers -->
             <section id="other-speakers-section" class="flex-grow">
                 <div class="flex items-center gap-4 border-b border-gray-300 pb-1 mb-4 mt-2">
-                    <h2 class="text-sm font-bold text-gray-700 uppercase tracking-widest">Other Speakers & Artists</h2>
+                    <h2 class="text-sm font-bold text-gray-600 uppercase tracking-widest">Other Speakers & Artists</h2>
                 </div>
 
                 <div id="other-speakers-grid" class="grid grid-cols-8 gap-3 mb-6">
@@ -223,7 +223,7 @@
             <footer class="pt-6 pb-6 border-t border-gray-200 flex flex-row items-center justify-center gap-8 break-inside-avoid mt-auto">
                 <img id="print-footer-logo" class="h-10 object-contain cursor-pointer hover:opacity-80 transition-opacity" title="Click for Print Options" onclick="toggleMenu()" />
                 
-                <div class="flex flex-row items-center gap-6 text-[10px] font-bold text-gray-800 uppercase tracking-wide">
+                <div class="flex flex-row items-center gap-6 text-[10px] font-bold text-gray-600 uppercase tracking-wide">
                     <div class="flex items-center gap-2">
                         <i data-lucide="phone" class="w-3 h-3 text-gold"></i>
                         <span>+91 93696 37283</span>
@@ -288,8 +288,8 @@
                     
                     const routineHtml = routineEvents.map(e => `
                         <tr>
-                            <td class="whitespace-nowrap font-medium text-gray-700 align-middle">${fmtTime(e.start)}</td>
-                            <td class="whitespace-nowrap font-medium text-gray-700 align-middle">${fmtTime(e.end)}</td>
+                            <td class="whitespace-nowrap font-medium text-gray-600 align-middle">${fmtTime(e.start)}</td>
+                            <td class="whitespace-nowrap font-medium text-gray-600 align-middle">${fmtTime(e.end)}</td>
                             <td class="font-bold text-dark leading-snug align-middle">${e.title}</td>
                         </tr>
                     `).join('');
@@ -307,11 +307,11 @@
                                 <div class="mb-1.5 pb-0.5 border-b border-gray-200 last:border-0">
                                     <div class="flex items-baseline gap-1 mb-0.5 opacity-90">
                                         <span class="text-[9px] font-bold text-gold whitespace-nowrap">${fmtTime(e.start)}</span>
-                                        <span class="text-[9px] font-medium text-gray-600 whitespace-nowrap">- ${fmtTime(e.end)}</span>
+                                        <span class="text-[9px] font-medium text-gray-500 whitespace-nowrap">- ${fmtTime(e.end)}</span>
                                     </div>
                                     <div class="text-[10px] font-bold text-dark leading-snug mb-0.5">${e.title}</div>
-                                    ${e.subhead ? `<div class="text-[9px] text-gray-700 italic leading-snug mb-0.5">${e.subhead}</div>` : ''}
-                                    ${speakerIds.length ? `<div class="text-[9px] text-gray-800 font-semibold truncate mt-0.5">by ${speakers[speakerIds[0]]?.name}</div>` : ''}
+                                    ${e.subhead ? `<div class="text-[9px] text-gray-500 italic leading-snug mb-0.5">${e.subhead}</div>` : ''}
+                                    ${speakerIds.length ? `<div class="text-[9px] text-gray-600 font-semibold truncate mt-0.5">by ${speakers[speakerIds[0]]?.name}</div>` : ''}
                                 </div>
                             `;
                         }).join('');
@@ -354,7 +354,7 @@
                                 <img src="${s.photo}" class="w-11 h-11 object-cover rounded bg-gray-100 shrink-0 border border-gray-200 mt-0.5">
                                 <div>
                                     <h3 class="font-bold text-[11px] text-dark mb-0.5 leading-tight">${s.name}</h3>
-                                    <p class="text-[9px] leading-snug text-gray-800 text-justify line-clamp-4">${s.bio}</p>
+                                    <p class="text-[9px] leading-snug text-gray-600 text-justify line-clamp-4">${s.bio}</p>
                                 </div>
                             </div>
                         `);
