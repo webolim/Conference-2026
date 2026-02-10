@@ -81,8 +81,8 @@
 
     <div class="max-w-[210mm] mx-auto relative z-10 px-4">
         
-        <!-- PAGE 1: HEADER (Centered) -->
-        <div class="print:h-[285mm] flex flex-col justify-start items-center text-center page-break mb-8 print:mb-0 pt-6">
+        <!-- PAGE 1: HEADER (Centered in Print, Top in HTML) -->
+        <div class="print:h-[285mm] print:flex print:flex-col print:justify-center flex flex-col justify-start items-center text-center page-break mb-8 print:mb-0 pt-6">
             <header class="w-full">
                 <img id="print-hero-img" class="h-80 mx-auto object-contain mb-4" alt="Kalyana Rama Sannidhi" />
                 <h1 class="font-extrabold text-4xl uppercase tracking-tighter text-dark leading-none mb-4">Sri Ramayana Satram <span class="text-gold">&</span> Conference 2026</h1>
@@ -203,7 +203,8 @@
                     <h2 class="text-lg font-bold text-dark uppercase tracking-tight">Distinguished Speakers</h2>
                 </div>
 
-                <div id="main-speakers-list" class="grid grid-cols-2 gap-x-6 gap-y-3">
+                <!-- Changed to columns-2 for better balance -->
+                <div id="main-speakers-list" class="columns-2 gap-6 space-y-4">
                     <!-- JS Injected -->
                 </div>
             </section>
@@ -351,7 +352,7 @@
 
                     if (s.bio && s.bio.length > 50) {
                         mainSpeakersContainer.insertAdjacentHTML('beforeend', `
-                            <div class="flex gap-3 avoid-break items-start">
+                            <div class="flex gap-3 avoid-break break-inside-avoid items-start mb-4">
                                 <img src="${s.photo}" class="w-11 h-11 object-cover rounded bg-gray-100 shrink-0 border border-gray-200 mt-0.5">
                                 <div>
                                     <h3 class="font-bold text-[11px] text-dark mb-0.5 leading-tight">${s.name}</h3>
