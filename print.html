@@ -35,9 +35,10 @@
         body { font-family: 'Inter', sans-serif; color: #000; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         
         @media print {
-            @page { margin: 10mm; size: auto; }
+            @page { margin: 8mm; size: auto; }
             .no-print { display: none !important; }
             body { font-size: 10pt; }
+            .break-inside-avoid { break-inside: avoid; }
         }
 
         .arching-text-path {
@@ -47,10 +48,11 @@
             fill: #800000;
             font-family: 'Merriweather', serif;
             font-weight: 900;
-            font-size: 38px;
             text-transform: uppercase;
             text-anchor: middle;
         }
+        .arch-1 { font-size: 42px; fill: #800000; }
+        .arch-2 { font-size: 32px; fill: #856404; letter-spacing: 2px; }
     </style>
 </head>
 <body class="bg-white min-h-screen pb-12">
@@ -67,94 +69,135 @@
         </div>
     </div>
 
-    <div class="max-w-[210mm] mx-auto relative z-10 px-6 py-6">
+    <div class="max-w-[210mm] mx-auto relative z-10 px-4 py-4">
         
         <!-- HEADER -->
-        <header class="flex flex-col items-center justify-center mb-8">
-            <div class="relative w-full max-w-lg h-32 mb-[-10px]">
-                <svg viewBox="0 0 500 120" class="w-full h-full overflow-visible">
-                    <path id="curve" d="M50,120 Q250,10 450,120" class="arching-text-path" />
-                    <text class="arching-text">
-                        <textPath xlink:href="#curve" startOffset="50%">
-                            Sri Rama Navami Utsavam
+        <header class="flex flex-col items-center justify-center mb-6 relative">
+            <div class="absolute top-0 w-full h-[180px] z-0">
+                <svg viewBox="0 0 500 180" class="w-full h-full overflow-visible">
+                    <!-- Path for Line 1 -->
+                    <path id="curve1" d="M50,160 Q250,20 450,160" class="arching-text-path" />
+                    <!-- Path for Line 2 -->
+                    <path id="curve2" d="M90,170 Q250,70 410,170" class="arching-text-path" />
+                    
+                    <text class="arching-text arch-1">
+                        <textPath xlink:href="#curve1" startOffset="50%">
+                            Sri Rama Navami Utsava
+                        </textPath>
+                    </text>
+                    <text class="arching-text arch-2">
+                        <textPath xlink:href="#curve2" startOffset="50%">
+                            Sri Ramayana Navaham
                         </textPath>
                     </text>
                 </svg>
             </div>
             
-            <h2 class="text-2xl font-serif font-bold text-gold uppercase tracking-widest mb-4">Sri Ramayana Navaham</h2>
-            
-            <img id="print-hero-img" class="h-64 object-contain mb-4 drop-shadow-lg" alt="Kalyana Rama" />
-            
-            <h3 class="text-xl font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-2 rounded-full border border-gray-200">
-                Srimad Valmiki Ramayana Conference # 3
-            </h3>
+            <!-- Image pushed down to fit under arch -->
+            <div class="mt-[80px] z-10 relative flex flex-col items-center">
+                <img id="print-hero-img" class="h-56 object-contain drop-shadow-xl" alt="Kalyana Rama" />
+                
+                <h3 class="text-lg font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1.5 rounded-full border border-gray-200 mt-2">
+                    Srimad Valmiki Ramayana Conference # 3
+                </h3>
 
-            <div class="flex items-center justify-center gap-4 mt-4 text-sm font-bold text-gray-600 uppercase tracking-widest">
-                <span>Mar 28 – Apr 07, 2026</span>
-                <span class="text-gold">•</span>
-                <span>Srimad Valmiki Ashrama, Bengaluru</span>
+                <div class="flex items-center justify-center gap-4 mt-2 text-xs font-bold text-gray-600 uppercase tracking-widest">
+                    <span>Mar 28 – Apr 07, 2026</span>
+                    <span class="text-gold">•</span>
+                    <span>Srimad Valmiki Ashrama, Bengaluru</span>
+                </div>
             </div>
         </header>
 
         <!-- DAILY ROUTINE (Consolidated) -->
-        <section class="mb-8 border border-gray-300 rounded-xl overflow-hidden">
-            <div class="bg-maroon text-white px-4 py-2 flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4"></i>
-                <h3 class="font-bold uppercase tracking-widest text-sm">Daily Routine</h3>
-            </div>
-            <div class="p-4 bg-gray-50">
-                <div id="common-routine-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                    <!-- Injected JS -->
+        <section class="mb-6 border border-gold/30 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-gold/10 text-maroon px-4 py-2 flex items-center justify-between border-b border-gold/20">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="clock" class="w-4 h-4"></i>
+                    <h3 class="font-bold uppercase tracking-widest text-sm">Typical Daily Schedule</h3>
                 </div>
+                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Note: Timings may vary slightly based on event</span>
             </div>
-        </section>
+            <div class="p-3 bg-white grid grid-cols-2 md:grid-cols-5 gap-y-2 gap-x-4 text-[10px]">
+                
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">05:30 AM</span>
+                    <span class="font-semibold text-dark">Sandhyopasana</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">06:15 AM</span>
+                    <span class="font-semibold text-dark">Suprabhatam</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">06:30 AM</span>
+                    <span class="font-semibold text-dark text-right">Parayanam <span class="text-gray-400 italic">(Pre/Post)</span><br/>Meditation <span class="text-gray-400 italic">(Conf)</span></span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">08:00 AM</span>
+                    <span class="font-semibold text-dark">Breakfast</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1 bg-maroon/5 px-1 rounded">
+                    <span class="font-bold text-maroon">08:30 AM</span>
+                    <span class="font-bold text-maroon text-right">Pravachana /<br>Discourse</span>
+                </div>
 
-        <!-- MARCH 28 SPECIAL ROW -->
-        <section id="march28-section" class="mb-8 hidden">
-            <h3 class="font-bold text-maroon uppercase tracking-widest text-sm border-b border-gray-300 pb-1 mb-3">Inauguration Day Schedule (Mar 28)</h3>
-            <div id="march28-events" class="flex flex-wrap gap-4">
-                <!-- Injected JS -->
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">11:30 AM</span>
+                    <span class="font-semibold text-dark">Pooja</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">12:00 PM</span>
+                    <span class="font-semibold text-dark">Lunch</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">01:00 PM</span>
+                    <span class="font-semibold text-dark text-right">Parayanam <span class="text-gray-400 italic">(Pre/Post)</span><br/>Discourses <span class="text-gray-400 italic">(Conf)</span></span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1">
+                    <span class="font-bold text-gold">06:00 PM</span>
+                    <span class="font-semibold text-dark">Sandhyopasana</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-100 pb-1 bg-maroon/5 px-1 rounded">
+                    <span class="font-bold text-maroon">07:30 PM</span>
+                    <span class="font-bold text-maroon">Utsava & Events</span>
+                </div>
             </div>
         </section>
 
         <!-- SCHEDULE GRID -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             
             <!-- LEFT COLUMN: Pre-Conference -->
             <div>
-                <div class="flex items-center justify-between mb-4 border-b-2 border-gold pb-1">
+                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1">
                     <h3 class="font-bold text-xl text-maroon font-serif">Pre-Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase">Mar 29 – Apr 03</span>
                 </div>
-                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Discourses & Pravachana</h4>
-                <div id="pre-conf-grid" class="space-y-4">
+                <div id="pre-conf-grid" class="space-y-3">
                     <!-- Injected JS -->
                 </div>
             </div>
 
             <!-- RIGHT COLUMN: Conference & Post-Conference -->
-            <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-6">
                 <!-- Conference -->
                 <div>
-                    <div class="flex items-center justify-between mb-4 border-b-2 border-gold pb-1">
+                    <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1">
                         <h3 class="font-bold text-xl text-maroon font-serif">Conference</h3>
                         <span class="text-xs font-bold text-gray-500 uppercase">Apr 04 – 05</span>
                     </div>
-                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Discourses & Pravachana</h4>
-                    <div id="conf-grid" class="space-y-4">
+                    <div id="conf-grid" class="space-y-3">
                         <!-- Injected JS -->
                     </div>
                 </div>
 
                 <!-- Post-Conference -->
                 <div>
-                    <div class="flex items-center justify-between mb-4 border-b-2 border-gold pb-1">
+                    <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1">
                         <h3 class="font-bold text-xl text-maroon font-serif">Post-Conference</h3>
-                        <span class="text-xs font-bold text-gray-500 uppercase">Apr 06 – 07</span>
+                        <span class="text-xs font-bold text-gray-500 uppercase">Apr 06</span>
                     </div>
-                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Discourses & Pravachana</h4>
-                    <div id="post-conf-grid" class="space-y-4">
+                    <div id="post-conf-grid" class="space-y-3">
                         <!-- Injected JS -->
                     </div>
                 </div>
@@ -162,53 +205,34 @@
         </div>
 
         <!-- SPECIAL EVENTS / UTSAVA -->
-        <section class="mb-10 page-break-inside-avoid">
-            <div class="bg-gold/10 border-t border-b border-gold/30 py-6 px-4">
-                <div class="text-center mb-6">
-                    <h3 class="font-serif font-bold text-2xl text-maroon mb-1">Cultural Events & Utsavams</h3>
-                    <p class="text-sm text-gray-600 font-medium uppercase tracking-widest">Every Evening at 7:30 PM</p>
+        <section class="mb-4 page-break-inside-avoid">
+            <div class="bg-gold/10 border-t border-b border-gold/30 py-4 px-4 rounded-xl">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-px bg-gold/40 flex-1"></div>
+                    <h3 class="font-serif font-bold text-xl text-maroon uppercase tracking-wide">Conference Highlights & Utsavams</h3>
+                    <div class="h-px bg-gold/40 flex-1"></div>
                 </div>
                 
-                <div id="utsava-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <div id="utsava-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     <!-- Injected JS -->
                 </div>
             </div>
         </section>
 
-        <!-- SPEAKERS SECTION -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            
-            <!-- Conference Speakers (2/3 width) -->
-            <div class="md:col-span-2">
-                <h3 class="font-bold text-lg text-dark uppercase tracking-tight border-b border-gray-300 pb-2 mb-4">Conference Speakers</h3>
-                <div id="conference-speakers" class="grid grid-cols-2 gap-x-6 gap-y-6">
-                    <!-- Injected JS -->
-                </div>
-            </div>
-
-            <!-- Pre/Post Speakers (1/3 width) -->
-            <div>
-                <h3 class="font-bold text-lg text-gray-600 uppercase tracking-tight border-b border-gray-300 pb-2 mb-4">Pre/Post Conference Speakers</h3>
-                <div id="other-speakers" class="grid grid-cols-3 gap-3">
-                    <!-- Injected JS -->
-                </div>
-            </div>
-        </div>
-
         <!-- FOOTER -->
-        <footer class="pt-6 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center gap-6 mt-auto text-gray-600">
-            <img id="print-footer-logo" class="h-10 object-contain cursor-pointer hover:opacity-80 transition-opacity" title="Click for Print Options" onclick="toggleMenu()" />
+        <footer class="pt-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center gap-6 mt-auto text-gray-600">
+            <img id="print-footer-logo" class="h-8 object-contain cursor-pointer hover:opacity-80 transition-opacity" title="Click for Print Options" onclick="toggleMenu()" />
             
-            <div class="flex flex-wrap justify-center gap-6 text-[10px] font-bold uppercase tracking-wide">
-                <div class="flex items-center gap-2">
+            <div class="flex flex-wrap justify-center gap-6 text-[9px] font-bold uppercase tracking-wide">
+                <div class="flex items-center gap-1">
                     <i data-lucide="phone" class="w-3 h-3 text-gold"></i>
                     <span>+91 93696 37283</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1">
                     <i data-lucide="mail" class="w-3 h-3 text-gold"></i>
                     <span>webolimclasses@gmail.com</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1">
                     <i data-lucide="globe" class="w-3 h-3 text-gold"></i>
                     <span>www.webolim.org</span>
                 </div>
@@ -227,12 +251,9 @@
         const ROUTINE_EVENTS = [
             "Sandhyopasana", "Suprabhatam", "Parayanam", "Breakfast", 
             "Pooja", "Lunch", "Dinner", "Dolotsava", 
-            "Madyanikam", "Meditation", "Tea Break"
+            "Madyanikam", "Meditation", "Tea Break", "Prasada"
         ];
         
-        // Speakers to move to the end of Conference list
-        const MOVE_TO_END_IDS = ['dr_rangan', 'srikanth', 'ashruth', 'santanaraman'];
-
         async function init() {
             try {
                 const response = await fetch('schedule.json');
@@ -246,101 +267,83 @@
                 const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'Asia/Kolkata' });
                 function fmtTime(iso) { return timeFormatter.format(new Date(iso)).toLowerCase().replace(' ', ''); }
 
-                // --- 1. DAILY ROUTINE (Global) ---
-                // Use Day 2 as template (Pre-Conf typical day)
-                const templateDay = data.schedule.days.find(d => d.dayNumber === 2);
-                if (templateDay) {
-                    const routineItems = templateDay.events.filter(e => ROUTINE_EVENTS.includes(e.title));
-                    const routineContainer = document.getElementById('common-routine-grid');
-                    routineContainer.innerHTML = routineItems.map(e => `
-                        <div class="flex justify-between items-baseline border-b border-gray-200 pb-1">
-                            <span class="font-bold text-gray-500">${fmtTime(e.start)} - ${fmtTime(e.end)}</span>
-                            <span class="font-bold text-dark ml-2 text-right">${e.title}</span>
-                        </div>
-                    `).join('');
-                }
-
-                // --- 2. SCHEDULE PROCESSING ---
+                // --- SCHEDULE PROCESSING ---
                 const utsavaEvents = [];
-                const confSpeakerIds = new Set();
+
+                // Helper to render a Speaker Block inside a schedule item
+                function getSpeakerBlock(speakerIds) {
+                    if (!speakerIds || speakerIds.length === 0) return '';
+                    
+                    return speakerIds.map(id => {
+                        const s = speakers[id];
+                        if (!s) return '';
+                        return `
+                            <div class="flex gap-2 mt-1.5 pt-1.5 border-t border-dashed border-gray-200">
+                                <img src="${s.photo}" class="w-8 h-8 rounded object-cover border border-gray-200 shrink-0 bg-gray-100">
+                                <div>
+                                    <div class="text-[9px] font-bold text-dark leading-tight">${s.name}</div>
+                                    <div class="text-[8px] text-gray-500 leading-tight mt-0.5 line-clamp-3 text-justify">${s.bio || ''}</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
 
                 // Helper to process days
                 function processPhase(phaseName, containerId) {
-                    const phaseDays = data.schedule.days.filter(d => d.phase === phaseName);
+                    // Filter Out Day 1 (Inauguration) and Day 11 (Valedictory) from columns
+                    const phaseDays = data.schedule.days.filter(d => 
+                        d.phase === phaseName && d.dayNumber !== 1 && d.dayNumber !== 11
+                    );
                     const container = document.getElementById(containerId);
                     
                     phaseDays.forEach(day => {
-                        // Filter out Routine, Utsava (approx 19:30), and Prasada
+                        // Filter out Routine
                         const dayEvents = day.events.filter(e => {
                             if (ROUTINE_EVENTS.includes(e.title)) return false;
-                            if (e.title === "Prasada") return false; 
                             
-                            // Check for Utsava time slot (approx 19:30) or Inauguration (19:30)
+                            // Check for Utsava time slot (approx 19:30)
                             const hour = new Date(e.start).getHours();
                             const minutes = new Date(e.start).getMinutes();
                             const timeVal = hour + minutes/60;
                             
-                            // Utsava slot is usually 19:30 (7.5 PM). 
-                            // Inauguration is also 19:30.
-                            if (timeVal >= 19.5 && timeVal < 20.5) {
-                                // Add to Utsava list if not Dolotsava (Dolotsava is Routine)
+                            // Utsava slot is usually 19:30.
+                            if (timeVal >= 19.0 && timeVal < 21.0) {
+                                // Add to Utsava list
                                 if (e.title !== "Dolotsava") {
                                     utsavaEvents.push({ ...e, dayDate: day.displayDate });
                                 }
                                 return false; // Remove from grid
                             }
-                            
-                            // Day 1 specific removal: Abhishekha is 16:30, keeps.
                             return true;
                         });
 
                         if (dayEvents.length === 0) return;
 
-                        // Special handling for Mar 28 (Inauguration Day)
-                        if (day.dayNumber === 1) {
-                            const m28Container = document.getElementById('march28-events');
-                            document.getElementById('march28-section').classList.remove('hidden');
-                            m28Container.innerHTML = dayEvents.map(e => `
-                                <div class="bg-gray-50 border border-gray-200 rounded px-3 py-2 flex items-center gap-3">
-                                    <span class="text-xs font-bold text-gold">${fmtTime(e.start)} - ${fmtTime(e.end)}</span>
-                                    <span class="font-bold text-sm text-dark">${e.title}</span>
-                                    <span class="text-xs text-gray-500 italic">${e.venue}</span>
-                                </div>
-                            `).join('');
-                            return; // Don't add to main grid
-                        }
-
-                        // Collect Conference Speaker IDs
-                        if (phaseName === 'Conference') {
-                            dayEvents.forEach(e => {
-                                if (e.speakerIds) e.speakerIds.forEach(id => confSpeakerIds.add(id));
-                            });
-                        }
-
                         // Render Day Block
                         const eventsHtml = dayEvents.map(e => {
-                            const speakerNames = (e.speakerIds || []).map(id => speakers[id]?.name).join(' & ');
                             return `
-                                <div class="grid grid-cols-[50px_1fr] gap-2 border-b border-gray-100 last:border-0 py-1.5">
-                                    <div class="text-[10px] font-bold text-gold leading-tight text-right pt-0.5">
+                                <div class="grid grid-cols-[45px_1fr] gap-2 border-b border-gray-100 last:border-0 py-1.5">
+                                    <div class="text-[9px] font-bold text-gold leading-tight text-right pt-0.5">
                                         ${fmtTime(e.start)}<br/><span class="text-gray-300 font-normal">to</span><br/>${fmtTime(e.end)}
                                     </div>
                                     <div>
-                                        <div class="text-xs font-bold text-maroon leading-tight">${e.title}</div>
-                                        ${e.subhead ? `<div class="text-[10px] text-gray-500 italic">${e.subhead}</div>` : ''}
-                                        ${speakerNames ? `<div class="text-[10px] text-gray-600 mt-0.5">by <strong>${speakerNames}</strong></div>` : ''}
+                                        <div class="text-[11px] font-bold text-maroon leading-tight">${e.title}</div>
+                                        ${e.subhead ? `<div class="text-[9px] text-gray-500 italic leading-tight">${e.subhead}</div>` : ''}
+                                        <!-- Integrated Speakers -->
+                                        ${getSpeakerBlock(e.speakerIds)}
                                     </div>
                                 </div>
                             `;
                         }).join('');
 
                         container.insertAdjacentHTML('beforeend', `
-                            <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm break-inside-avoid">
-                                <div class="flex justify-between items-baseline border-b border-gray-200 pb-1 mb-2">
-                                    <span class="font-bold text-sm text-dark uppercase">${day.displayDate}</span>
-                                    <span class="text-[10px] font-bold text-gold uppercase tracking-widest">${day.dayName.substring(0,3)}</span>
+                            <div class="bg-white border border-gray-200 rounded-lg p-2 shadow-sm break-inside-avoid">
+                                <div class="flex justify-between items-baseline border-b border-gray-200 pb-1 mb-1">
+                                    <span class="font-bold text-xs text-dark uppercase">${day.displayDate}</span>
+                                    <span class="text-[9px] font-bold text-gold uppercase tracking-widest">${day.dayName.substring(0,3)}</span>
                                 </div>
-                                <div class="text-xs font-bold text-gray-400 italic mb-2">${day.theme}</div>
+                                <div class="text-[10px] font-bold text-gray-400 italic mb-1">${day.theme}</div>
                                 <div>${eventsHtml}</div>
                             </div>
                         `);
@@ -351,74 +354,49 @@
                 processPhase('Conference', 'conf-grid');
                 processPhase('Post-Conference', 'post-conf-grid');
 
-                // --- 3. UTSAVA SECTION ---
+                // --- 3. UTSAVA & HIGHLIGHTS SECTION ---
+                // Manually add Day 1 (Abhishekha) and Day 11 (Purapaadu) to Utsava list
+                const day1 = data.schedule.days.find(d => d.dayNumber === 1);
+                if (day1) {
+                    const abhishekha = day1.events.find(e => e.title.includes("Abhishekha"));
+                    const inauguration = day1.events.find(e => e.title.includes("Inauguration"));
+                    if(abhishekha) utsavaEvents.unshift({...abhishekha, dayDate: "Mar 28"});
+                    if(inauguration) utsavaEvents.push({...inauguration, dayDate: "Mar 28"});
+                }
+
+                const day11 = data.schedule.days.find(d => d.dayNumber === 11);
+                if (day11) {
+                    const purapaadu = day11.events.find(e => e.title.includes("Purapaadu"));
+                    const pattabhishekha = day11.events.find(e => e.title === "Pattabhishekha");
+                    
+                    // Add Pattabhishekha first as it is earlier
+                    if(pattabhishekha) utsavaEvents.push({...pattabhishekha, dayDate: "Apr 07"});
+                    if(purapaadu) utsavaEvents.push({...purapaadu, dayDate: "Apr 07"});
+                }
+
+                // Sort Utsava Events by Date
+                // We trust the push order mostly, but let's ensure standard ones follow
+                
                 const utsavaContainer = document.getElementById('utsava-grid');
                 utsavaEvents.forEach(e => {
-                    // Check for Meghana (or specific artists linked in schedule)
                     let artistImg = '';
+                    // Special logic for Bharatanatyam artist if needed
                     if (e.speakerIds && e.speakerIds.includes('meghana')) {
-                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-10 h-10 rounded-full object-cover border border-gold mb-2 mx-auto">`;
+                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-8 h-8 rounded-full object-cover border border-gold mb-1 mx-auto">`;
                     }
                     
+                    // Special styling for major highlights
+                    const isHighlight = ["Abhishekha", "Pattabhishekha", "Inauguration"].some(t => e.title.includes(t));
+                    const bgClass = isHighlight ? "bg-gold/10 border-gold/40" : "bg-white border-gold/20";
+
                     utsavaContainer.insertAdjacentHTML('beforeend', `
-                        <div class="text-center bg-white p-3 rounded-lg shadow-sm border border-gold/20">
-                            <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">${e.dayDate}</div>
-                            ${artistImg}
-                            <div class="font-bold text-maroon text-xs leading-tight mb-1">${e.title}</div>
-                            <div class="text-[10px] text-gold font-bold">19:30</div>
-                        </div>
-                    `);
-                });
-
-                // --- 4. SPEAKERS ---
-                // Identify lists
-                const allSpeakerIds = Object.keys(speakers).filter(k => k !== 'placeholder');
-                
-                // Conference List (Ensure specific order)
-                let confList = Array.from(confSpeakerIds);
-                // Remove the ones we want to move to end
-                const endList = confList.filter(id => MOVE_TO_END_IDS.includes(id));
-                const startList = confList.filter(id => !MOVE_TO_END_IDS.includes(id));
-                
-                // Sort the start list alphabetically
-                startList.sort((a,b) => speakers[a].name.localeCompare(speakers[b].name));
-                // Define order for end list based on MOVE_TO_END_IDS array order or just append
-                // Let's sort end list by the order defined in constant if needed, or just append. 
-                // The user listed: Dr. Rangan, Srikanth, Ashruth, Santanaraman.
-                const orderedEndList = [];
-                MOVE_TO_END_IDS.forEach(id => {
-                    if (confSpeakerIds.has(id)) orderedEndList.push(id);
-                });
-
-                const finalConfList = [...startList, ...orderedEndList];
-                
-                // Pre/Post List (Anyone not in Conference List)
-                const otherList = allSpeakerIds.filter(id => !confSpeakerIds.has(id));
-                otherList.sort((a,b) => speakers[a].name.localeCompare(speakers[b].name));
-
-                // Render Conference Speakers
-                const confContainer = document.getElementById('conference-speakers');
-                finalConfList.forEach(id => {
-                    const s = speakers[id];
-                    confContainer.insertAdjacentHTML('beforeend', `
-                        <div class="flex gap-3 items-start break-inside-avoid">
-                            <img src="${s.photo}" class="w-12 h-12 object-cover rounded bg-gray-100 shrink-0 border border-gray-200">
+                        <div class="text-center ${bgClass} p-2 rounded-lg shadow-sm border flex flex-col justify-between h-full">
                             <div>
-                                <h4 class="font-bold text-xs text-dark leading-tight mb-1">${s.name}</h4>
-                                <p class="text-[9px] leading-tight text-gray-500 line-clamp-3 text-justify">${s.bio || ''}</p>
+                                <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">${e.dayDate}</div>
+                                ${artistImg}
+                                <div class="font-bold text-maroon text-[10px] leading-tight mb-1">${e.title}</div>
                             </div>
-                        </div>
-                    `);
-                });
-
-                // Render Other Speakers
-                const otherContainer = document.getElementById('other-speakers');
-                otherList.forEach(id => {
-                    const s = speakers[id];
-                    otherContainer.insertAdjacentHTML('beforeend', `
-                        <div class="flex flex-col items-center text-center break-inside-avoid">
-                            <img src="${s.photo}" class="w-10 h-10 object-cover rounded-full bg-gray-100 mb-1 border border-gray-200">
-                            <h4 class="font-bold text-[9px] text-dark leading-tight">${s.name}</h4>
+                            <div class="text-[9px] text-gold font-bold mt-1 border-t border-dashed border-gray-200 pt-1">${fmtTime(e.start)}</div>
                         </div>
                     `);
                 });
