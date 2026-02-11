@@ -35,24 +35,24 @@
         body { font-family: 'Inter', sans-serif; color: #000; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         
         @media print {
-            @page { margin: 8mm; size: auto; }
+            @page { margin: 6mm; size: auto; }
             .no-print { display: none !important; }
             body { font-size: 10pt; }
             .break-inside-avoid { break-inside: avoid; }
+            .page-break-before { page-break-before: always; }
         }
 
         .arching-text-path {
             fill: transparent;
         }
         .arching-text {
-            fill: #800000;
             font-family: 'Merriweather', serif;
             font-weight: 900;
             text-transform: uppercase;
             text-anchor: middle;
         }
-        .arch-1 { font-size: 42px; fill: #800000; }
-        .arch-2 { font-size: 32px; fill: #856404; letter-spacing: 2px; }
+        .arch-1 { font-size: 38px; fill: #800000; } /* Reduced slightly to ensure fit */
+        .arch-2 { font-size: 28px; fill: #856404; letter-spacing: 4px; }
     </style>
 </head>
 <body class="bg-white min-h-screen pb-12">
@@ -72,13 +72,13 @@
     <div class="max-w-[210mm] mx-auto relative z-10 px-4 py-4">
         
         <!-- HEADER -->
-        <header class="flex flex-col items-center justify-center mb-6 relative">
-            <div class="absolute top-0 w-full h-[180px] z-0">
-                <svg viewBox="0 0 500 180" class="w-full h-full overflow-visible">
-                    <!-- Path for Line 1 -->
-                    <path id="curve1" d="M50,160 Q250,20 450,160" class="arching-text-path" />
-                    <!-- Path for Line 2 -->
-                    <path id="curve2" d="M90,170 Q250,70 410,170" class="arching-text-path" />
+        <header class="flex flex-col items-center justify-center mb-8 relative h-[280px]">
+            <div class="absolute top-0 w-full h-[220px] z-0">
+                <!-- ViewBox enlarged to give more space for the curve -->
+                <svg viewBox="0 0 600 220" class="w-full h-full overflow-visible">
+                    <!-- Flatter, wider curves to fit text and avoid image overlap -->
+                    <path id="curve1" d="M50,180 Q300,20 550,180" class="arching-text-path" />
+                    <path id="curve2" d="M100,190 Q300,80 500,190" class="arching-text-path" />
                     
                     <text class="arching-text arch-1">
                         <textPath xlink:href="#curve1" startOffset="50%">
@@ -93,15 +93,15 @@
                 </svg>
             </div>
             
-            <!-- Image pushed down to fit under arch -->
-            <div class="mt-[80px] z-10 relative flex flex-col items-center">
-                <img id="print-hero-img" class="h-56 object-contain drop-shadow-xl" alt="Kalyana Rama" />
+            <!-- Image pushed down with padding/margin -->
+            <div class="absolute top-[100px] z-10 flex flex-col items-center w-full">
+                <img id="print-hero-img" class="h-44 object-contain drop-shadow-xl" alt="Kalyana Rama" />
                 
-                <h3 class="text-lg font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1.5 rounded-full border border-gray-200 mt-2">
+                <h3 class="text-base font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1 rounded-full border border-gray-200 mt-2">
                     Srimad Valmiki Ramayana Conference # 3
                 </h3>
 
-                <div class="flex items-center justify-center gap-4 mt-2 text-xs font-bold text-gray-600 uppercase tracking-widest">
+                <div class="flex items-center justify-center gap-4 mt-1 text-[10px] font-bold text-gray-600 uppercase tracking-widest">
                     <span>Mar 28 – Apr 07, 2026</span>
                     <span class="text-gold">•</span>
                     <span>Srimad Valmiki Ashrama, Bengaluru</span>
@@ -109,118 +109,103 @@
             </div>
         </header>
 
-        <!-- DAILY ROUTINE (Consolidated) -->
-        <section class="mb-6 border border-gold/30 rounded-xl overflow-hidden shadow-sm">
-            <div class="bg-gold/10 text-maroon px-4 py-2 flex items-center justify-between border-b border-gold/20">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="clock" class="w-4 h-4"></i>
-                    <h3 class="font-bold uppercase tracking-widest text-sm">Typical Daily Schedule</h3>
+        <!-- DAILY ROUTINES (Split) -->
+        <section class="mb-8 grid grid-cols-2 gap-4">
+            <!-- Routine 1: Pre/Post Conference -->
+            <div class="border border-gold/30 rounded-xl overflow-hidden shadow-sm break-inside-avoid">
+                <div class="bg-gold/10 text-maroon px-3 py-1.5 border-b border-gold/20 text-center">
+                    <h3 class="font-bold uppercase tracking-widest text-[10px]">Pre & Post Conference Days</h3>
+                    <p class="text-[8px] text-gray-500 font-medium">Mar 29-Apr 3 • Apr 6</p>
                 </div>
-                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Note: Timings may vary slightly based on event</span>
+                <div class="p-2 bg-white text-[9px] space-y-1">
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">05:30 AM</span><span>Sandhyopasana</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">06:15 AM</span><span>Suprabhatam</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5 bg-maroon/5 px-1 -mx-1"><span class="text-maroon font-bold">06:30 AM</span><span class="text-maroon font-bold">Parayanam</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">08:00 AM</span><span>Breakfast</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">08:30 AM</span><span>Pravachana</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">11:30 AM</span><span>Pooja</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">12:00 PM</span><span>Lunch</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5 bg-maroon/5 px-1 -mx-1"><span class="text-maroon font-bold">01:00 PM</span><span class="text-maroon font-bold">Parayanam</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">06:00 PM</span><span>Sandhyopasana</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">07:30 PM</span><span>Utsava & Events</span></div>
+                </div>
             </div>
-            <div class="p-3 bg-white grid grid-cols-2 md:grid-cols-5 gap-y-2 gap-x-4 text-[10px]">
-                
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">05:30 AM</span>
-                    <span class="font-semibold text-dark">Sandhyopasana</span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">06:15 AM</span>
-                    <span class="font-semibold text-dark">Suprabhatam</span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">06:30 AM</span>
-                    <span class="font-semibold text-dark text-right">Parayanam <span class="text-gray-400 italic">(Pre/Post)</span><br/>Meditation <span class="text-gray-400 italic">(Conf)</span></span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">08:00 AM</span>
-                    <span class="font-semibold text-dark">Breakfast</span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1 bg-maroon/5 px-1 rounded">
-                    <span class="font-bold text-maroon">08:30 AM</span>
-                    <span class="font-bold text-maroon text-right">Pravachana /<br>Discourse</span>
-                </div>
 
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">11:30 AM</span>
-                    <span class="font-semibold text-dark">Pooja</span>
+            <!-- Routine 2: Conference -->
+            <div class="border border-gold/30 rounded-xl overflow-hidden shadow-sm break-inside-avoid">
+                <div class="bg-gold/10 text-maroon px-3 py-1.5 border-b border-gold/20 text-center">
+                    <h3 class="font-bold uppercase tracking-widest text-[10px]">Conference Days</h3>
+                    <p class="text-[8px] text-gray-500 font-medium">Apr 4 - Apr 5</p>
                 </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">12:00 PM</span>
-                    <span class="font-semibold text-dark">Lunch</span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">01:00 PM</span>
-                    <span class="font-semibold text-dark text-right">Parayanam <span class="text-gray-400 italic">(Pre/Post)</span><br/>Discourses <span class="text-gray-400 italic">(Conf)</span></span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1">
-                    <span class="font-bold text-gold">06:00 PM</span>
-                    <span class="font-semibold text-dark">Sandhyopasana</span>
-                </div>
-                <div class="flex justify-between border-b border-gray-100 pb-1 bg-maroon/5 px-1 rounded">
-                    <span class="font-bold text-maroon">07:30 PM</span>
-                    <span class="font-bold text-maroon">Utsava & Events</span>
+                <div class="p-2 bg-white text-[9px] space-y-1">
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">05:30 AM</span><span>Sandhyopasana</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">06:15 AM</span><span>Suprabhatam</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5 bg-maroon/5 px-1 -mx-1"><span class="text-maroon font-bold">06:30 AM</span><span class="text-maroon font-bold">Meditation</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">08:00 AM</span><span>Breakfast</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5 bg-gold/10 px-1 -mx-1"><span class="text-maroon font-bold">09:00 AM</span><span class="text-maroon font-bold">Conference Sessions</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">11:30 AM</span><span>Pooja</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">12:00 PM</span><span>Lunch</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5 bg-gold/10 px-1 -mx-1"><span class="text-maroon font-bold">01:30 PM</span><span class="text-maroon font-bold">Conference Sessions</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">06:00 PM</span><span>Sandhyopasana</span></div>
+                    <div class="flex justify-between border-b border-gray-100 pb-0.5"><span class="text-gold font-bold">07:30 PM</span><span>Special Events</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- SCHEDULE GRID -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- SCHEDULE GRID (SINGLE COLUMN) -->
+        <div class="flex flex-col gap-6 mb-6">
             
-            <!-- LEFT COLUMN: Pre-Conference -->
+            <!-- Pre-Conference -->
             <div>
-                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1">
+                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
                     <h3 class="font-bold text-xl text-maroon font-serif">Pre-Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase">Mar 29 – Apr 03</span>
                 </div>
-                <div id="pre-conf-grid" class="space-y-3">
+                <div id="pre-conf-grid" class="space-y-4">
                     <!-- Injected JS -->
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Conference & Post-Conference -->
-            <div class="flex flex-col gap-6">
-                <!-- Conference -->
-                <div>
-                    <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1">
-                        <h3 class="font-bold text-xl text-maroon font-serif">Conference</h3>
-                        <span class="text-xs font-bold text-gray-500 uppercase">Apr 04 – 05</span>
-                    </div>
-                    <div id="conf-grid" class="space-y-3">
-                        <!-- Injected JS -->
-                    </div>
+            <!-- Conference -->
+            <div class="break-before-auto">
+                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
+                    <h3 class="font-bold text-xl text-maroon font-serif">Conference</h3>
+                    <span class="text-xs font-bold text-gray-500 uppercase">Apr 04 – 05</span>
                 </div>
+                <div id="conf-grid" class="space-y-4">
+                    <!-- Injected JS -->
+                </div>
+            </div>
 
-                <!-- Post-Conference -->
-                <div>
-                    <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1">
-                        <h3 class="font-bold text-xl text-maroon font-serif">Post-Conference</h3>
-                        <span class="text-xs font-bold text-gray-500 uppercase">Apr 06</span>
-                    </div>
-                    <div id="post-conf-grid" class="space-y-3">
-                        <!-- Injected JS -->
-                    </div>
+            <!-- Post-Conference -->
+            <div class="break-before-auto">
+                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
+                    <h3 class="font-bold text-xl text-maroon font-serif">Post-Conference</h3>
+                    <span class="text-xs font-bold text-gray-500 uppercase">Apr 06</span>
+                </div>
+                <div id="post-conf-grid" class="space-y-4">
+                    <!-- Injected JS -->
                 </div>
             </div>
         </div>
 
         <!-- SPECIAL EVENTS / UTSAVA -->
-        <section class="mb-4 page-break-inside-avoid">
-            <div class="bg-gold/10 border-t border-b border-gold/30 py-4 px-4 rounded-xl">
-                <div class="flex items-center justify-center gap-3 mb-4">
+        <section class="mb-4 break-inside-avoid page-break-before">
+            <div class="bg-gold/10 border-t border-b border-gold/30 py-6 px-4 rounded-xl">
+                <div class="flex items-center justify-center gap-3 mb-6">
                     <div class="h-px bg-gold/40 flex-1"></div>
-                    <h3 class="font-serif font-bold text-xl text-maroon uppercase tracking-wide">Conference Highlights & Utsavams</h3>
+                    <h3 class="font-serif font-bold text-2xl text-maroon uppercase tracking-wide">Conference Highlights & Utsavams</h3>
                     <div class="h-px bg-gold/40 flex-1"></div>
                 </div>
                 
-                <div id="utsava-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div id="utsava-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
                     <!-- Injected JS -->
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="pt-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center gap-6 mt-auto text-gray-600">
+        <footer class="pt-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center gap-6 mt-auto text-gray-600 break-inside-avoid">
             <img id="print-footer-logo" class="h-8 object-contain cursor-pointer hover:opacity-80 transition-opacity" title="Click for Print Options" onclick="toggleMenu()" />
             
             <div class="flex flex-wrap justify-center gap-6 text-[9px] font-bold uppercase tracking-wide">
@@ -278,11 +263,11 @@
                         const s = speakers[id];
                         if (!s) return '';
                         return `
-                            <div class="flex gap-2 mt-1.5 pt-1.5 border-t border-dashed border-gray-200">
-                                <img src="${s.photo}" class="w-8 h-8 rounded object-cover border border-gray-200 shrink-0 bg-gray-100">
+                            <div class="flex gap-3 mt-2 pt-2 border-t border-dashed border-gray-200">
+                                <img src="${s.photo}" class="w-10 h-10 rounded-full object-cover border border-gray-200 shrink-0 bg-gray-100">
                                 <div>
-                                    <div class="text-[9px] font-bold text-dark leading-tight">${s.name}</div>
-                                    <div class="text-[8px] text-gray-500 leading-tight mt-0.5 line-clamp-3 text-justify">${s.bio || ''}</div>
+                                    <div class="text-[10px] font-bold text-dark leading-tight">${s.name}</div>
+                                    <div class="text-[9px] text-gray-600 leading-snug mt-0.5 text-justify">${s.bio || ''}</div>
                                 </div>
                             </div>
                         `;
@@ -323,13 +308,13 @@
                         // Render Day Block
                         const eventsHtml = dayEvents.map(e => {
                             return `
-                                <div class="grid grid-cols-[45px_1fr] gap-2 border-b border-gray-100 last:border-0 py-1.5">
-                                    <div class="text-[9px] font-bold text-gold leading-tight text-right pt-0.5">
+                                <div class="grid grid-cols-[60px_1fr] gap-3 border-b border-gray-100 last:border-0 py-2">
+                                    <div class="text-[10px] font-bold text-gold leading-tight text-right pt-0.5">
                                         ${fmtTime(e.start)}<br/><span class="text-gray-300 font-normal">to</span><br/>${fmtTime(e.end)}
                                     </div>
                                     <div>
-                                        <div class="text-[11px] font-bold text-maroon leading-tight">${e.title}</div>
-                                        ${e.subhead ? `<div class="text-[9px] text-gray-500 italic leading-tight">${e.subhead}</div>` : ''}
+                                        <div class="text-[12px] font-bold text-maroon leading-tight">${e.title}</div>
+                                        ${e.subhead ? `<div class="text-[10px] text-gray-500 italic leading-tight">${e.subhead}</div>` : ''}
                                         <!-- Integrated Speakers -->
                                         ${getSpeakerBlock(e.speakerIds)}
                                     </div>
@@ -338,12 +323,14 @@
                         }).join('');
 
                         container.insertAdjacentHTML('beforeend', `
-                            <div class="bg-white border border-gray-200 rounded-lg p-2 shadow-sm break-inside-avoid">
-                                <div class="flex justify-between items-baseline border-b border-gray-200 pb-1 mb-1">
-                                    <span class="font-bold text-xs text-dark uppercase">${day.displayDate}</span>
-                                    <span class="text-[9px] font-bold text-gold uppercase tracking-widest">${day.dayName.substring(0,3)}</span>
+                            <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm break-inside-avoid">
+                                <div class="flex justify-between items-baseline border-b border-gray-200 pb-1 mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-sm text-dark uppercase">${day.displayDate}</span>
+                                        <span class="text-[9px] font-bold text-white bg-gold px-1.5 rounded-sm uppercase tracking-widest">${day.dayName.substring(0,3)}</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-400 italic">${day.theme}</span>
                                 </div>
-                                <div class="text-[10px] font-bold text-gray-400 italic mb-1">${day.theme}</div>
                                 <div>${eventsHtml}</div>
                             </div>
                         `);
@@ -375,14 +362,12 @@
                 }
 
                 // Sort Utsava Events by Date
-                // We trust the push order mostly, but let's ensure standard ones follow
-                
                 const utsavaContainer = document.getElementById('utsava-grid');
                 utsavaEvents.forEach(e => {
                     let artistImg = '';
                     // Special logic for Bharatanatyam artist if needed
                     if (e.speakerIds && e.speakerIds.includes('meghana')) {
-                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-8 h-8 rounded-full object-cover border border-gold mb-1 mx-auto">`;
+                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-10 h-10 rounded-full object-cover border border-gold mb-2 mx-auto">`;
                     }
                     
                     // Special styling for major highlights
@@ -390,13 +375,13 @@
                     const bgClass = isHighlight ? "bg-gold/10 border-gold/40" : "bg-white border-gold/20";
 
                     utsavaContainer.insertAdjacentHTML('beforeend', `
-                        <div class="text-center ${bgClass} p-2 rounded-lg shadow-sm border flex flex-col justify-between h-full">
+                        <div class="text-center ${bgClass} p-3 rounded-lg shadow-sm border flex flex-col justify-between h-full break-inside-avoid">
                             <div>
-                                <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">${e.dayDate}</div>
+                                <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">${e.dayDate}</div>
                                 ${artistImg}
-                                <div class="font-bold text-maroon text-[10px] leading-tight mb-1">${e.title}</div>
+                                <div class="font-bold text-maroon text-xs leading-tight mb-2">${e.title}</div>
                             </div>
-                            <div class="text-[9px] text-gold font-bold mt-1 border-t border-dashed border-gray-200 pt-1">${fmtTime(e.start)}</div>
+                            <div class="text-[10px] text-gold font-bold mt-2 border-t border-dashed border-gray-200 pt-2">${fmtTime(e.start)}</div>
                         </div>
                     `);
                 });
