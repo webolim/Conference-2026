@@ -57,7 +57,7 @@
         .arch-2 { font-size: 26px; fill: #856404; letter-spacing: 4px; font-weight: 600; }
     </style>
 </head>
-<body class="bg-white min-h-screen pb-12">
+<body class="bg-white min-h-screen">
 
     <!-- Print Menu -->
     <div id="secret-menu" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center no-print backdrop-blur-sm" onclick="toggleMenu()">
@@ -97,7 +97,7 @@
             <div class="absolute top-[140px] w-full z-10 flex flex-col items-center">
                 <img id="print-hero-img" class="h-72 object-contain drop-shadow-xl" alt="Kalyana Rama" />
                 
-                <h3 class="text-sm font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1 rounded-full border border-gray-200 mt-4 font-display">
+                <h3 class="text-xl font-bold text-dark uppercase tracking-tight bg-gray-100 px-8 py-2 rounded-full border border-gray-200 mt-4 font-display">
                     Srimad Valmiki Ramayana Conference # 3
                 </h3>
 
@@ -111,7 +111,7 @@
 
         <!-- DAILY ROUTINE (Vertical List) -->
         <section class="mb-8 mt-12 break-inside-avoid">
-            <div class="flex items-center justify-between mb-4 border-l-4 border-gold pl-4">
+            <div class="flex items-center justify-between mb-4 pl-4">
                 <h3 class="font-display font-bold text-xl text-maroon uppercase tracking-wide">Daily Routine</h3>
                 <!-- Legend -->
                 <div class="flex gap-4 text-[10px] font-bold uppercase tracking-wide">
@@ -237,7 +237,6 @@
             <div class="bg-gradient-to-br from-gold/5 to-white border border-gold/20 py-6 px-6 rounded-2xl">
                 <div class="flex items-end justify-between mb-6">
                     <div class="flex items-center gap-3">
-                         <div class="w-1.5 h-8 bg-maroon rounded-full"></div>
                         <h3 class="font-display font-bold text-2xl text-maroon uppercase tracking-wide">Utsavams and Special Events</h3>
                     </div>
                     <span class="text-sm font-bold text-gold uppercase tracking-widest font-display pb-1">Evenings at 7:30</span>
@@ -387,7 +386,7 @@
                                 .join(' & ');
 
                             return `
-                                <div class="flex gap-12 border-b border-gray-100 last:border-0 py-2 items-center">
+                                <div class="flex gap-4 border-b border-gray-100 last:border-0 py-2 items-center">
                                     <div class="w-[85px] shrink-0 text-right text-[10px] font-bold text-gold whitespace-nowrap font-display">
                                         ${fmtTime(e.start)} - ${fmtTime(e.end)}
                                     </div>
@@ -395,7 +394,7 @@
                                         <span class="font-bold text-maroon font-display text-base">${e.title}</span>
                                         ${e.subhead ? `<span class="text-gray-500 font-medium normal-case ml-1 font-sans">${e.subhead}</span>` : ''}
                                     </div>
-                                    <div class="w-[30%] shrink-0 text-[10px] text-right font-normal text-gray-700 leading-tight font-sans">
+                                    <div class="w-[22%] shrink-0 text-[11px] text-right font-medium text-black leading-tight font-sans">
                                         ${speakerNames}
                                     </div>
                                 </div>
@@ -447,30 +446,16 @@
                     }
 
                     if (customImage) {
-                        mediaContent = `<img src="${customImage}" class="w-16 h-16 object-cover rounded-lg border border-gray-200">`;
+                        mediaContent = `<img src="${customImage}" class="h-40 w-auto object-cover rounded-lg border border-gray-200">`;
                     }
                     // Prioritize Event Images
                     else if (e.eventImages && e.eventImages.length > 0) {
-                         mediaContent = `<img src="${e.eventImages[0]}" class="w-16 h-16 object-cover rounded-lg border border-gray-200">`;
+                         mediaContent = `<img src="${e.eventImages[0]}" class="h-40 w-auto object-cover rounded-lg border border-gray-200">`;
                     } 
                     else if (e.speakerIds && e.speakerIds.includes('meghana')) {
-                        mediaContent = `<img src="${speakers['meghana'].photo}" class="w-16 h-16 object-cover rounded-lg border border-gray-200">`;
+                        mediaContent = `<img src="${speakers['meghana'].photo}" class="h-40 w-auto object-cover rounded-lg border border-gray-200">`;
                     }
-                    else {
-                        let icon = 'calendar-star';
-                        let color = 'text-gold';
-                        if (titleLower.includes('inauguration')) { icon = 'sparkles'; color='text-yellow-600'; }
-                        else if (titleLower.includes('theppam')) { icon = 'ship'; color='text-blue-500'; }
-                        else if (titleLower.includes('abhishekha')) { icon = 'droplets'; color='text-blue-400'; }
-                        else if (titleLower.includes('pattabhishekha')) { icon = 'crown'; color='text-orange-500'; }
-                        else if (titleLower.includes('gaja')) { icon = 'footprints'; color='text-gray-600'; }
-
-                        mediaContent = `
-                            <div class="w-16 h-16 bg-gray-50 rounded-lg flex items-center justify-center border border-gray-100">
-                                <i data-lucide="${icon}" class="w-8 h-8 ${color} opacity-80"></i>
-                            </div>
-                        `;
-                    }
+                    // If no image is available, collapse the space (do not render icon)
                     
                     utsavaContainer.insertAdjacentHTML('beforeend', `
                         <div class="flex items-center justify-between border-b border-gray-100 py-3 last:border-0 break-inside-avoid">
