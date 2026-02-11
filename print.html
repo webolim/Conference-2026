@@ -35,7 +35,7 @@
         body { font-family: 'Inter', sans-serif; color: #000; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         
         @media print {
-            @page { margin: 6mm; size: auto; }
+            @page { margin: 8mm; size: auto; }
             .no-print { display: none !important; }
             body { font-size: 10pt; }
             .break-inside-avoid { break-inside: avoid; }
@@ -72,12 +72,11 @@
     <div class="max-w-[210mm] mx-auto relative z-10 px-4 py-4">
         
         <!-- HEADER -->
-        <!-- Changed from absolute content positioning to relative stacking to prevent overlap -->
-        <header class="relative mb-8 pt-[40px]">
-            <div class="absolute top-0 left-0 w-full h-[250px] z-0">
-                <svg viewBox="0 0 600 220" class="w-full h-full overflow-visible">
-                    <path id="curve1" d="M50,180 Q300,20 550,180" class="arching-text-path" />
-                    <path id="curve2" d="M100,190 Q300,80 500,190" class="arching-text-path" />
+        <header class="relative mb-10 pt-[20px] h-[300px]">
+            <div class="absolute top-0 left-0 w-full h-full z-0 overflow-visible">
+                <svg viewBox="0 0 600 250" class="w-full h-full overflow-visible">
+                    <path id="curve1" d="M50,160 Q300,-10 550,160" class="arching-text-path" />
+                    <path id="curve2" d="M100,180 Q300,60 500,180" class="arching-text-path" />
                     
                     <text class="arching-text arch-1">
                         <textPath xlink:href="#curve1" startOffset="50%">
@@ -92,10 +91,10 @@
                 </svg>
             </div>
             
-            <div class="relative z-10 flex flex-col items-center mt-[60px]">
+            <div class="absolute top-[80px] w-full z-10 flex flex-col items-center">
                 <img id="print-hero-img" class="h-44 object-contain drop-shadow-xl" alt="Kalyana Rama" />
                 
-                <h3 class="text-base font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1 rounded-full border border-gray-200 mt-3">
+                <h3 class="text-sm font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1 rounded-full border border-gray-200 mt-4">
                     Srimad Valmiki Ramayana Conference # 3
                 </h3>
 
@@ -108,7 +107,7 @@
         </header>
 
         <!-- DAILY ROUTINE (Unified Table) -->
-        <section class="mb-8 border border-gold/30 rounded-xl overflow-hidden shadow-sm break-inside-avoid">
+        <section class="mb-8 mt-4 border border-gold/30 rounded-xl overflow-hidden shadow-sm break-inside-avoid">
             <div class="bg-gold/10 text-maroon px-4 py-2 border-b border-gold/20 flex justify-between items-center">
                 <h3 class="font-bold uppercase tracking-widest text-xs">Daily Routine</h3>
                 <div class="flex gap-2 text-[9px]">
@@ -183,7 +182,7 @@
             
             <!-- Pre-Conference -->
             <div>
-                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
+                <div class="flex items-center justify-between mb-2 border-b-2 border-gold pb-1 break-after-avoid">
                     <h3 class="font-bold text-xl text-maroon font-serif">Pre-Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase">Mar 29 – Apr 03</span>
                 </div>
@@ -194,7 +193,7 @@
 
             <!-- Conference -->
             <div class="break-before-auto">
-                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
+                <div class="flex items-center justify-between mb-2 border-b-2 border-gold pb-1 break-after-avoid">
                     <h3 class="font-bold text-xl text-maroon font-serif">Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase">Apr 04 – 05</span>
                 </div>
@@ -205,7 +204,7 @@
 
             <!-- Post-Conference -->
             <div class="break-before-auto">
-                <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
+                <div class="flex items-center justify-between mb-2 border-b-2 border-gold pb-1 break-after-avoid">
                     <h3 class="font-bold text-xl text-maroon font-serif">Post-Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase">Apr 06</span>
                 </div>
@@ -217,14 +216,27 @@
 
         <!-- SPECIAL EVENTS / UTSAVA -->
         <section class="mb-4 break-inside-avoid page-break-before">
-            <div class="bg-gold/10 border-t border-b border-gold/30 py-6 px-4 rounded-xl">
-                <div class="flex items-center justify-center gap-3 mb-6">
+            <div class="bg-gold/10 border-t border-b border-gold/30 py-4 px-4 rounded-xl">
+                <div class="flex items-center justify-center gap-3 mb-4">
                     <div class="h-px bg-gold/40 flex-1"></div>
-                    <h3 class="font-serif font-bold text-2xl text-maroon uppercase tracking-wide">Conference Highlights & Utsavams</h3>
+                    <h3 class="font-serif font-bold text-xl text-maroon uppercase tracking-wide">Conference Highlights & Utsavams</h3>
                     <div class="h-px bg-gold/40 flex-1"></div>
                 </div>
                 
-                <div id="utsava-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
+                <div id="utsava-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    <!-- Injected JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SPEAKERS SECTION (Separated) -->
+        <section class="mb-4 break-inside-avoid">
+            <div class="py-4">
+                <div class="flex items-center justify-between mb-4 border-b-2 border-maroon pb-1">
+                    <h3 class="font-serif font-bold text-xl text-maroon uppercase tracking-wide">Pravachana & Discourses</h3>
+                    <span class="text-xs text-gray-500 font-bold uppercase">Distinguished Speakers & Scholars</span>
+                </div>
+                <div id="speakers-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4">
                     <!-- Injected JS -->
                 </div>
             </div>
@@ -280,25 +292,7 @@
 
                 // --- SCHEDULE PROCESSING ---
                 const utsavaEvents = [];
-
-                // Helper to render Speaker Info (Horizontal Layout)
-                function getSpeakerInfo(speakerIds) {
-                    if (!speakerIds || speakerIds.length === 0) return '';
-                    
-                    return speakerIds.map(id => {
-                        const s = speakers[id];
-                        if (!s) return '';
-                        return `
-                            <div class="flex gap-3 items-start">
-                                <img src="${s.photo}" class="w-12 h-12 rounded-lg object-cover border border-gray-200 shrink-0 bg-gray-100 mt-0.5">
-                                <div>
-                                    <div class="text-[10px] font-bold text-dark leading-tight">${s.name}</div>
-                                    <div class="text-[9px] text-gray-600 leading-snug mt-0.5 text-justify">${s.bio || ''}</div>
-                                </div>
-                            </div>
-                        `;
-                    }).join('<div class="mt-2 pt-2 border-t border-dashed border-gray-100 w-full"></div>');
-                }
+                const usedSpeakerIds = new Set();
 
                 // Helper to process days
                 function processPhase(phaseName, containerId) {
@@ -313,6 +307,9 @@
                         const dayEvents = day.events.filter(e => {
                             if (ROUTINE_EVENTS.includes(e.title)) return false;
                             
+                            // Collect Speakers
+                            if(e.speakerIds) e.speakerIds.forEach(id => usedSpeakerIds.add(id));
+
                             // Check for Utsava time slot (approx 19:30)
                             const hour = new Date(e.start).getHours();
                             const minutes = new Date(e.start).getMinutes();
@@ -333,39 +330,32 @@
 
                         // Render Day Block
                         const eventsHtml = dayEvents.map(e => {
-                            const hasSpeakers = e.speakerIds && e.speakerIds.length > 0;
-                            
-                            // Layout: [Time] [Title] [Speakers]
-                            // If no speakers, Title takes more space.
-                            
+                            // Prepare Speaker Names String (Inline)
+                            const speakerNames = (e.speakerIds || [])
+                                .map(id => speakers[id] ? speakers[id].name : '')
+                                .filter(Boolean)
+                                .join(' & '); // Join with ampersand for single line
+
                             return `
-                                <div class="flex gap-4 border-b border-gray-100 last:border-0 py-3 items-start">
-                                    
-                                    <!-- Time Column -->
-                                    <div class="w-[50px] shrink-0 text-right pt-0.5">
-                                        <div class="text-[10px] font-bold text-gold leading-tight">${fmtTime(e.start)}</div>
-                                        <div class="text-[9px] text-gray-300 leading-none my-0.5">to</div>
-                                        <div class="text-[10px] font-bold text-gold leading-tight">${fmtTime(e.end)}</div>
+                                <div class="flex gap-3 border-b border-gray-100 last:border-0 py-2 items-baseline">
+                                    <!-- Time (Single Line) -->
+                                    <div class="w-[85px] shrink-0 text-right text-[10px] font-bold text-gold whitespace-nowrap">
+                                        ${fmtTime(e.start)} - ${fmtTime(e.end)}
                                     </div>
                                     
-                                    <!-- Title & Details Column -->
-                                    <div class="${hasSpeakers ? 'w-[30%]' : 'grow'} shrink-0 pt-0.5">
-                                        <div class="text-[12px] font-bold text-maroon leading-tight">${e.title}</div>
-                                        ${e.subhead ? `<div class="text-[10px] text-gray-500 italic leading-tight mt-1">${e.subhead}</div>` : ''}
+                                    <!-- Details -->
+                                    <div class="grow">
+                                        <div class="text-[12px] font-bold text-maroon uppercase tracking-wide leading-tight">${e.title}</div>
+                                        ${e.subhead ? `<div class="text-[10px] text-gray-400 italic leading-tight">${e.subhead}</div>` : ''}
+                                        <!-- Speakers Text (Single Line) -->
+                                        ${speakerNames ? `<div class="text-[11px] font-semibold text-gray-700 mt-0.5 leading-tight">${speakerNames}</div>` : ''}
                                     </div>
-                                    
-                                    <!-- Speaker Column -->
-                                    ${hasSpeakers ? `
-                                        <div class="grow pt-0.5">
-                                            ${getSpeakerInfo(e.speakerIds)}
-                                        </div>
-                                    ` : ''}
                                 </div>
                             `;
                         }).join('');
 
                         container.insertAdjacentHTML('beforeend', `
-                            <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm break-inside-avoid">
+                            <div class="bg-white border border-gray-200 rounded-lg p-2.5 shadow-sm break-inside-avoid">
                                 <div class="flex justify-between items-baseline border-b border-gray-200 pb-1 mb-1">
                                     <div class="flex items-center gap-2">
                                         <span class="font-bold text-sm text-dark uppercase">${day.displayDate}</span>
@@ -405,20 +395,53 @@
                 utsavaEvents.forEach(e => {
                     let artistImg = '';
                     if (e.speakerIds && e.speakerIds.includes('meghana')) {
-                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-10 h-10 rounded-full object-cover border border-gold mb-2 mx-auto">`;
+                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-8 h-8 rounded-full object-cover border border-gold mb-1 mx-auto">`;
                     }
                     
                     const isHighlight = ["Abhishekha", "Pattabhishekha", "Inauguration"].some(t => e.title.includes(t));
                     const bgClass = isHighlight ? "bg-gold/10 border-gold/40" : "bg-white border-gold/20";
 
                     utsavaContainer.insertAdjacentHTML('beforeend', `
-                        <div class="text-center ${bgClass} p-3 rounded-lg shadow-sm border flex flex-col justify-between h-full break-inside-avoid">
+                        <div class="text-center ${bgClass} p-2 rounded-lg shadow-sm border flex flex-col justify-between h-full break-inside-avoid">
                             <div>
-                                <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">${e.dayDate}</div>
+                                <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">${e.dayDate}</div>
                                 ${artistImg}
-                                <div class="font-bold text-maroon text-xs leading-tight mb-2">${e.title}</div>
+                                <div class="font-bold text-maroon text-[10px] leading-tight mb-1">${e.title}</div>
                             </div>
-                            <div class="text-[10px] text-gold font-bold mt-2 border-t border-dashed border-gray-200 pt-2">${fmtTime(e.start)}</div>
+                            <div class="text-[9px] text-gold font-bold mt-1 border-t border-dashed border-gray-200 pt-1">${fmtTime(e.start)}</div>
+                        </div>
+                    `);
+                });
+
+                // --- 4. RENDER SPEAKERS (New Section) ---
+                const speakersContainer = document.getElementById('speakers-grid');
+                
+                // Add known key speakers if not caught by schedule (e.g. Day 1/11 speakers)
+                if(day1) day1.events.forEach(e => (e.speakerIds||[]).forEach(id => usedSpeakerIds.add(id)));
+                if(day11) day11.events.forEach(e => (e.speakerIds||[]).forEach(id => usedSpeakerIds.add(id)));
+
+                // Convert set to array and filter validity
+                const validSpeakers = Array.from(usedSpeakerIds)
+                    .map(id => speakers[id])
+                    .filter(s => s && s.name !== 'TBA' && !s.name.includes('Kum.') && !s.name.includes('Smt. Dhrushya')); 
+                    // Optional: Filter out students/performers if desired, keeping only major scholars? 
+                    // For now, let's keep most, maybe filter purely based on bio presence for "Scholars"
+                
+                // Prioritize Dr. Rangan
+                validSpeakers.sort((a,b) => {
+                    if(a.name.includes('Rangan')) return -1;
+                    if(b.name.includes('Rangan')) return 1;
+                    return 0;
+                });
+
+                validSpeakers.forEach(s => {
+                    speakersContainer.insertAdjacentHTML('beforeend', `
+                        <div class="flex gap-2 items-start border border-gray-100 p-2 rounded-lg break-inside-avoid">
+                            <img src="${s.photo}" class="w-10 h-10 rounded object-cover border border-gray-200 shrink-0 bg-gray-100">
+                            <div>
+                                <div class="text-[10px] font-bold text-maroon leading-tight mb-0.5">${s.name}</div>
+                                <div class="text-[8px] text-gray-500 leading-tight text-justify line-clamp-4">${s.bio || 'Scholar & Discourser'}</div>
+                            </div>
                         </div>
                     `);
                 });
