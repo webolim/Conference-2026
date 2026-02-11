@@ -293,17 +293,21 @@
                 <div class="flex items-center justify-between mb-4 border-b-2 border-maroon pb-1">
                     <h3 class="font-display font-bold text-xl text-maroon uppercase tracking-wide">Pre & Post Conference Speakers</h3>
                 </div>
-                <div id="other-speakers-grid" class="grid grid-cols-3 md:grid-cols-5 gap-4">
-                    <!-- Injected JS -->
+                
+                <div class="flex gap-8 items-start">
+                     <!-- Footer Logo moved here -->
+                     <img id="print-footer-logo" class="w-32 object-contain cursor-pointer hover:opacity-80 transition-opacity mt-2" title="Click for Print Options" onclick="toggleMenu()" />
+
+                     <div id="other-speakers-grid" class="flex-1 grid grid-cols-4 md:grid-cols-6 gap-4">
+                        <!-- Injected JS -->
+                     </div>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="pt-6 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center gap-6 mt-auto text-gray-600 break-inside-avoid">
-            <img id="print-footer-logo" class="h-16 object-contain cursor-pointer hover:opacity-80 transition-opacity" title="Click for Print Options" onclick="toggleMenu()" />
-            
-            <div class="flex flex-wrap justify-center gap-6 text-[10px] font-bold uppercase tracking-wide font-display">
+        <footer class="pt-4 border-t border-gray-200 flex items-center justify-end mt-auto text-gray-600 break-inside-avoid">
+            <div class="flex flex-nowrap items-center gap-6 text-[10px] font-bold uppercase tracking-wide font-display">
                 <div class="flex items-center gap-1">
                     <i data-lucide="phone" class="w-3 h-3 text-gold"></i>
                     <span>+91 93696 37283</span>
@@ -340,10 +344,10 @@
             "sita kalyana": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/SitaKalyanam_00001.webp",
             "nikunjotsava": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Nikunjotsava_00001.webp",
             "hanumantha vahanam": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/HanumanthaVahanam_00001.webp",
-            "sundarakanda utsava": "",
-            "gaja vahanam": "",
+            "sundarakanda utsava": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Image_placeholder.jpeg",
             "vibheeshana sharanagati": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/VibhishanaSharanaagati_00001.webp",
-            "theppam": "",
+            "theppam": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Image_placeholder.jpeg",
+            "pushpaka vimana vahanam": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Image_placeholder.jpeg",
             "annual day": "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/AnnualDay_00001.webp"
         };
         
@@ -477,15 +481,18 @@
                         
                         // Styling Logic based on Phase
                         const isConference = (phaseName === 'Conference');
+                        const isPreConference = (phaseName === 'Pre-Conference');
                         const rowPadding = isConference ? 'py-4' : 'py-2';
                         const timeWidth = 'w-[85px]';
                         const gap = isConference ? 'gap-8' : 'gap-8';
                         
                         const eventsHtml = dayEvents.map(e => {
+                            // Single line for Pre-Conference events, break for others
+                            const speakerSeparator = isPreConference ? ' & ' : ' &<br>';
                             const speakerNames = (e.speakerIds || [])
                                 .map(id => speakers[id] ? speakers[id].name : '')
                                 .filter(Boolean)
-                                .join(' &<br>'); // Wrap second speaker
+                                .join(speakerSeparator); 
 
                             // Custom Time Display Logic
                             let timeDisplay = `${fmtTime(e.start)} - ${fmtTime(e.end)}`;
