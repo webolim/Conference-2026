@@ -1696,15 +1696,15 @@
             "id": "d8-e1",
             "start": "2026-04-04T07:00:00+05:30",
             "end": "2026-04-04T08:00:00+05:30",
-            "title": "WEBOLIM's Critical Edition of Valmiki Ramayana",
-            "subhead": "(Part 1)",
+            "title": "WEBOLIM's Critical Edition of Valmiki Ramayana (Part 1)",
+            "subhead": "",
             "venue": "Ramayana Shala",
             "isConference": true,
             "speakerIds": ["dr_rangan"],
             "videoLinks": [
               {
                 "url": "https://youtu.be/Rangan_c1",
-                "label": "Watch WEBOLIM's Critical Edition of Valmiki Ramayana",
+                "label": "Watch WEBOLIM's Critical Edition of Valmiki Ramayana (Part 1)",
                 "speakerId": "dr_rangan"
               }
             ]
@@ -1938,15 +1938,15 @@
             "id": "d9-e1",
             "start": "2026-04-05T07:00:00+05:30",
             "end": "2026-04-05T08:00:00+05:30",
-            "title": "WEBOLIM's Critical Edition of Valmiki Ramayana",
-            "subhead": "(Part 2)",
+            "title": "WEBOLIM's Critical Edition of Valmiki Ramayana (Part 2)",
+            "subhead": "",
             "venue": "Ramayana Shala",
             "isConference": true,
             "speakerIds": ["dr_rangan"],
             "videoLinks": [
               {
                 "url": "https://youtu.be/rangan_c2",
-                "label": "Watch WEBOLIM's Critical Edition of Valmiki Ramayana",
+                "label": "Watch WEBOLIM's Critical Edition of Valmiki Ramayana (Part 2)",
                 "speakerId": "dr_rangan"
               }
             ]
@@ -2336,7 +2336,7 @@
             "id": "d10-e7",
             "start": "2026-04-06T19:30:00+05:30",
             "end": "2026-04-06T20:30:00+05:30",
-            "title": "Pattabhishekha Utsava",
+            "title": "Pushpaka Vimana Vahanam",
             "eventImages": [
               "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/ValmikiAshramaFamily_00001.webp",
               "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/ValmikiAshramaFamily_00002.webp",
@@ -2375,7 +2375,7 @@
         "date": "2026-04-07",
         "displayDate": "April 07",
         "dayName": "Tuesday",
-        "theme": "Pattabhishekha",
+        "theme": "Sri Rama Pattabhishekha",
         "phase": "Post-Conference",
         "events": [
           {
@@ -2399,8 +2399,8 @@
           {
             "id": "d11-e1",
             "start": "2026-04-07T06:30:00+05:30",
-            "end": "2026-04-07T09:30:00+05:30",
-            "title": "Pattabhishekha",
+            "end": "2026-04-07T08:00:00+05:30",
+            "title": "Abhishekha",
             "eventImages": [
               "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00001.webp",
               "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/refs/heads/studio/2025/Pattabhishekha_00002.webp",
@@ -2427,12 +2427,17 @@
           },
           {
             "id": "d11-e2",
-            "start": "2026-04-07T09:30:00+05:30",
+            "start": "2026-04-07T08:00:00+05:30",
             "end": "2026-04-07T10:00:00+05:30",
             "title": "Ashtavadanam, Sadas",
             "venue": "Ramayana Shala",
             "speakerIds": [],
-            "videoLinks": []
+            "videoLinks": [
+              {
+                "url": "https://youtu.be/Ashtavadanam",
+                "label": "Watch Ashtavadanam & Sadas"
+              }
+            ]
           },
           {
             "id": "d11-e3",
@@ -2444,7 +2449,7 @@
             "videoLinks": [
               {
                 "url": "https://youtu.be/purapaadu",
-                "label": "Watch Recording"
+                "label": "Watch Purapaadu"
               }
             ]
           },
