@@ -75,7 +75,6 @@
         <header class="relative mb-6 pt-[20px] h-[260px]">
             <div class="absolute top-0 left-0 w-full h-full z-0 overflow-visible">
                 <svg viewBox="0 0 600 250" class="w-full h-full overflow-visible">
-                    <!-- Flattened the curve: Control point y increased from -10 to 60 for curve1, and adjusted curve2 accordingly -->
                     <path id="curve1" d="M50,170 Q300,50 550,170" class="arching-text-path" />
                     <path id="curve2" d="M100,190 Q300,100 500,190" class="arching-text-path" />
                     
@@ -175,7 +174,6 @@
                     <span class="text-maroon font-bold">07:30 PM</span>
                     <span class="font-bold text-maroon">Utsava & Events</span>
                 </div>
-                <!-- Added Dolotsava -->
                 <div class="bg-white p-2 flex flex-col justify-between">
                     <span class="text-gold font-bold">08:30 PM</span>
                     <span class="font-semibold text-maroon">Dolotsava</span>
@@ -235,14 +233,21 @@
             </div>
         </section>
 
-        <!-- CONFERENCE SPEAKERS SECTION (Full Bio) -->
+        <!-- CONFERENCE SPEAKERS SECTION (Split into Bio & Grid) -->
         <section class="mb-4 break-inside-avoid page-break-before">
             <div class="py-4">
                 <div class="flex items-center justify-between mb-4 border-b-2 border-maroon pb-1">
                     <h3 class="font-serif font-bold text-xl text-maroon uppercase tracking-wide">Conference Speakers</h3>
                     <span class="text-xs text-gray-500 font-bold uppercase">Scholars & Academicians</span>
                 </div>
-                <div id="conference-speakers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Speakers With Bio -->
+                <div id="conference-speakers-bio-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Injected JS -->
+                </div>
+
+                <!-- Speakers Without Bio (Compact Grid) -->
+                <div id="conference-speakers-compact-grid" class="grid grid-cols-3 md:grid-cols-5 gap-4">
                     <!-- Injected JS -->
                 </div>
             </div>
@@ -253,9 +258,9 @@
             <div class="py-4">
                 <div class="flex items-center justify-between mb-4 border-b-2 border-maroon pb-1">
                     <h3 class="font-serif font-bold text-xl text-maroon uppercase tracking-wide">Pre & Post Conference Speakers</h3>
-                    <span class="text-xs text-gray-500 font-bold uppercase">Discourses & Pravachana</span>
+                    <!-- Removed subtext "Discourses & Pravachana" -->
                 </div>
-                <div id="other-speakers-grid" class="grid grid-cols-3 md:grid-cols-5 gap-3">
+                <div id="other-speakers-grid" class="grid grid-cols-3 md:grid-cols-5 gap-4">
                     <!-- Injected JS -->
                 </div>
             </div>
@@ -289,7 +294,6 @@
             menu.classList.toggle('hidden');
         }
 
-        // Configuration
         const ROUTINE_EVENTS = [
             "Sandhyopasana", "Suprabhatam", "Parayanam", "Breakfast", 
             "Pooja", "Lunch", "Dinner", "Dolotsava", 
@@ -302,14 +306,12 @@
                 const data = await response.json();
                 const speakers = data.speakers;
                 
-                // Assets
                 if(document.getElementById('print-hero-img')) document.getElementById('print-hero-img').src = "https://raw.githubusercontent.com/webolim/Valmiki-Ramayana-Conference-2026/studio/assets/Kalyana-Rama.webp";
                 if(document.getElementById('print-footer-logo')) document.getElementById('print-footer-logo').src = data.assets.logo;
 
                 const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'Asia/Kolkata' });
                 function fmtTime(iso) { return timeFormatter.format(new Date(iso)).toLowerCase().replace(' ', ''); }
 
-                // --- DATA COLLECTION ---
                 const utsavaEvents = [];
                 const conferenceSpeakerIds = new Set();
                 const otherSpeakerIds = new Set();
@@ -327,10 +329,7 @@
                     }
                 });
                 
-                // Force specific keys into Conference set if they exist in speakers
                 ['dr_rangan', 'srikanth', 'santanaraman', 'ashruth'].forEach(id => conferenceSpeakerIds.add(id));
-
-                // Remove conference speakers from other speakers set
                 conferenceSpeakerIds.forEach(id => otherSpeakerIds.delete(id));
 
                 // --- SCHEDULE RENDERING ---
@@ -366,16 +365,23 @@
                                 .filter(Boolean)
                                 .join(' & ');
 
-                            // Inline format: Title + Subhead + by Speakers
+                            // New Layout: 3 Columns (Time | Title+Subhead | Speakers)
                             return `
-                                <div class="flex gap-3 border-b border-gray-100 last:border-0 py-2 items-baseline">
+                                <div class="flex gap-4 border-b border-gray-100 last:border-0 py-2 items-center">
+                                    <!-- Time Column -->
                                     <div class="w-[85px] shrink-0 text-right text-[10px] font-bold text-gold whitespace-nowrap">
                                         ${fmtTime(e.start)} - ${fmtTime(e.end)}
                                     </div>
+                                    
+                                    <!-- Title Column -->
                                     <div class="grow text-[11px] leading-tight">
                                         <span class="font-bold text-maroon uppercase tracking-wide">${e.title}</span>
                                         ${e.subhead ? `<span class="text-gray-500 font-medium normal-case ml-1">${e.subhead}</span>` : ''}
-                                        ${speakerNames ? `<span class="text-gray-600 font-semibold text-[10px]"> by ${speakerNames}</span>` : ''}
+                                    </div>
+
+                                    <!-- Speaker Column -->
+                                    <div class="w-[30%] shrink-0 text-[10px] text-right font-semibold text-gray-700 leading-tight">
+                                        ${speakerNames}
                                     </div>
                                 </div>
                             `;
@@ -422,7 +428,7 @@
                 utsavaEvents.forEach(e => {
                     let artistImg = '';
                     if (e.speakerIds && e.speakerIds.includes('meghana')) {
-                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-8 h-8 rounded-full object-cover border border-gold mb-1 mx-auto">`;
+                        artistImg = `<img src="${speakers['meghana'].photo}" class="w-8 h-8 rounded-full object-cover border-0 mb-1 mx-auto">`;
                     }
                     
                     const isHighlight = ["Abhishekha", "Pattabhishekha", "Inauguration"].some(t => e.title.includes(t));
@@ -440,36 +446,54 @@
                     `);
                 });
 
-                // --- CONFERENCE SPEAKERS RENDERING (Full Bio) ---
-                const confSpeakersContainer = document.getElementById('conference-speakers-grid');
-                const confSpeakersList = Array.from(conferenceSpeakerIds)
+                // --- CONFERENCE SPEAKERS RENDERING ---
+                const confBioContainer = document.getElementById('conference-speakers-bio-grid');
+                const confCompactContainer = document.getElementById('conference-speakers-compact-grid');
+                
+                const allConfSpeakers = Array.from(conferenceSpeakerIds)
                     .map(id => speakers[id])
-                    .filter(Boolean)
-                    .sort((a,b) => (a.name.includes('Rangan') ? -1 : b.name.includes('Rangan') ? 1 : 0));
+                    .filter(Boolean);
 
-                confSpeakersList.forEach(s => {
-                    confSpeakersContainer.insertAdjacentHTML('beforeend', `
-                        <div class="flex gap-4 items-start border border-gold/20 bg-gold/5 p-3 rounded-lg break-inside-avoid shadow-sm">
-                            <img src="${s.photo}" class="w-16 h-16 rounded-lg object-cover border border-gold/30 shrink-0 bg-white shadow-sm">
+                // Split by Bio presence
+                const speakersWithBio = allConfSpeakers.filter(s => s.bio && s.bio.length > 5);
+                const speakersNoBio = allConfSpeakers.filter(s => !s.bio || s.bio.length <= 5);
+                
+                // Sort No-Bio speakers to prioritize Rangan, Srikanth etc
+                speakersNoBio.sort((a,b) => (a.name.includes('Rangan') ? -1 : b.name.includes('Rangan') ? 1 : 0));
+
+                // 1. Bio Speakers
+                speakersWithBio.forEach(s => {
+                    confBioContainer.insertAdjacentHTML('beforeend', `
+                        <div class="flex gap-4 items-start p-2 break-inside-avoid">
+                            <img src="${s.photo}" class="w-20 h-20 rounded-lg object-cover bg-gray-100 shrink-0">
                             <div>
                                 <div class="text-[12px] font-bold text-maroon leading-tight mb-1 font-serif">${s.name}</div>
-                                <div class="text-[10px] text-dark leading-snug text-justify font-medium">${s.bio || 'Scholar & Speaker'}</div>
+                                <div class="text-[10px] text-dark leading-snug text-justify font-medium">${s.bio}</div>
                             </div>
                         </div>
                     `);
                 });
 
-                // --- OTHER SPEAKERS RENDERING (Grid, Compact) ---
+                // 2. No Bio Speakers (Compact Grid)
+                speakersNoBio.forEach(s => {
+                    confCompactContainer.insertAdjacentHTML('beforeend', `
+                        <div class="flex flex-col items-center p-2 rounded-lg break-inside-avoid text-center">
+                            <img src="${s.photo}" class="w-14 h-14 rounded-full object-cover mb-2 bg-gray-100">
+                            <div class="text-[9px] font-bold text-dark leading-tight line-clamp-2">${s.name}</div>
+                        </div>
+                    `);
+                });
+
+                // --- PRE/POST SPEAKERS RENDERING ---
                 const otherSpeakersContainer = document.getElementById('other-speakers-grid');
-                // REMOVED FILTERING to show all speakers as requested
                 const otherSpeakersList = Array.from(otherSpeakerIds)
                     .map(id => speakers[id])
-                    .filter(s => s && s.name !== 'TBA'); 
+                    .filter(s => s && s.name !== 'TBA' && !s.name.includes('Meghana')); // Exclude Meghana
 
                 otherSpeakersList.forEach(s => {
                     otherSpeakersContainer.insertAdjacentHTML('beforeend', `
-                        <div class="flex flex-col items-center border border-gray-100 p-2 rounded-lg break-inside-avoid bg-white text-center">
-                            <img src="${s.photo}" class="w-12 h-12 rounded-full object-cover border border-gray-200 mb-2 bg-gray-100">
+                        <div class="flex flex-col items-center p-2 rounded-lg break-inside-avoid text-center">
+                            <img src="${s.photo}" class="w-14 h-14 rounded-full object-cover mb-2 bg-gray-100">
                             <div class="text-[9px] font-bold text-dark leading-tight line-clamp-2">${s.name}</div>
                         </div>
                     `);
