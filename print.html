@@ -51,8 +51,8 @@
             text-transform: uppercase;
             text-anchor: middle;
         }
-        .arch-1 { font-size: 38px; fill: #800000; }
-        .arch-2 { font-size: 28px; fill: #856404; letter-spacing: 4px; }
+        .arch-1 { font-size: 34px; fill: #800000; }
+        .arch-2 { font-size: 24px; fill: #856404; letter-spacing: 4px; }
     </style>
 </head>
 <body class="bg-white min-h-screen pb-12">
@@ -72,11 +72,12 @@
     <div class="max-w-[210mm] mx-auto relative z-10 px-4 py-4">
         
         <!-- HEADER -->
-        <header class="relative mb-8 pt-[20px] h-[300px]">
+        <header class="relative mb-6 pt-[20px] h-[260px]">
             <div class="absolute top-0 left-0 w-full h-full z-0 overflow-visible">
                 <svg viewBox="0 0 600 250" class="w-full h-full overflow-visible">
-                    <path id="curve1" d="M50,160 Q300,-10 550,160" class="arching-text-path" />
-                    <path id="curve2" d="M100,180 Q300,60 500,180" class="arching-text-path" />
+                    <!-- Flattened the curve: Control point y increased from -10 to 60 for curve1, and adjusted curve2 accordingly -->
+                    <path id="curve1" d="M50,170 Q300,50 550,170" class="arching-text-path" />
+                    <path id="curve2" d="M100,190 Q300,100 500,190" class="arching-text-path" />
                     
                     <text class="arching-text arch-1">
                         <textPath xlink:href="#curve1" startOffset="50%">
@@ -91,10 +92,10 @@
                 </svg>
             </div>
             
-            <div class="absolute top-[80px] w-full z-10 flex flex-col items-center">
-                <img id="print-hero-img" class="h-44 object-contain drop-shadow-xl" alt="Kalyana Rama" />
+            <div class="absolute top-[100px] w-full z-10 flex flex-col items-center">
+                <img id="print-hero-img" class="h-40 object-contain drop-shadow-xl" alt="Kalyana Rama" />
                 
-                <h3 class="text-sm font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1 rounded-full border border-gray-200 mt-4">
+                <h3 class="text-sm font-bold text-dark uppercase tracking-tight bg-gray-100 px-6 py-1 rounded-full border border-gray-200 mt-3">
                     Srimad Valmiki Ramayana Conference # 3
                 </h3>
 
@@ -107,7 +108,7 @@
         </header>
 
         <!-- DAILY ROUTINE (Unified Table) -->
-        <section class="mb-8 mt-4 border border-gold/30 rounded-xl overflow-hidden shadow-sm break-inside-avoid">
+        <section class="mb-8 mt-6 border border-gold/30 rounded-xl overflow-hidden shadow-sm break-inside-avoid">
             <div class="bg-gold/10 text-maroon px-4 py-2 border-b border-gold/20 flex justify-between items-center">
                 <h3 class="font-bold uppercase tracking-widest text-xs">Daily Routine</h3>
                 <div class="flex gap-2 text-[9px]">
@@ -365,7 +366,7 @@
                                 .filter(Boolean)
                                 .join(' & ');
 
-                            // Inline format: Title + by Speakers
+                            // Inline format: Title + Subhead + by Speakers
                             return `
                                 <div class="flex gap-3 border-b border-gray-100 last:border-0 py-2 items-baseline">
                                     <div class="w-[85px] shrink-0 text-right text-[10px] font-bold text-gold whitespace-nowrap">
@@ -373,8 +374,8 @@
                                     </div>
                                     <div class="grow text-[11px] leading-tight">
                                         <span class="font-bold text-maroon uppercase tracking-wide">${e.title}</span>
+                                        ${e.subhead ? `<span class="text-gray-500 font-medium normal-case ml-1">${e.subhead}</span>` : ''}
                                         ${speakerNames ? `<span class="text-gray-600 font-semibold text-[10px]"> by ${speakerNames}</span>` : ''}
-                                        ${e.subhead ? `<div class="text-[10px] text-gray-400 italic mt-0.5">${e.subhead}</div>` : ''}
                                     </div>
                                 </div>
                             `;
@@ -460,9 +461,10 @@
 
                 // --- OTHER SPEAKERS RENDERING (Grid, Compact) ---
                 const otherSpeakersContainer = document.getElementById('other-speakers-grid');
+                // REMOVED FILTERING to show all speakers as requested
                 const otherSpeakersList = Array.from(otherSpeakerIds)
                     .map(id => speakers[id])
-                    .filter(s => s && s.name !== 'TBA' && !s.name.includes('Kum.') && !s.name.includes('Smt. Dhrushya')); 
+                    .filter(s => s && s.name !== 'TBA'); 
 
                 otherSpeakersList.forEach(s => {
                     otherSpeakersContainer.insertAdjacentHTML('beforeend', `
