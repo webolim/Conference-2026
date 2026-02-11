@@ -210,7 +210,7 @@
             <!-- Pre-Conference -->
             <div>
                 <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
-                    <h3 class="font-bold text-xl text-maroon font-display">Pre-Conference</h3>
+                    <h3 class="font-display font-bold text-xl text-maroon uppercase tracking-wide">Pre-Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase font-display">Mar 29 – Apr 03</span>
                 </div>
                 <div id="pre-conf-grid" class="space-y-3">
@@ -222,8 +222,7 @@
             <div class="break-before-auto bg-gradient-to-b from-gold/10 to-transparent p-4 -mx-4 rounded-xl border-t-4 border-gold">
                 <div class="flex items-center justify-between mb-3 pb-1 break-after-avoid">
                     <div class="flex items-center gap-3">
-                        <h3 class="font-bold text-xl text-maroon font-display">Conference</h3>
-                        <span class="bg-gold text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">Highlight</span>
+                        <h3 class="font-display font-bold text-xl text-maroon uppercase tracking-wide">Conference</h3>
                     </div>
                     <span class="text-xs font-bold text-gray-500 uppercase font-display">Apr 04 – 05</span>
                 </div>
@@ -235,7 +234,7 @@
             <!-- Post-Conference & Valedictory Row -->
             <div class="break-before-auto">
                 <div class="flex items-center justify-between mb-3 border-b-2 border-gold pb-1 break-after-avoid">
-                    <h3 class="font-bold text-xl text-maroon font-display">Post-Conference</h3>
+                    <h3 class="font-display font-bold text-xl text-maroon uppercase tracking-wide">Post-Conference</h3>
                     <span class="text-xs font-bold text-gray-500 uppercase font-display">Apr 06 – Apr 07</span>
                 </div>
                 <div class="flex flex-row gap-6 items-stretch">
@@ -397,7 +396,7 @@
                         const speakerNames = (e.speakerIds || [])
                             .map(id => speakers[id] ? speakers[id].name : '')
                             .filter(Boolean)
-                            .join(' & ');
+                            .join(' &<br>'); // Wrap second speaker to next line
 
                         return `
                             <div class="flex gap-2 border-b border-gray-100 last:border-0 py-2 items-center text-[10px]">
@@ -407,7 +406,7 @@
                                 <div class="grow leading-tight pl-2">
                                     <span class="font-bold text-maroon font-display text-xs block">${e.title}</span>
                                     ${e.subhead ? `<span class="text-gray-500 font-medium text-[9px] block">${e.subhead}</span>` : ''}
-                                    ${speakerNames ? `<span class="text-black font-medium block mt-0.5">${speakerNames}</span>` : ''}
+                                    ${speakerNames ? `<span class="text-black font-medium block mt-0.5 leading-tight">${speakerNames}</span>` : ''}
                                 </div>
                             </div>
                         `;
@@ -487,7 +486,7 @@
                             const speakerNames = (e.speakerIds || [])
                                 .map(id => speakers[id] ? speakers[id].name : '')
                                 .filter(Boolean)
-                                .join(' & ');
+                                .join(' &<br>'); // Wrap second speaker
 
                             // Custom Time Display Logic
                             let timeDisplay = `${fmtTime(e.start)} - ${fmtTime(e.end)}`;
@@ -506,7 +505,7 @@
                                         <span class="font-bold text-maroon font-display text-base block leading-tight">${e.title}</span>
                                         ${e.subhead ? `<div class="text-gray-500 font-medium normal-case font-sans mt-0.5">${e.subhead}</div>` : ''}
                                     </div>
-                                    <div class="shrink-0 text-[11px] text-right font-medium text-black leading-tight font-sans pt-1 whitespace-nowrap max-w-[35%] overflow-hidden text-ellipsis">
+                                    <div class="shrink-0 text-[11px] text-right font-medium text-black leading-tight font-sans pt-1">
                                         ${speakerNames}
                                     </div>
                                 </div>
@@ -533,22 +532,23 @@
                 processPhase('Post-Conference', 'post-conf-grid');
 
                 // --- UTSAVA RENDERING ---
-                // Manually removed Inauguration (Day 1) to balance even numbers (User Request)
-                // Manually adding Pattabhisheka (Day 11) to include finale event
-                
-                const day11 = data.schedule.days.find(d => d.dayNumber === 11);
-                if (day11) {
-                    const pattabhisheka = day11.events.find(e => e.title.includes("Abhishekha"));
-                    if(pattabhisheka) {
-                         utsavaEvents.push({...pattabhisheka, title: "Sri Rama Pattabhishekha", dayDate: "Apr 07"});
+                // Add Inauguration back manually to the start (Day 1 event)
+                const day1 = data.schedule.days.find(d => d.dayNumber === 1);
+                if (day1) {
+                    const inauguration = day1.events.find(e => e.title.includes("Inauguration"));
+                    if(inauguration) {
+                         utsavaEvents.unshift({...inauguration, dayDate: "Mar 28"});
                     }
                 }
 
+                // Remove manually added Pattabhishekha (as per latest request)
+                // Filter duplicates if Inauguration was already pushed by loop (it shouldn't be as Day 1 is filtered)
+                
                 const utsavaContainer = document.getElementById('utsava-grid');
                 
                 utsavaEvents.forEach(e => {
-                    // Removed the check for Apr 07 to allow the manual Day 11 addition to render
-                    // if (e.dayDate.includes("Apr 07") || e.dayDate.includes("April 07")) return;
+                    // Skip April 07 events from Utsava grid
+                    if (e.dayDate.includes("Apr 07") || e.dayDate.includes("April 07")) return;
 
                     let mediaContent = '';
                     const titleLower = e.title.toLowerCase();
